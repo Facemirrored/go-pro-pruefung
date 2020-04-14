@@ -1,0 +1,12 @@
+# Basic ignore
+/.idea
+/out
+/build
+/target
+*.iml
+*.ipr
+*.iws
+
+# Generated data - do not push
+/data/output
+*jar
