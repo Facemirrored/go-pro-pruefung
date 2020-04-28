@@ -7,6 +7,7 @@
 *.ipr
 *.iws
 
-# Generated data - do not push
-/data/output
-*jar
+#Packaged Project
+go-pro-herrmann-bjarne.zip
+#Executable Jar
+program.jar
