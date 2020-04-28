@@ -2,7 +2,7 @@
 /.idea
 /out
 /build
-/target
+/application/target
 *.iml
 *.ipr
 *.iws
@@ -10,4 +10,4 @@
 #Packaged Project
 go-pro-herrmann-bjarne.zip
 #Executable Jar
-program.jar
+/*.jar
