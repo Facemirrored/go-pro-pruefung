@@ -2,7 +2,7 @@
 /.idea
 /out
 /build
-/application/target
+application/target/
 *.iml
 *.ipr
 *.iws
