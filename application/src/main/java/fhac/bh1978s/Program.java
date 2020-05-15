@@ -1,5 +1,7 @@
 package fhac.bh1978s;
 
+import java.util.Scanner;
+
 public class Program {
 
 
@@ -10,6 +12,7 @@ public class Program {
    * Pfad des Ordners für die Generierung der Ausgabedateien.
    */
   public static void main(String[] args) {
-    System.out.println("Hallo NEUE Welt!");
+    System.out.println("Hallo NEUE NEUE Welt!\nDrücke taste zum beenden...");
+    (new Scanner(System.in)).nextLine();
   }
 }

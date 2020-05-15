@@ -83,7 +83,7 @@
           <encoding>UTF-8</encoding>
           <finalName>go-pro-herrmann-bjarne</finalName>
           <appendAssemblyId>false</appendAssemblyId>
-          <outputDirectory>${project.basedir}/..</outputDirectory>
+          <outputDirectory>${project.basedir}/../..</outputDirectory>
           <descriptors>
             <descriptor>delivery-assembly.xml</descriptor>
           </descriptors>
