@@ -25,7 +25,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>fhac.bh1978s.Program</mainClass>
+              <mainClass>fhac.bh1978s.ProgramController</mainClass>
             </manifest>
           </archive>
           <finalName>program</finalName>

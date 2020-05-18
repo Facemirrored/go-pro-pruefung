@@ -2,7 +2,7 @@ package fhac.bh1978s;
 
 import java.util.Scanner;
 
-public class Program {
+public class ProgramController {
 
 
   /**
