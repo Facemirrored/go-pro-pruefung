@@ -4,7 +4,7 @@ import fhac.bh1978s.exception.InputFileReaderException;
 import fhac.bh1978s.exception.OutputFileSaveException;
 import java.util.List;
 
-public interface ioFileReader {
+public interface IOFileReader {
 
   List<String> readAllFiles();
   String readSingleFile() throws InputFileReaderException;

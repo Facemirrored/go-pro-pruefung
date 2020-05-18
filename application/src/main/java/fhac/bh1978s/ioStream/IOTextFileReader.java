@@ -6,12 +6,12 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von Textdateien,
- * welche in angebenen Pfaden gelesen und geschrieben werden können. Dabei ist die Hauptaufgabe, Inhalte
- * von Textdateien in Form von Strings zurückzugeben und zudem übergebene Inhalte in String-Form in Dateien
- * zu schreiben.
+ * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
+ * Textdateien, welche in angebenen Pfaden gelesen und geschrieben werden können. Dabei ist die
+ * Hauptaufgabe, Inhalte von Textdateien in Form von Strings zurückzugeben und zudem übergebene
+ * Inhalte in String-Form in Dateien zu schreiben.
  */
-public class IOTextFileReader implements ioFileReader {
+public class IOTextFileReader implements IOFileReader {
 
   private IOTextFileReader() {
   }
@@ -55,6 +55,12 @@ public class IOTextFileReader implements ioFileReader {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
+  /**
+   * Validiert den angebenen String auf gültigen Pfad.
+   *
+   * @param path Pfad, welcher validiert werden soll.
+   * @return Validierungsergebnis in Form von boolean.
+   */
   public boolean validatePath(final String path) {
     File file = new File(path);
     return file.isDirectory();

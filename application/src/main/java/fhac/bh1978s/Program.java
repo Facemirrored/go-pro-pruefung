@@ -1,6 +1,7 @@
 package fhac.bh1978s;
 
 import fhac.bh1978s.ioStream.IOTextFileReader;
+import fhac.bh1978s.nameDerSituation.MainController;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -9,7 +10,8 @@ import java.util.Scanner;
 public class Program {
 
   /**
-   * Haupteinstiegspunkt des Programms
+   * Haupteinstiegspunkt des Programms. Diese Verwaltet die Initialisierung relevanter Argumente und
+   * startet anschließend die Anwendung der Aufgabenstellung.
    *
    * @param args Argumente für den Pfad des Ordners zum Lesen der Eingabedateien sowie Pfad des
    *             Ordners für die Generierung der Ausgabedateien. Bei ungeraden oder Fehlerhaften
@@ -40,8 +42,7 @@ public class Program {
       initResourceProperties();
     }
 
-    System.out.println("Hallo NEUE NEUE Welt!\nDrücke taste zum beenden...");
-    (new Scanner(System.in)).nextLine();
+    MainController.getInstance().start();
   }
 
   /**
