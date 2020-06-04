@@ -1,6 +1,5 @@
 package fhac.bh1978s.ioStream;
 
-import fhac.bh1978s.exception.OutputFileSaveException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
