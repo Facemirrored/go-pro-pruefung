@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
- * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die
- * Hauptaufgabe Inhalte von Textdateien in Form von Strings zurückzugeben.
+ * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die Hauptaufgabe Inhalte
+ * von Textdateien in Form von Strings zurückzugeben.
  */
 public class IOTextFileReader implements IOFileReader<String>, IOTextFilePathHandler {
 
@@ -22,8 +22,11 @@ public class IOTextFileReader implements IOFileReader<String>, IOTextFilePathHan
 
   private String inputFileLocation = "";
 
+  public String getInputFileLocation() {
+    return inputFileLocation;
+  }
+
   public void setInputFileLocation(String inputFileLocation) {
-    System.out.println("Setze Datei-Input-Pfad:\t" + inputFileLocation);
     this.inputFileLocation = inputFileLocation;
   }
 

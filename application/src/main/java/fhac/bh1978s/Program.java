@@ -38,12 +38,17 @@ public class Program {
       }
     }
 
+    System.out.println("Starte MainController mit folgenden Eigenschaften:");
+    System.out.println("\t- Input-Pfad:\t" + IOTextFileReader.getInstance().getInputFileLocation());
+    System.out
+        .println("\t- Output-Pfad:\t" + IOTextFileWriter.getInstance().getOutputFileLocation());
+
     MainController.getInstance().start();
   }
 
   /**
-   * Liest relevante Properties von der app.properties-Datei. Diese beinhaltet den Standardeingabe sowie
-   * -ausgabepfad der Textdateien
+   * Liest relevante Properties von der app.properties-Datei. Diese beinhaltet den Standardeingabe
+   * sowie -ausgabepfad der Textdateien
    */
   private static void initResourceProperties() {
     ResourceBundle resourceBundle = ResourceBundle.getBundle("app", java.util.Locale.getDefault());

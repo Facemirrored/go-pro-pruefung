@@ -6,21 +6,27 @@ import java.util.List;
 
 /**
  * Die IOTextFileWriter-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
- * Textdateien, welche in angegebenen Pfaden geschrieben werden können. Dabei ist die
- * Hauptaufgabe übergebene Inhalte in String-Form in Dateien zu schreiben.
+ * Textdateien, welche in angegebenen Pfaden geschrieben werden können. Dabei ist die Hauptaufgabe
+ * übergebene Inhalte in String-Form in Dateien zu schreiben.
  */
 public class IOTextFileWriter implements IOFileWriter<String>, IOTextFilePathHandler {
 
-  private IOTextFileWriter() {}
+  private IOTextFileWriter() {
+  }
 
   private static IOTextFileWriter ioTextFileWriter = new IOTextFileWriter();
 
-  public static IOTextFileWriter getInstance() { return ioTextFileWriter; }
+  public static IOTextFileWriter getInstance() {
+    return ioTextFileWriter;
+  }
 
   private String outputFileLocation = "";
 
+  public String getOutputFileLocation() {
+    return outputFileLocation;
+  }
+
   public void setOutputFileLocation(String outputFileLocation) {
-    System.out.println("Setze Datei-Output-Pfad:\t" + outputFileLocation);
     this.outputFileLocation = outputFileLocation;
   }
 
