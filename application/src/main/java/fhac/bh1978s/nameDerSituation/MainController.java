@@ -35,15 +35,16 @@ public class MainController {
     try {
       // 1. Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
       final List<String> textFileContent = ioFileReader.readAllFiles();
-      System.out.println("\t- Lesen von Dateien abgeschlossen.");
-
+      System.out.println("\t- Lesen von Input-Dateien abgeschlossen.");
       // 2. Mappe List<String> in interne Datenobjekte (ignoriere Fehler, diese werden später in output geschrieben)
-
+      System.out.println("\t- Internes Daten-Mapping abgeschlossen.");
       // 3. Führe Aufgabe für jede Datei (jedes interne Datenobjekt) aus und erhalte Liste mit Lösungsobjekten
-
+      System.out.println("\t- Berechnungen abgeschlossen.");
       // 4. Mappe List<Lösungsobjekte> in externe List<String> für Ausgabe (beachte vorher nicht berechnete Objekte aufgrund von Fehlern)
-
+      System.out.println("\t- Externes Daten-Mapping abgeschlossen.");
       // 5. Generiere Output-Dateien aus List<String>
+      ioFileWriter.saveFiles(textFileContent);
+      System.out.println("\t- Schreiben von Output-Dateien abgeschlossen.");
 
     } catch (Exception e) {
 

@@ -3,7 +3,6 @@ package fhac.bh1978s;
 import fhac.bh1978s.ioStream.IOTextFileReader;
 import fhac.bh1978s.ioStream.IOTextFileWriter;
 import fhac.bh1978s.nameDerSituation.MainController;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -48,7 +47,7 @@ public class Program {
 
     MainController.getInstance().start();
 
-    System.out.println("Abgeschlossen. Drücke beliebige Taste zum beenden . . .");
+    System.out.println("\n\nAbgeschlossen. Drücke beliebige Taste zum beenden . . .");
     (new Scanner(System.in)).nextLine();
   }
 

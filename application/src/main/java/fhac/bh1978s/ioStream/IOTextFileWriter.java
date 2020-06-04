@@ -1,7 +1,10 @@
 package fhac.bh1978s.ioStream;
 
 import fhac.bh1978s.exception.OutputFileSaveException;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,13 +34,19 @@ public class IOTextFileWriter implements IOFileWriter<String>, IOTextFilePathHan
   }
 
   @Override
-  public void saveAllFiles(List<String> fileContentList) {
-    throw new UnsupportedOperationException("Not implemented.");
-  }
+  public void saveFiles(List<String> fileContentList) throws OutputFileSaveException {
+    for (int i = 0; i < fileContentList.size(); ++i) {
+      try (BufferedWriter writer = new BufferedWriter(
+          new FileWriter(outputFileLocation + "\\output_" + i + ".txt", false))) {
 
-  @Override
-  public void saveSingleFile(String fileContent) throws OutputFileSaveException {
-    throw new UnsupportedOperationException("Not implemented.");
+        writer.append(fileContentList.get(i));
+
+      } catch (IOException e) {
+        throw new OutputFileSaveException(
+            "Fehler beim schreiben der Dateien. Prüfen Sie die Gültigkeit "
+                + "sowie Zugriffsrechte und versuchen Sie es erneut.");
+      }
+    }
   }
 
   /**
