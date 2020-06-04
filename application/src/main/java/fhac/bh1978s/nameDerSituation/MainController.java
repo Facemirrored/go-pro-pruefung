@@ -5,6 +5,7 @@ import fhac.bh1978s.ioStream.IOTextFileReader;
 import fhac.bh1978s.ioStream.IOFileReader;
 import fhac.bh1978s.ioStream.IOTextFileWriter;
 import fhac.bh1978s.nameDerSituation.mapper.GenericMapper;
+import java.util.List;
 
 /**
  * Haupt-Verarbeitungscontroller vom MVC-Pattern als Singleton-Pattern-Style implementiert.
@@ -26,10 +27,6 @@ public class MainController {
 
   private MainController() {}
 
-  public static MainController getMainController() {
-    return mainController;
-  }
-
   /**
    * Start-Methode des Haupt-Verarbeitungscontrollers. Diese dient als Verarbeitungsschnittstelle zwischen
    * dem Lesen/Schreiben von Dateien, dem Mappen von Datenstrukturen, als auch der Deligierung an weitere Controller.
@@ -37,6 +34,8 @@ public class MainController {
   public void start() {
     try {
       // 1. Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
+      final List<String> textFileContent = ioFileReader.readAllFiles();
+      System.out.println("\t- Lesen von Dateien abgeschlossen.");
 
       // 2. Mappe List<String> in interne Datenobjekte (ignoriere Fehler, diese werden später in output geschrieben)
 
@@ -46,10 +45,8 @@ public class MainController {
 
       // 5. Generiere Output-Dateien aus List<String>
 
-      // Sonstiges: Bei unerwarteten Fehlern Log-Datei in _devLogs erstellen für Entwickler
     } catch (Exception e) {
 
     }
-    System.out.println("Szeraio start...");
   }
 }

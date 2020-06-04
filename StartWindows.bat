@@ -1,1 +1,1 @@
-start java -jar program.jar
+java -jar program.jar

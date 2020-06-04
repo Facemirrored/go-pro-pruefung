@@ -3,7 +3,9 @@ package fhac.bh1978s;
 import fhac.bh1978s.ioStream.IOTextFileReader;
 import fhac.bh1978s.ioStream.IOTextFileWriter;
 import fhac.bh1978s.nameDerSituation.MainController;
+import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 
 public class Program {
@@ -41,9 +43,13 @@ public class Program {
     System.out.println("Starte MainController mit folgenden Eigenschaften:");
     System.out.println("\t- Input-Pfad:\t" + IOTextFileReader.getInstance().getInputFileLocation());
     System.out
-        .println("\t- Output-Pfad:\t" + IOTextFileWriter.getInstance().getOutputFileLocation());
+        .println(
+            "\t- Output-Pfad:\t" + IOTextFileWriter.getInstance().getOutputFileLocation() + "\n\n");
 
     MainController.getInstance().start();
+
+    System.out.println("Abgeschlossen. Drücke beliebige Taste zum beenden . . .");
+    (new Scanner(System.in)).nextLine();
   }
 
   /**
