@@ -1,17 +1,15 @@
 package fhac.bh1978s.ioStream;
 
 import fhac.bh1978s.exception.InputFileReaderException;
-import fhac.bh1978s.exception.OutputFileSaveException;
 import java.io.File;
 import java.util.List;
 
 /**
  * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
- * Textdateien, welche in angebenen Pfaden gelesen und geschrieben werden können. Dabei ist die
- * Hauptaufgabe, Inhalte von Textdateien in Form von Strings zurückzugeben und zudem übergebene
- * Inhalte in String-Form in Dateien zu schreiben.
+ * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die
+ * Hauptaufgabe Inhalte von Textdateien in Form von Strings zurückzugeben.
  */
-public class IOTextFileReader implements IOFileReader {
+public class IOTextFileReader implements IOFileReader<String>, IOTextFilePathHandler {
 
   private IOTextFileReader() {
   }
@@ -23,16 +21,10 @@ public class IOTextFileReader implements IOFileReader {
   }
 
   private String inputFileLocation = "";
-  private String outputFileLocation = "";
 
   public void setInputFileLocation(String inputFileLocation) {
     System.out.println("Setze Datei-Input-Pfad:\t" + inputFileLocation);
     this.inputFileLocation = inputFileLocation;
-  }
-
-  public void setOutputFileLocation(String outputFileLocation) {
-    System.out.println("Setze Datei-Output-Pfad:\t" + outputFileLocation);
-    this.outputFileLocation = outputFileLocation;
   }
 
   @Override
@@ -45,22 +37,13 @@ public class IOTextFileReader implements IOFileReader {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
-  @Override
-  public void saveAllFiles(List<String> fileContentList) {
-    throw new UnsupportedOperationException("Not implemented.");
-  }
-
-  @Override
-  public void saveSingleFile(String fileContent) throws OutputFileSaveException {
-    throw new UnsupportedOperationException("Not implemented.");
-  }
-
   /**
    * Validiert den angebenen String auf gültigen Pfad.
    *
    * @param path Pfad, welcher validiert werden soll.
    * @return Validierungsergebnis in Form von boolean.
    */
+  @Override
   public boolean validatePath(final String path) {
     File file = new File(path);
     return file.isDirectory();

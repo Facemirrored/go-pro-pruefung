@@ -8,10 +8,13 @@ import fhac.bh1978s.nameDerSituation.mapper.GenericMapper;
  * MainController für die Verwaltung der Aufgabe. Dieser ist im Singleton-Pattern-Style implementiert.
  */
 public class MainController {
+
   private static MainController mainController = new MainController();
   private IOFileReader ioFileReader = IOTextFileReader.getInstance();
   // TODO: Hier später mapper initialisieren
   private GenericMapper<String, Object> mapper;
+
+
 
   public static MainController getInstance() {
     return mainController;

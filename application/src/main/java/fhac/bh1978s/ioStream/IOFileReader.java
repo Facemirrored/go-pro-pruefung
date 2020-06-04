@@ -1,13 +1,9 @@
 package fhac.bh1978s.ioStream;
 
 import fhac.bh1978s.exception.InputFileReaderException;
-import fhac.bh1978s.exception.OutputFileSaveException;
 import java.util.List;
 
-public interface IOFileReader {
-
-  List<String> readAllFiles();
-  String readSingleFile() throws InputFileReaderException;
-  void saveAllFiles(final List<String> fileContentList);
-  void saveSingleFile(final String fileContent) throws OutputFileSaveException;
+public interface IOFileReader<T> {
+  List<T> readAllFiles();
+  T readSingleFile() throws InputFileReaderException;
 }
