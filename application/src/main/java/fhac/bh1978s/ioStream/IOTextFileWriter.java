@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Die IOTextFileWriter-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
  * Textdateien, welche in angegebenen Pfaden geschrieben werden können. Dabei ist die Hauptaufgabe
- * übergebene Inhalte in String-Form in Dateien zu schreiben.
+ * übergebene Inhalte in von TextFile-Objekten ausgehend in String-Form in Dateien zu schreiben.
  */
-public class IOTextFileWriter implements IOFileWriter<String>, IOTextFilePathHandler {
+public class IOTextFileWriter implements IOFileWriter<TextFile>, IOTextFilePathHandler {
 
   private IOTextFileWriter() {
   }
@@ -33,20 +33,22 @@ public class IOTextFileWriter implements IOFileWriter<String>, IOTextFilePathHan
     this.outputFileLocation = outputFileLocation;
   }
 
+
+  /**
+   * Erstellt für jedes TextFile-Objekt in der Liste eine Datei mit Namen und Inhalt aus dem Objekt.
+   * @param fileContentList Liste mit TextFile-Objekten
+   */
   @Override
-  public void saveFiles(List<String> fileContentList) throws OutputFileSaveException {
-    for (int i = 0; i < fileContentList.size(); ++i) {
+  public void saveFiles(List<TextFile> fileContentList) {
+    fileContentList.forEach(fileContent -> {
       try (BufferedWriter writer = new BufferedWriter(
-          new FileWriter(outputFileLocation + "\\output_" + i + ".txt", false))) {
-
-        writer.append(fileContentList.get(i));
-
+          new FileWriter(outputFileLocation + "\\out_" + fileContent.getName(), false))) {
+        writer.append(fileContent.getContent());
       } catch (IOException e) {
-        throw new OutputFileSaveException(
-            "Fehler beim schreiben der Dateien. Prüfen Sie die Gültigkeit "
-                + "sowie Zugriffsrechte und versuchen Sie es erneut.");
+        System.out.println("Fehler beim schreiben der Datei. Prüfen Sie die Gültigkeit " +
+            "sowie Zugriffsrechte und versuchen Sie es erneut. Die Datei wird übersprungen!");
       }
-    }
+    });
   }
 
   /**

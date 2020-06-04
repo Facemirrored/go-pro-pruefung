@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface IOFileWriter<T> {
 
-  void saveFiles(final List<T> fileContentList) throws OutputFileSaveException;
+  void saveFiles(final List<T> fileContentList);
 }

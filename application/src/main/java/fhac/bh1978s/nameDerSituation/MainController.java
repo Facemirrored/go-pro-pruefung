@@ -4,19 +4,20 @@ import fhac.bh1978s.ioStream.IOFileWriter;
 import fhac.bh1978s.ioStream.IOTextFileReader;
 import fhac.bh1978s.ioStream.IOFileReader;
 import fhac.bh1978s.ioStream.IOTextFileWriter;
+import fhac.bh1978s.ioStream.TextFile;
 import fhac.bh1978s.nameDerSituation.mapper.GenericMapper;
 import java.util.List;
 
 /**
- * Haupt-Verarbeitungscontroller vom MVC-Pattern als Singleton-Pattern-Style implementiert.
- * Dieser dient als Verarbeitungsschnittstelle zwischen der View (Eingabe/Ausgabe) und den Models.
+ * Haupt-Verarbeitungscontroller vom MVC-Pattern als Singleton-Pattern-Style implementiert. Dieser
+ * dient als Verarbeitungsschnittstelle zwischen der View (Eingabe/Ausgabe) und den Models.
  */
 public class MainController {
 
   private static MainController mainController = new MainController();
 
-  private IOFileReader<String> ioFileReader = IOTextFileReader.getInstance();
-  private IOFileWriter<String> ioFileWriter = IOTextFileWriter.getInstance();
+  private IOFileReader<TextFile> ioFileReader = IOTextFileReader.getInstance();
+  private IOFileWriter<TextFile> ioFileWriter = IOTextFileWriter.getInstance();
 
   // TODO: Hier später mapper initialisieren
   private GenericMapper<String, Object> mapper;
@@ -25,16 +26,18 @@ public class MainController {
     return mainController;
   }
 
-  private MainController() {}
+  private MainController() {
+  }
 
   /**
-   * Start-Methode des Haupt-Verarbeitungscontrollers. Diese dient als Verarbeitungsschnittstelle zwischen
-   * dem Lesen/Schreiben von Dateien, dem Mappen von Datenstrukturen, als auch der Deligierung an weitere Controller.
+   * Start-Methode des Haupt-Verarbeitungscontrollers. Diese dient als Verarbeitungsschnittstelle
+   * zwischen dem Lesen/Schreiben von Dateien, dem Mappen von Datenstrukturen, als auch der
+   * Deligierung an weitere Controller.
    */
   public void start() {
     try {
       // 1. Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
-      final List<String> textFileContent = ioFileReader.readAllFiles();
+      final List<TextFile> textFileContent = ioFileReader.readAllFiles();
       System.out.println("\t- Lesen von Input-Dateien abgeschlossen.");
       // 2. Mappe List<String> in interne Datenobjekte (ignoriere Fehler, diese werden später in output geschrieben)
       System.out.println("\t- Internes Daten-Mapping abgeschlossen.");

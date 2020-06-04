@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 /**
  * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
  * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die Hauptaufgabe Inhalte
- * von Textdateien in Form von Strings zurückzugeben.
+ * von Textdateien in Form von TextFile-Objekten zurückzugeben.
  */
-public class IOTextFileReader implements IOFileReader<String>, IOTextFilePathHandler {
+public class IOTextFileReader implements IOFileReader<TextFile>, IOTextFilePathHandler {
 
   private IOTextFileReader() {
   }
@@ -37,42 +37,48 @@ public class IOTextFileReader implements IOFileReader<String>, IOTextFilePathHan
     this.inputFileLocation = inputFileLocation;
   }
 
+  /**
+   * Liest alle Dateien innerhalb gesetzten Attribut "inputFilelocation". Bei unerwarteten
+   * Fehler wird eine Message als Content-String gesetzt.
+   * @return Liste aller TextFile-Objekte beinhaltend Name und Content der jeweiligen Datei.
+   */
   @Override
-  public List<String> readAllFiles() {
+  public List<TextFile> readAllFiles() {
     final File inputPath = new File(inputFileLocation);
     final String[] inputFilesList = inputPath.list();
-    final List<String> fileContentList = new ArrayList<>();
+    final List<TextFile> textFileContentList = new ArrayList<>();
 
     assert inputFilesList != null;
 
     Arrays.stream(inputFilesList).forEach(file -> {
       try {
-        fileContentList.add(readSingleFile(file));
+        textFileContentList.add(readSingleFile(file));
       } catch (InputFileReaderException e) {
-        fileContentList.add("ERR\n\n" + e.getMessage());
+        textFileContentList.add(new TextFile(file, "ERR\n\n" + e.getMessage()));
       }
     });
 
-    return fileContentList;
+    return textFileContentList;
   }
 
   /**
-   * Liest Inhalt einer Textdatei aus und gibt diesen als String zurück. Dabei bezieht sich der Pfad
+   * Liest Inhalt einer Textdatei aus und gibt diesen als TextFile zurück. Dabei bezieht sich der Pfad
    * auf das Attribut "inputFileLocation". Bei unerwarteten Fehlern wird eine Exception nach oben
    * geworfen.
    *
-   * @param file Name der Datei, welche gelesen werden soll.
+   * @param file TextFile-Objekt, welche Name der Datei enthält.
    * @return Inhalt der Datei als String-Format.
-   * @throws InputFileReaderException Wird geworfen, wenn beim Lesen unerwartete Probleme auftauchen.
+   * @throws InputFileReaderException Wird geworfen, wenn beim Lesen unerwartete Probleme
+   *                                  auftauchen.
    */
   @Override
-  public String readSingleFile(final String file) throws InputFileReaderException {
+  public TextFile readSingleFile(final String file) throws InputFileReaderException {
     StringBuilder content = new StringBuilder();
     try (Stream<String> stream = Files
         .lines(Paths.get(inputFileLocation + "\\" + file), StandardCharsets.UTF_8)) {
 
       stream.forEach(s -> content.append(s).append("\n"));
-      return content.toString();
+      return new TextFile(file, content.toString());
 
     } catch (IOException io) {
       throw new InputFileReaderException(
