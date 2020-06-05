@@ -35,17 +35,23 @@ public class IOTextFileWriter implements IOFileWriter<TextFile>, IOTextFilePathH
 
   /**
    * Erstellt für jedes TextFile-Objekt in der Liste eine Datei mit Namen und Inhalt aus dem Objekt.
-   * @param fileContentList Liste mit TextFile-Objekten
+   * Im Falle einer IOException beim Schreiben einer Datei wird diese übersprungen und relevante
+   * Informationen werden an der Konsole ausgegeben.
+   *
+   * @param textFileList Liste mit TextFile-Objekten
    */
   @Override
-  public void saveFiles(List<TextFile> fileContentList) {
-    fileContentList.forEach(fileContent -> {
+  public void saveFiles(List<TextFile> textFileList) {
+    textFileList.forEach(textFile -> {
       try (BufferedWriter writer = new BufferedWriter(
-          new FileWriter(outputFileLocation + "\\out_" + fileContent.getName(), false))) {
-        writer.append(fileContent.getContent());
-      } catch (IOException e) {
-        System.out.println("Fehler beim schreiben der Datei. Prüfen Sie die Gültigkeit " +
-            "sowie Zugriffsrechte und versuchen Sie es erneut. Die Datei wird übersprungen!");
+          new FileWriter(outputFileLocation + "\\out_" + textFile.getName(), false))) {
+        writer.append(textFile.getContent());
+      } catch (IOException io) {
+        System.out
+            .println("ERROR:\tFehler beim Schreiben der Datei <" + textFile.getName() + ">.\n"
+                + "Prüfen Sie die Gültigkeit sowie Zugriffsrechte und versuchen Sie es erneut. Die Datei wird übersprungen!\n");
+        textFile.print();
+        System.out.println(io.getMessage());
       }
     });
   }

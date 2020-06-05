@@ -23,7 +23,8 @@ public class Program {
 
     if (args.length > 0) {
       if (args.length != 2) {
-        System.out.println("Es wurde eine unpassende Anzahl an Argumenten gefunden!\n"
+        System.out.println("SYF1:\tUnpassende Anzahl an Argumenten\nEs wurden " + args.length
+            + " Argumente gefunden - es dürfen nur keine oder zwei angegeben werden!\n"
             + "Alle Argumente werden ignoriert und die Anwendung verwendet angegebene Standards.");
       } else {
         IOTextFileReader ioTextFileReader = IOTextFileReader.getInstance();

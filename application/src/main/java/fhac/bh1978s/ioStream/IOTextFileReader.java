@@ -76,8 +76,10 @@ public class IOTextFileReader implements IOFileReader<TextFile>, IOTextFilePathH
       textFile.setContent(content.toString());
 
     } catch (IOException io) {
-      textFile.setContent("ERR\n\nFehler beim lesen der Datei <" + inputFileLocation + "\\" + file
-          + ">. Prüfen Sie die Gültigkeit sowie Zugriff der Datei und versuchen Sie es erneut.\n");
+      textFile.setName("TE1_" + file);
+      textFile.setContent("ERROR:\tFehler beim Lesen der Datei <" + inputFileLocation + "\\" + file
+          + ">.\nPrüfen Sie die Gültigkeit sowie Zugriff der Datei und versuchen Sie es erneut.\n\n"
+          + "Technische Fehlermeldung:\n" + io.getMessage());
     }
 
     return textFile;
