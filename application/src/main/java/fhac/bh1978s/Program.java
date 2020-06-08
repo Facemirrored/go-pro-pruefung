@@ -1,7 +1,7 @@
 package fhac.bh1978s;
 
-import fhac.bh1978s.ioStream.IOTextFileReader;
-import fhac.bh1978s.ioStream.IOTextFileWriter;
+import fhac.bh1978s.ioStream.TextFileWriter;
+import fhac.bh1978s.ioStream.TextFileReader;
 import fhac.bh1978s.nameDerSituation.MainController;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -27,8 +27,8 @@ public class Program {
             + " Argumente gefunden - es dürfen nur keine oder zwei angegeben werden!\n"
             + "Alle Argumente werden ignoriert und die Anwendung verwendet angegebene Standards.");
       } else {
-        IOTextFileReader ioTextFileReader = IOTextFileReader.getInstance();
-        IOTextFileWriter ioTextFileWriter = IOTextFileWriter.getInstance();
+        TextFileReader ioTextFileReader = TextFileReader.getInstance();
+        TextFileWriter ioTextFileWriter = TextFileWriter.getInstance();
         if (ioTextFileReader.validatePath(args[0]) &&
             ioTextFileWriter.validatePath(args[1])) {
           ioTextFileReader.setInputFileLocation(args[0]);
@@ -41,10 +41,10 @@ public class Program {
     }
 
     System.out.println("Starte MainController mit folgenden Eigenschaften:");
-    System.out.println("\t- Input-Pfad:\t" + IOTextFileReader.getInstance().getInputFileLocation());
+    System.out.println("\t- Input-Pfad:\t" + TextFileReader.getInstance().getInputFileLocation());
     System.out
         .println(
-            "\t- Output-Pfad:\t" + IOTextFileWriter.getInstance().getOutputFileLocation() + "\n\n");
+            "\t- Output-Pfad:\t" + TextFileWriter.getInstance().getOutputFileLocation() + "\n\n");
 
     MainController.getInstance().start();
 
@@ -58,9 +58,9 @@ public class Program {
    */
   private static void initResourceProperties() {
     ResourceBundle resourceBundle = ResourceBundle.getBundle("app", java.util.Locale.getDefault());
-    IOTextFileReader.getInstance()
+    TextFileReader.getInstance()
         .setInputFileLocation(resourceBundle.getString("application.fileInputPath"));
-    IOTextFileWriter.getInstance()
+    TextFileWriter.getInstance()
         .setOutputFileLocation(resourceBundle.getString("application.fileOutputPath"));
   }
 }

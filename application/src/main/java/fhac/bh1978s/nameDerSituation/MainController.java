@@ -1,9 +1,9 @@
 package fhac.bh1978s.nameDerSituation;
 
-import fhac.bh1978s.ioStream.IOFileWriter;
-import fhac.bh1978s.ioStream.IOTextFileReader;
-import fhac.bh1978s.ioStream.IOFileReader;
-import fhac.bh1978s.ioStream.IOTextFileWriter;
+import fhac.bh1978s.ioStream.I_FileWriter;
+import fhac.bh1978s.ioStream.TextFileReader;
+import fhac.bh1978s.ioStream.I_FileReader;
+import fhac.bh1978s.ioStream.TextFileWriter;
 import fhac.bh1978s.ioStream.TextFile;
 import fhac.bh1978s.nameDerSituation.mapper.GenericMapper;
 import java.util.List;
@@ -16,8 +16,8 @@ public class MainController {
 
   private static MainController mainController = new MainController();
 
-  private IOFileReader<TextFile> ioFileReader = IOTextFileReader.getInstance();
-  private IOFileWriter<TextFile> ioFileWriter = IOTextFileWriter.getInstance();
+  private I_FileReader<TextFile> fileReader = TextFileReader.getInstance();
+  private I_FileWriter<TextFile> fileWriter = TextFileWriter.getInstance();
 
   // TODO: Hier später mapper initialisieren
   private GenericMapper<String, Object> mapper;
@@ -37,7 +37,7 @@ public class MainController {
   public void start() {
     try {
       // 1. Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
-      final List<TextFile> textFileContent = ioFileReader.readAllFiles();
+      final List<TextFile> textFileContent = fileReader.readAllFiles();
       System.out.println("\t- Lesen von Input-Dateien abgeschlossen.");
       // 2. Mappe List<String> in interne Datenobjekte (ignoriere Fehler, diese werden später in output geschrieben)
       System.out.println("\t- Internes Daten-Mapping abgeschlossen.");
@@ -46,7 +46,7 @@ public class MainController {
       // 4. Mappe List<Lösungsobjekte> in externe List<String> für Ausgabe (beachte vorher nicht berechnete Objekte aufgrund von Fehlern)
       System.out.println("\t- Externes Daten-Mapping abgeschlossen.");
       // 5. Generiere Output-Dateien aus List<String>
-      ioFileWriter.saveFiles(textFileContent);
+      fileWriter.saveFiles(textFileContent);
       System.out.println("\t- Schreiben von Output-Dateien abgeschlossen.");
 
     } catch (Exception e) {

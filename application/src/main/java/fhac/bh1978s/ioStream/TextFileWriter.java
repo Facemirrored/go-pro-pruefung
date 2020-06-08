@@ -11,15 +11,15 @@ import java.util.List;
  * Textdateien, welche in angegebenen Pfaden geschrieben werden können. Dabei ist die Hauptaufgabe
  * übergebene Inhalte in von TextFile-Objekten ausgehend in String-Form in Dateien zu schreiben.
  */
-public class IOTextFileWriter implements IOFileWriter<TextFile>, IOTextFilePathHandler {
+public class TextFileWriter implements I_FileWriter<TextFile>, IOTextFilePathHandler {
 
-  private IOTextFileWriter() {
+  private TextFileWriter() {
   }
 
-  private static IOTextFileWriter ioTextFileWriter = new IOTextFileWriter();
+  private static TextFileWriter textFileWriter = new TextFileWriter();
 
-  public static IOTextFileWriter getInstance() {
-    return ioTextFileWriter;
+  public static TextFileWriter getInstance() {
+    return textFileWriter;
   }
 
   private String outputFileLocation = "";

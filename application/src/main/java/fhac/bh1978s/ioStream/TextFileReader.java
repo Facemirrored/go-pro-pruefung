@@ -15,15 +15,15 @@ import java.util.stream.Stream;
  * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die Hauptaufgabe Inhalte
  * von Textdateien in Form von TextFile-Objekten zurückzugeben.
  */
-public class IOTextFileReader implements IOFileReader<TextFile>, IOTextFilePathHandler {
+public class TextFileReader implements I_FileReader<TextFile>, IOTextFilePathHandler {
 
-  private IOTextFileReader() {
+  private TextFileReader() {
   }
 
-  private static IOTextFileReader ioTextFileReader = new IOTextFileReader();
+  private static TextFileReader textFileReader = new TextFileReader();
 
-  public static IOTextFileReader getInstance() {
-    return ioTextFileReader;
+  public static TextFileReader getInstance() {
+    return textFileReader;
   }
 
   private String inputFileLocation = "";
