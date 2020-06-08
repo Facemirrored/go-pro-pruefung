@@ -11,7 +11,7 @@ import java.util.List;
  * Textdateien, welche in angegebenen Pfaden geschrieben werden können. Dabei ist die Hauptaufgabe
  * übergebene Inhalte in von TextFile-Objekten ausgehend in String-Form in Dateien zu schreiben.
  */
-public class TextFileWriter implements I_FileWriter<TextFile>, IOTextFilePathHandler {
+public class TextFileWriter implements I_FileWriter<TextFile>, I_FilePathHandler {
 
   private TextFileWriter() {
   }

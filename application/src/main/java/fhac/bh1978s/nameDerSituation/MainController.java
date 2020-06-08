@@ -5,7 +5,8 @@ import fhac.bh1978s.ioStream.TextFileReader;
 import fhac.bh1978s.ioStream.I_FileReader;
 import fhac.bh1978s.ioStream.TextFileWriter;
 import fhac.bh1978s.ioStream.TextFile;
-import fhac.bh1978s.nameDerSituation.mapper.GenericMapper;
+import fhac.bh1978s.nameDerSituation.mapper.I_Mapper;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class MainController {
   private I_FileWriter<TextFile> fileWriter = TextFileWriter.getInstance();
 
   // TODO: Hier später mapper initialisieren
-  private GenericMapper<String, Object> mapper;
+  private I_Mapper<TextFile, Object> mapper;
 
   public static MainController getInstance() {
     return mainController;
@@ -36,10 +37,21 @@ public class MainController {
    */
   public void start() {
     try {
-      // 1. Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
+      // Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
       final List<TextFile> textFileContent = fileReader.readAllFiles();
       System.out.println("\t- Lesen von Input-Dateien abgeschlossen.");
-      // 2. Mappe List<String> in interne Datenobjekte (ignoriere Fehler, diese werden später in output geschrieben)
+
+      List<TextFile> loesung = new ArrayList<>();
+      textFileContent.forEach(textFile -> {
+        // Mapping von Textfile nacheinander in internes Objekt
+        Object object = mapper.mapToInternFormat(textFile);
+        // TODO: execute
+
+        // Mapping von Ergebnisobjekt zu externen Objekt
+
+        // Add Ergebnisobjekt
+        loesung.add(null);
+      });
       System.out.println("\t- Internes Daten-Mapping abgeschlossen.");
       // 3. Führe Aufgabe für jede Datei (jedes interne Datenobjekt) aus und erhalte Liste mit Lösungsobjekten
       System.out.println("\t- Berechnungen abgeschlossen.");

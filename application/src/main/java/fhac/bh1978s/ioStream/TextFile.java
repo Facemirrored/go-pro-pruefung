@@ -30,6 +30,10 @@ public class TextFile {
     this.name = name;
   }
 
+  public void concanateContents(final TextFile textfile) {
+    throw new UnsupportedOperationException("Not implemented. (Kombiniere Inhalt einer datei an diese getrennt für eingabeinhalt + ausgabeinhalt)");
+  }
+
   public void print() {
     System.out.println("Text-Datei:\t " + name);
     System.out.println("-----INHALT-----");
