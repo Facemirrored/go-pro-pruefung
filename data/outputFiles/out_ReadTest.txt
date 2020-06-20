@@ -1,6 +1,6 @@
 ----DAS IST EIN LESETEST----
     Mit allen Zeichen!:)
 
-ZeilenumbrÃ¼che mÃ¼ssten auch
+Zeilenumbrüche müssten auch
 	klappen!
 ----------TESTENDE----------

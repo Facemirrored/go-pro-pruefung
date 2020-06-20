@@ -51,7 +51,7 @@ public class TextFileWriter implements I_FileWriter<TextFile>, I_FilePathHandler
             .println("ERROR:\tFehler beim Schreiben der Datei <" + textFile.getName() + ">.\n"
                 + "Prüfen Sie die Gültigkeit sowie Zugriffsrechte und versuchen Sie es erneut. Die Datei wird übersprungen!\n");
         textFile.print();
-        System.out.println(io.getMessage());
+        System.out.println("\n\nException Info:\n" + io.getMessage());
       }
     });
   }

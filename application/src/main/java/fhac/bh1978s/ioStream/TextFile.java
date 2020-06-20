@@ -3,6 +3,7 @@ package fhac.bh1978s.ioStream;
 public class TextFile {
 
   private String name;
+  private boolean error;
   private String content;
 
   public TextFile(String name) {
@@ -10,12 +11,21 @@ public class TextFile {
   }
 
   public TextFile(String name, String content) {
+    this.error = false;
     this.content = content;
     this.name = name;
   }
 
   public String getContent() {
     return content;
+  }
+
+  public boolean isError() {
+    return error;
+  }
+
+  public void setError(boolean error) {
+    this.error = error;
   }
 
   public void setContent(String content) {

@@ -5,7 +5,10 @@ import fhac.bh1978s.ioStream.TextFileReader;
 import fhac.bh1978s.ioStream.I_FileReader;
 import fhac.bh1978s.ioStream.TextFileWriter;
 import fhac.bh1978s.ioStream.TextFile;
-import fhac.bh1978s.nameDerSituation.mapper.I_Mapper;
+import fhac.bh1978s.nameDerSituation.mapper.I_InputMapper;
+import fhac.bh1978s.nameDerSituation.mapper.I_OutputMapper;
+import fhac.bh1978s.nameDerSituation.model.NameDerSituationData;
+import fhac.bh1978s.nameDerSituation.presenter.NameDerSituationErgebnisPlaceHolder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +24,8 @@ public class MainController {
   private I_FileWriter<TextFile> fileWriter = TextFileWriter.getInstance();
 
   // TODO: Hier später mapper initialisieren
-  private I_Mapper<TextFile, Object> mapper;
+  private I_InputMapper<TextFile, NameDerSituationData> internMapper;
+  private I_OutputMapper<NameDerSituationErgebnisPlaceHolder, NameDerSituationData, TextFile> externMapper;
 
   public static MainController getInstance() {
     return mainController;
@@ -36,33 +40,36 @@ public class MainController {
    * Deligierung an weitere Controller.
    */
   public void start() {
-    try {
-      // Lese Dateien --> erhalte List<String> (pro Item ein Dateiinhalt - bei Probleme: Fehlercode in Liste)
-      final List<TextFile> textFileContent = fileReader.readAllFiles();
-      System.out.println("\t- Lesen von Input-Dateien abgeschlossen.");
+    final List<TextFile> textFileContent = fileReader.readAllFiles();
+    System.out.println("\t- Lesen von Input-Dateien abgeschlossen. Starte mit Verarbeitung...\n");
 
-      List<TextFile> loesung = new ArrayList<>();
-      textFileContent.forEach(textFile -> {
-        // Mapping von Textfile nacheinander in internes Objekt
-        Object object = mapper.mapToInternFormat(textFile);
-        // TODO: execute
+    List<TextFile> textfileOutput = new ArrayList<>();
 
-        // Mapping von Ergebnisobjekt zu externen Objekt
+    textFileContent.forEach(textFile -> {
 
-        // Add Ergebnisobjekt
-        loesung.add(null);
-      });
-      System.out.println("\t- Internes Daten-Mapping abgeschlossen.");
-      // 3. Führe Aufgabe für jede Datei (jedes interne Datenobjekt) aus und erhalte Liste mit Lösungsobjekten
-      System.out.println("\t- Berechnungen abgeschlossen.");
-      // 4. Mappe List<Lösungsobjekte> in externe List<String> für Ausgabe (beachte vorher nicht berechnete Objekte aufgrund von Fehlern)
-      System.out.println("\t- Externes Daten-Mapping abgeschlossen.");
-      // 5. Generiere Output-Dateien aus List<String>
-      fileWriter.saveFiles(textFileContent);
-      System.out.println("\t- Schreiben von Output-Dateien abgeschlossen.");
+      if (textFile.isError()) {
+        System.out.println("Fehler beim Lesen der Datei <" + textFile.getName()
+            + ">. Fehlermeldung befindet sich in der Ausgabe-Datei.");
+        textfileOutput.add(textFile);
+      } else {
+        // TODO: Mapping von Textfile nacheinander in internes Objekt (Semantikfehler hier möglich - setzte Error Attribut)
+        NameDerSituationData object = internMapper.mapToInternFormat(textFile);
+        if (/*TODO: object.error*/true) {
+          System.out.println("Semantikfehler in der Datei <" + textFile.getName()
+              + "> entdeckt. Details stehen in der Ausgabe-Datei.");
+          textfileOutput.add(externMapper.mapErrorToExternFormat(object));
+        } else {
+          // TODO: Execute Solve Method
+          NameDerSituationErgebnisPlaceHolder ergebnisPlaceHolder = new NameDerSituationErgebnisPlaceHolder();
+          // TODO: Mapping von Ergebnisobjekt zu externen Objekt
+          textfileOutput.add(externMapper.mapToExternFormat(ergebnisPlaceHolder));
+          System.out.println("Datei <" + textFile.getName()
+              + "> berechnet. Ergebnis befindet sich im Ausgabe-Pfad.");
+        }
+      }
+    });
 
-    } catch (Exception e) {
-
-    }
+    // 5. Generiere Output-Dateien aus List<String>
+    fileWriter.saveFiles(textfileOutput);
   }
 }
