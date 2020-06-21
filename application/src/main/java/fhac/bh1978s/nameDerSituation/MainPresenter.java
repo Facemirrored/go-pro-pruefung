@@ -12,13 +12,15 @@ import fhac.bh1978s.nameDerSituation.presenter.NameDerSituationErgebnisPlaceHold
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: controller in presenter umbenennen!!!!!
+
 /**
- * Haupt-Verarbeitungscontroller vom MVC-Pattern als Singleton-Pattern-Style implementiert. Dieser
+ * Haupt-Verarbeitungspresenter vom MVC-Pattern als Singleton-Pattern-Style implementiert. Dieser
  * dient als Verarbeitungsschnittstelle zwischen der View (Eingabe/Ausgabe) und den Models.
  */
-public class MainController {
+public class MainPresenter {
 
-  private static MainController mainController = new MainController();
+  private static MainPresenter mainPresenter = new MainPresenter();
 
   private I_FileReader<TextFile> fileReader = TextFileReader.getInstance();
   private I_FileWriter<TextFile> fileWriter = TextFileWriter.getInstance();
@@ -27,17 +29,17 @@ public class MainController {
   private I_InputMapper<TextFile, NameDerSituationData> internMapper;
   private I_OutputMapper<NameDerSituationErgebnisPlaceHolder, NameDerSituationData, TextFile> externMapper;
 
-  public static MainController getInstance() {
-    return mainController;
+  public static MainPresenter getInstance() {
+    return mainPresenter;
   }
 
-  private MainController() {
+  private MainPresenter() {
   }
 
   /**
-   * Start-Methode des Haupt-Verarbeitungscontrollers. Diese dient als Verarbeitungsschnittstelle
+   * Start-Methode des Haupt-Verarbeitungspresenters. Diese dient als Verarbeitungsschnittstelle
    * zwischen dem Lesen/Schreiben von Dateien, dem Mappen von Datenstrukturen, als auch der
-   * Deligierung an weitere Controller.
+   * Deligierung an weitere Presenter.
    */
   public void start() {
     final List<TextFile> textFileContent = fileReader.readAllFiles();

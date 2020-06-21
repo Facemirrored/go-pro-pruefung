@@ -2,7 +2,7 @@ package fhac.bh1978s;
 
 import fhac.bh1978s.ioStream.TextFileWriter;
 import fhac.bh1978s.ioStream.TextFileReader;
-import fhac.bh1978s.nameDerSituation.MainController;
+import fhac.bh1978s.nameDerSituation.MainPresenter;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -46,7 +46,7 @@ public class Program {
         .println(
             "\t- Output-Pfad:\t" + TextFileWriter.getInstance().getOutputFileLocation() + "\n\n");
 
-    MainController.getInstance().start();
+    MainPresenter.getInstance().start();
 
     System.out.println("\n\nAbgeschlossen. Drücke beliebige Taste zum beenden . . .");
     (new Scanner(System.in)).nextLine();
