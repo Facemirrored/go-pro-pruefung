@@ -1,0 +1,4 @@
+# Teste Bewertung SequenzUpDownTest
+Ziel:Bewertung
+Bewertungsart:Sequenz-Up-Down-Test
+Zufallszahlen:2, 1, 4, 5, 4, 10, 2, 1, 0, 8

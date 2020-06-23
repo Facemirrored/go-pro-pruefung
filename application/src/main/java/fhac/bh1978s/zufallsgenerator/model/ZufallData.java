@@ -2,18 +2,17 @@ package fhac.bh1978s.zufallsgenerator.model;
 
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
 import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
-import fhac.bh1978s.zufallsgenerator.enumeration.Parameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import java.util.HashMap;
 import java.util.List;
 
-public class ZufallData<ParaType, ZufallType> {
+public class ZufallData {
 
-  private List<Ziel> ziel;
+  private Ziel ziel;
   private GeneratorType generatorType;
   private BewertungType bewertungType;
-  private HashMap<Parameter<ParaType>, ?> parameterList;
-  private List<ZufallType> zufallszahlen;
+  private HashMap<String, Long> parameterList;
+  private List<Double> zufallszahlen;
   private int n;
 
   public int getN() {
@@ -24,21 +23,20 @@ public class ZufallData<ParaType, ZufallType> {
     this.n = n;
   }
 
-  public List<Ziel> getZiel() {
-    return ziel;
-  }
-
-  public void setZiel(List<Ziel> ziel) {
-    this.ziel = ziel;
-  }
-
-  public HashMap<Parameter<ParaType>, ?> getParameterList() {
+  public HashMap<String, Long> getParameterList() {
     return parameterList;
   }
 
-  public void setParameterList(
-      HashMap<Parameter<ParaType>, ?> parameterList) {
+  public void setParameterList(HashMap<String, Long> parameterList) {
     this.parameterList = parameterList;
+  }
+
+  public Ziel getZiel() {
+    return ziel;
+  }
+
+  public void setZiel(Ziel ziel) {
+    this.ziel = ziel;
   }
 
   public GeneratorType getGeneratorType() {
@@ -57,11 +55,11 @@ public class ZufallData<ParaType, ZufallType> {
     this.bewertungType = bewertungType;
   }
 
-  public List<ZufallType> getZufallszahlen() {
+  public List<Double> getZufallszahlen() {
     return zufallszahlen;
   }
 
-  public void setZufallszahlen(List<ZufallType> zufallszahlen) {
+  public void setZufallszahlen(List<Double> zufallszahlen) {
     this.zufallszahlen = zufallszahlen;
   }
 }

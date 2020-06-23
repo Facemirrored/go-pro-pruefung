@@ -5,93 +5,93 @@ import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MODUL;
 import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MULTIPLIKATOR;
 import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.STARTWERT;
 
+import fhac.bh1978s.exception.BerechnungException;
+import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
+import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
+import java.math.BigInteger;
+import java.util.List;
 
-public class ZufallsgeneratorPresenter<ZufallType> {
+public class ZufallsgeneratorPresenter {
 
-  private ZufallData<ZufallType, ?> zufallData;
-  private ZufallErgebnisData<?> zufallErgebnisData;
+  private ZufallData zufallData;
   private I_Generatorklasse<?> generatorklasse;
   private I_Bewertung<?> bewertung;
+  private ZufallErgebnisData zufallErgebnisData;
 
-  public ZufallsgeneratorPresenter(final ZufallData<ZufallType, ?> zufallData) {
+  public ZufallsgeneratorPresenter(final ZufallData zufallData) {
     this.zufallData = zufallData;
+    this.zufallErgebnisData = new ZufallErgebnisData();
     init();
   }
 
+  @SuppressWarnings("unchecked")
   private void init() {
-    switch (zufallData.getGeneratorType()) {
-      case LCG:
-        generatorklasse = new LcgGenerator(
-            (Integer) zufallData.getParameterList().get(MODUL),
-            (Integer) zufallData.getParameterList().get(MULTIPLIKATOR),
-            (Integer) zufallData.getParameterList().get(INKREMENT),
-            (Integer) zufallData.getParameterList().get(STARTWERT),
-            zufallData.getN());
-        break;
-      case POLAR_METHOD:
-        generatorklasse = new PolarMethod();
-        break;
-      default:
-        generatorklasse = null;
+    if (zufallData.getGeneratorType() != null) {
+      switch (zufallData.getGeneratorType()) {
+        case LCG:
+          generatorklasse = new LcgGenerator(
+              zufallData.getParameterList().get(MODUL.getLcgParameter()),
+              zufallData.getParameterList().get(MULTIPLIKATOR.getLcgParameter()),
+              zufallData.getParameterList().get(INKREMENT.getLcgParameter()),
+              zufallData.getParameterList().get(STARTWERT.getLcgParameter()),
+              zufallData.getN());
+          break;
+        case POLAR_METHOD:
+          generatorklasse = new PolarMethod();
+          break;
+        default:
+          generatorklasse = null;
+      }
+    } else if (zufallData.getBewertungType() != null) {
+      switch (zufallData.getBewertungType()) {
+        case SEQUENZ_UP_DOWN_TEST:
+          bewertung = new SequenzUpDownTest();
+          break;
+        case SERIELLE_AUTOKORRELATION:
+          bewertung = new SerielleAutokorrelation(0.5);
+          break;
+        default:
+          bewertung = null;
+      }
     }
+  }
 
-    switch (zufallData.getBewertungType()) {
-      case SEQUENZ_UP_DOWN_TEST:
-        bewertung = new SequenzUpDownTest();
-        break;
-      case SERIELLE_AUTOKORRELATION:
-        bewertung = new SerielleAutokorrelation(0.5);
-        break;
-      default:
-        bewertung = null;
+  public void berechneBewertung() throws BerechnungException {
+    if (bewertung == null) {
+      throw new BerechnungException("Bewertungsart ist nicht ausgewählt. Bitte vorher setzen.");
+    } else if (bewertung instanceof SequenzUpDownTest) {
+      SequenzUpDownTest sequenzUpDownTest = (SequenzUpDownTest) bewertung;
+      sequenzUpDownTest.berechneBewertung(zufallData.getZufallszahlen());
+      zufallErgebnisData.setBewertung(sequenzUpDownTest);
+    } else if (bewertung instanceof SerielleAutokorrelation) {
+      SerielleAutokorrelation serielleAutokorrelation = (SerielleAutokorrelation) bewertung;
+      serielleAutokorrelation
+          .berechneBewertung(zufallData.getZufallszahlen());
+      zufallErgebnisData.setBewertung(serielleAutokorrelation);
     }
   }
 
-  public ZufallData<ZufallType, ?> getZufallData() {
-    return zufallData;
-  }
-
-  public void setZufallData(ZufallData<ZufallType, ?> zufallData) {
-    this.zufallData = zufallData;
-  }
-
-  public ZufallErgebnisData<?> getZufallErgebnisData() {
-    return zufallErgebnisData;
-  }
-
-  public void setZufallErgebnisData(
-      ZufallErgebnisData<?> zufallErgebnisData) {
-    this.zufallErgebnisData = zufallErgebnisData;
-  }
-
-  public I_Generatorklasse<?> getGeneratorklasse() {
-    return generatorklasse;
-  }
-
-  public void setGeneratorklasse(
-      I_Generatorklasse<?> generatorklasse) {
-    this.generatorklasse = generatorklasse;
-  }
-
-  public I_Bewertung<?> getBewertung() {
-    return bewertung;
-  }
-
-  public void setBewertung(I_Bewertung<?> bewertung) {
-    this.bewertung = bewertung;
-  }
-
-  public ZufallErgebnisData<?> generiere() {
-    if (zufallData.getZiel().stream().anyMatch(z -> z == Ziel.ZUFALLSGENERIERUNG)) {
-      zufallErgebnisData.setZufallszahlen(generatorklasse.generiereZufall());
+  public void berechneZufall() throws BerechnungException {
+    if (generatorklasse == null) {
+      throw new BerechnungException("Generatorklasse ist nicht ausgewählt. Bitte vorher setzen");
     }
-    if (zufallData.getZiel().stream().anyMatch(z -> z == Ziel.BEWERTUNG)) {
-      bewertung.berechneBewertung(zufallErgebnisData.getZufallszahlen());
+    List<Double> zufallszahlen = (List<Double>) generatorklasse.generiereZufall();
+    zufallErgebnisData.setZufallszahlen(zufallszahlen);
+  }
+
+  public ZufallErgebnisData generiere() throws BerechnungException {
+    if (zufallData.getZiel() == Ziel.ZUFALLSGENERIERUNG) {
+      berechneZufall();
+    } else if (zufallData.getZiel() == Ziel.BEWERTUNG) {
+      berechneBewertung();
+    } else {
+      throw new BerechnungException(
+          "Weder Zufallszahlen, noch Bewertung wurden generiert. Bitte überprüfe gesetzte Werte!");
     }
 
     return zufallErgebnisData;

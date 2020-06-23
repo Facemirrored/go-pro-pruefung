@@ -4,7 +4,7 @@ public class TextFile {
 
   private String name;
   private boolean error;
-  private String content;
+  private String content = "";
 
   public TextFile(String name) {
     this.name = name;
@@ -38,6 +38,10 @@ public class TextFile {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void addContent(final String content) {
+    this.content += content;
   }
 
   public void print() {

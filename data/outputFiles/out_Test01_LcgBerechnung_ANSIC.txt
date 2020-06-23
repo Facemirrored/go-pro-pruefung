@@ -1,0 +1,19 @@
+-----INPUT-----
+# Teste LCG-Generator
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+Parameter:m=2147483648,a=110351524,c=12345,x0=12345,n=10
+
+
+-----OUTPUT-----
+Zufallszahlen:
+0	:	12345
+1	:	784943293
+2	:	1538673997
+3	:	1778678157
+4	:	964547213
+5	:	1005508237
+6	:	799368845
+7	:	802793101
+8	:	1448257165
+9	:	802596493

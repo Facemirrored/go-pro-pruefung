@@ -1,11 +1,14 @@
 package fhac.bh1978s.zufallsgenerator;
 
+import fhac.bh1978s.exception.BerechnungException;
 import fhac.bh1978s.exception.ZufallMappingException;
-import fhac.bh1978s.view.interfaces.I_FileWriter;
-import fhac.bh1978s.view.TextFileReader;
-import fhac.bh1978s.view.interfaces.I_FileReader;
-import fhac.bh1978s.view.TextFileWriter;
 import fhac.bh1978s.view.TextFile;
+import fhac.bh1978s.view.TextFileReader;
+import fhac.bh1978s.view.TextFileWriter;
+import fhac.bh1978s.view.interfaces.I_FileReader;
+import fhac.bh1978s.view.interfaces.I_FileWriter;
+import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
+import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.mapper.ZufallDataInputMapper;
 import fhac.bh1978s.zufallsgenerator.mapper.ZufallErgebnisOutputMapper;
 import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_InputMapper;
@@ -57,21 +60,48 @@ public class MainPresenter {
       } else {
         try {
           ZufallData zufallData = internMapper.mapToInternFormat(textFile);
-          ZufallsgeneratorPresenter zufallsgenerator = new ZufallsgeneratorPresenter(
-              zufallData);
-          textfileOutput.add(externMapper.mapToExternFormat(zufallsgenerator.generiere()));
+          ZufallsgeneratorPresenter zufallsgenerator = new ZufallsgeneratorPresenter(zufallData);
+          ZufallErgebnisData zufallErgebnisData = zufallsgenerator.generiere();
+
+          TextFile ergebnisTextFile = new TextFile(textFile.getName());
+          ergebnisTextFile.addContent("-----INPUT-----\n");
+          ergebnisTextFile.addContent(textFile.getContent());
+          ergebnisTextFile.addContent("\n\n-----OUTPUT-----\n");
+          ergebnisTextFile.addContent(
+              externMapper.mapToExternFormat(zufallErgebnisData).getContent());
+          textfileOutput.add(ergebnisTextFile);
           System.out.println("Datei <" + textFile.getName()
               + "> berechnet. Ergebnis befindet sich im Ausgabe-Pfad.");
-        } catch (ZufallMappingException e) {
-          // TODO: TextFile-Objekt anpassen für Fehlerangabe
+        } catch (ZufallMappingException zme) {
           System.out.println("Semantikfehler in der Datei <" + textFile.getName()
               + "> entdeckt. Details stehen in der Ausgabe-Datei.");
-          textfileOutput.add(new TextFile("eeeeeeerrroooooor"));
-          e.printStackTrace();
+          TextFile errorFile = new TextFile(textFile.getName());
+
+          StringBuilder sb = new StringBuilder();
+          sb.append(textFile.getContent())
+              .append("\n\n")
+              .append("Fehlermeldung:\n")
+              .append(zme.getMessage());
+
+          errorFile.setContent(sb.toString());
+          textfileOutput.add(errorFile);
+        } catch (BerechnungException be) {
+          System.out.println("Fehler beim Berechnen der Datei <" + textFile.getName()
+              + ">. Details in der Ausgabe-Datei.");
+          TextFile errorFile = new TextFile(textFile.getName());
+
+          StringBuilder sb = new StringBuilder();
+          sb.append(textFile.getContent())
+              .append("\n\n")
+              .append("Fehlermeldung:\n")
+              .append(be.getMessage());
+
+          errorFile.setContent(sb.toString());
+          textfileOutput.add(errorFile);
+        } finally {
+          fileWriter.saveFiles(textfileOutput);
         }
       }
     });
-
-    fileWriter.saveFiles(textfileOutput);
   }
 }

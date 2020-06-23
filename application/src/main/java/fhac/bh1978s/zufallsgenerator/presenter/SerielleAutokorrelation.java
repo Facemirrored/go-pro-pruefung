@@ -35,7 +35,7 @@ public class SerielleAutokorrelation implements I_Bewertung<Double> {
     double zaehler = 0, nenner = 0;
 
     // Statistisch Sinnvoll für bis zu circa 1/3 aller Zahlen
-    for (int k = 0; k < zufallszahlen.size() / 3; ++k) {
+    for (int k = 0; k < Math.ceil(zufallszahlen.size() / 3f); ++k) {
 
       for (int i = 0; i < zufallszahlen.size() - k; ++i) {
         zaehler += ((zufallszahlen.get(i) - m) * (zufallszahlen.get(i + k) - m));

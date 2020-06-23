@@ -1,6 +1,8 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
-public enum GeneratorType implements Parameter<String> {
+import fhac.bh1978s.exception.ZufallMappingException;
+
+public enum GeneratorType {
   LCG("Linear-Kongruenz-Generator"),
   POLAR_METHOD("Polar-Methode");
 
@@ -10,8 +12,17 @@ public enum GeneratorType implements Parameter<String> {
     this.generatorType = generatorType;
   }
 
-  @Override
-  public String getParameter() {
-    return null;
+  public String getGeneratorType() {
+    return generatorType;
+  }
+
+  public static GeneratorType fromString(final String g) throws ZufallMappingException {
+    for (GeneratorType generatorEnum : GeneratorType.values()) {
+      if (generatorEnum.generatorType.equalsIgnoreCase(g)) {
+        return generatorEnum;
+      }
+    }
+
+    throw new ZufallMappingException("Generator <" + g + "> unbekannt. Bitte Überprüfen.");
   }
 }

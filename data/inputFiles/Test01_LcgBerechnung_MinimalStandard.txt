@@ -1,0 +1,4 @@
+# Teste LCG-Generator
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+Parameter:m=2147483647,a=16807,c=0,x0=1,n=1000

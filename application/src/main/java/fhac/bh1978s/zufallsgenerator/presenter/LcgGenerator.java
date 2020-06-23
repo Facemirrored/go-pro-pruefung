@@ -5,16 +5,15 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LcgGenerator implements I_Generatorklasse<Integer> {
+public class LcgGenerator implements I_Generatorklasse<Long> {
 
-  private int m;
-  private int a;
-  private int c;
-  private int x0;
+  private long m;
+  private long a;
+  private long c;
+  private long x0;
   private int n;
-  private ArrayList<Integer> zufallList = new ArrayList<>();
 
-  public LcgGenerator(int m, int a, int c, int x0, int n) {
+  public LcgGenerator(long m, long a, long c, long x0, int n) {
     this.m = m;
     this.a = a;
     this.c = c;
@@ -23,7 +22,10 @@ public class LcgGenerator implements I_Generatorklasse<Integer> {
   }
 
   @Override
-  public List<Integer> generiereZufall() throws InvalidParameterException {
+  public List<Long> generiereZufall() throws InvalidParameterException {
+
+    ArrayList<Long> zufallList = new ArrayList<>();
+
     if (m <= 0) {
       throw new InvalidParameterException("Parameter m ist kleiner gleich 0.");
     } else if (a < 0 || a >= m) {

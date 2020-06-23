@@ -1,0 +1,19 @@
+-----INPUT-----
+# Teste Bewertung SequenzUpDownTest
+Ziel:Bewertung
+Bewertungsart:Sequenz-Up-Down-Test
+Zufallszahlen:2, 1, 4, 5, 4, 10, 2, 1, 0, 8
+
+
+-----OUTPUT-----
+Sequenz-Up-Down-Test-Ergebnis:
+k	Calc: N(k)	Exp: N(k)
+1	4		4.25
+2	1		1.6
+3	1		0.3972222222222222
+4	0		0.07380952380952381
+5	0		0.010863095238095238
+6	0		0.0013007054673721341
+7	0		1.273148148148148E-4
+8	0		9.92063492063492E-6
+9	0		5.469710330821442E-7

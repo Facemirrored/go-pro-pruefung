@@ -1,0 +1,14 @@
+-----INPUT-----
+# Teste Bewertung Serielle-Autokorrelation
+Ziel:Bewertung
+Bewertungsart:Serielle-Autokorrelation
+Zufallszahlen:4, 7, 3, 12, 6, 4, 7, 3, 12, 6
+
+
+-----OUTPUT-----
+Serielle-Autokorrelation-Ergebnis:
+k	Calc: Roh(k)
+1	1.0
+2	0.8435236163430889
+3	0.8705035971223022
+4	0.8757458757458757

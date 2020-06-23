@@ -6,10 +6,10 @@ import java.util.List;
 
 public class PolarMethod implements I_Generatorklasse<Double> {
 
-  private List<Double> zufallList = new ArrayList<>();
-
   @Override
   public List<Double> generiereZufall() {
+    ArrayList<Double> zufallList = new ArrayList<>();
+
     double p, q, u, v;
 
     do {

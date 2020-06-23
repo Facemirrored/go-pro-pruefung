@@ -2,7 +2,7 @@ package fhac.bh1978s.zufallsgenerator.enumeration;
 
 import java.util.Enumeration;
 
-public enum LcgParameter implements Parameter<String> {
+public enum LcgParameter {
   MODUL("m"),
   MULTIPLIKATOR("a"),
   INKREMENT("c"),
@@ -14,8 +14,7 @@ public enum LcgParameter implements Parameter<String> {
     this.lcgParameter = type;
   }
 
-  @Override
-  public String getParameter() {
+  public String getLcgParameter() {
     return lcgParameter;
   }
 }

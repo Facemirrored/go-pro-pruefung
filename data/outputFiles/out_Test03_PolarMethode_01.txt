@@ -1,0 +1,10 @@
+-----INPUT-----
+# Teste Polar Methode
+Ziel:Zufallsgenerierung
+Generator:Polar-Methode
+
+
+-----OUTPUT-----
+Zufallszahlen:
+0	:	-0.8723987363436209
+1	:	-0.8612002614166719
