@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PolarMethod implements I_Generatorklasse<Double> {
 
+  // TODO: Überladung für spezifische random zahlen (private attribute für u,v)
   @Override
   public List<Double> generiereZufall() {
     ArrayList<Double> zufallList = new ArrayList<>();

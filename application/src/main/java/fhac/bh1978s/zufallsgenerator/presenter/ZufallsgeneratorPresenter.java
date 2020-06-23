@@ -1,19 +1,13 @@
 package fhac.bh1978s.zufallsgenerator.presenter;
 
-import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.INKREMENT;
-import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MODUL;
-import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MULTIPLIKATOR;
-import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.STARTWERT;
-
 import fhac.bh1978s.exception.BerechnungException;
-import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
+import fhac.bh1978s.zufallsgenerator.enumeration.BjarnscheParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
-import java.math.BigInteger;
 import java.util.List;
 
 public class ZufallsgeneratorPresenter {
@@ -35,14 +29,21 @@ public class ZufallsgeneratorPresenter {
       switch (zufallData.getGeneratorType()) {
         case LCG:
           generatorklasse = new LcgGenerator(
-              zufallData.getParameterList().get(MODUL.getLcgParameter()),
-              zufallData.getParameterList().get(MULTIPLIKATOR.getLcgParameter()),
-              zufallData.getParameterList().get(INKREMENT.getLcgParameter()),
-              zufallData.getParameterList().get(STARTWERT.getLcgParameter()),
+              zufallData.getParameterList().get(LcgParameter.MODUL.getLcgParameter()),
+              zufallData.getParameterList().get(LcgParameter.MULTIPLIKATOR.getLcgParameter()),
+              zufallData.getParameterList().get(LcgParameter.INKREMENT.getLcgParameter()),
+              zufallData.getParameterList().get(LcgParameter.STARTWERT.getLcgParameter()),
               zufallData.getN());
           break;
         case POLAR_METHOD:
           generatorklasse = new PolarMethod();
+          break;
+        case BJARNSCHE_ZUFALLSMETHODE:
+          generatorklasse = new BjarnscheZufallsmethode(
+              zufallData.getParameterList().get(BjarnscheParameter.MODUL.getBjarnscheParameter()),
+              zufallData.getParameterList()
+                  .get(BjarnscheParameter.STARTWERT.getBjarnscheParameter()),
+              zufallData.getN());
           break;
         default:
           generatorklasse = null;
@@ -76,6 +77,7 @@ public class ZufallsgeneratorPresenter {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void berechneZufall() throws BerechnungException {
     if (generatorklasse == null) {
       throw new BerechnungException("Generatorklasse ist nicht ausgewählt. Bitte vorher setzen");

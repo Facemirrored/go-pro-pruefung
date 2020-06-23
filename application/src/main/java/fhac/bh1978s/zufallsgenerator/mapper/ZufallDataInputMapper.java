@@ -19,15 +19,15 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     try {
       for (String line : content.split("\n")) {
         if (line.startsWith("Ziel")) {
-          zufallData.setZiel(Ziel.fromString(line.split(":")[1]));
+          zufallData.setZiel(Ziel.fromString(line.trim().split(":")[1]));
         } else if (line.startsWith("Generator")) {
-          zufallData.setGeneratorType(GeneratorType.fromString(line.split(":")[1]));
+          zufallData.setGeneratorType(GeneratorType.fromString(line.trim().split(":")[1]));
         } else if (line.startsWith("Parameter")) {
-          String values = line.split(":")[1];
+          String values = line.trim().split(":")[1];
           HashMap<String, Long> parameterHashMap = new HashMap();
 
-          for (String keyValue : values.split(",")) {
-            String[] pair = keyValue.split("=");
+          for (String keyValue : values.trim().split(",")) {
+            String[] pair = keyValue.trim().split("=");
             if (pair[0].equalsIgnoreCase("n")) {
               zufallData.setN(Integer.parseInt(pair[1]));
             } else {
@@ -37,11 +37,11 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
 
           zufallData.setParameterList(parameterHashMap);
         } else if (line.startsWith("Bewertungsart")) {
-          zufallData.setBewertungType(BewertungType.fromString(line.split(":")[1]));
+          zufallData.setBewertungType(BewertungType.fromString(line.trim().split(":")[1]));
         } else if (line.startsWith("Zufallszahlen")) {
-          String values = line.split(":")[1];
+          String values = line.trim().split(":")[1];
           ArrayList<Double> zufallszahlen = new ArrayList<>();
-          for (String val : values.split(",")) {
+          for (String val : values.trim().split(",")) {
             zufallszahlen.add(Double.valueOf(val.trim()));
           }
           zufallData.setZufallszahlen(zufallszahlen);

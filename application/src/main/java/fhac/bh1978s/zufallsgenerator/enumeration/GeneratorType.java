@@ -4,7 +4,8 @@ import fhac.bh1978s.exception.ZufallMappingException;
 
 public enum GeneratorType {
   LCG("Linear-Kongruenz-Generator"),
-  POLAR_METHOD("Polar-Methode");
+  POLAR_METHOD("Polar-Methode"),
+  BJARNSCHE_ZUFALLSMETHODE("Bjarnsche-Zufallsmethode");
 
   private String generatorType;
 

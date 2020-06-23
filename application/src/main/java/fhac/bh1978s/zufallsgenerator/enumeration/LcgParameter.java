@@ -1,7 +1,5 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
-import java.util.Enumeration;
-
 public enum LcgParameter {
   MODUL("m"),
   MULTIPLIKATOR("a"),
