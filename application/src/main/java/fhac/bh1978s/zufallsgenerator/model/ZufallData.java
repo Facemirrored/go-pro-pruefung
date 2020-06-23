@@ -6,42 +6,39 @@ import fhac.bh1978s.zufallsgenerator.enumeration.Parameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ZufallData<ParaType, ZufallType> {
 
-  private Ziel ziel;
+  private List<Ziel> ziel;
   private GeneratorType generatorType;
   private BewertungType bewertungType;
-  private Map<Parameter<ParaType>, Double> parameter = new HashMap<>();
+  private HashMap<Parameter<ParaType>, ?> parameterList;
   private List<ZufallType> zufallszahlen;
+  private int n;
 
-  public ZufallData(Ziel ziel, GeneratorType generator,
-      HashMap<Parameter<ParaType>, Double> parameter) {
-    this.ziel = ziel;
-    this.generatorType = generator;
-    this.parameter = parameter;
+  public int getN() {
+    return n;
   }
 
-  public ZufallData(Ziel ziel, List<ZufallType> zufallszahlen) {
-    this.ziel = ziel;
-    this.zufallszahlen = zufallszahlen;
+  public void setN(int n) {
+    this.n = n;
   }
 
-  public BewertungType getBewertungType() {
-    return bewertungType;
-  }
-
-  public void setBewertungType(BewertungType bewertungType) {
-    this.bewertungType = bewertungType;
-  }
-
-  public Ziel getZiel() {
+  public List<Ziel> getZiel() {
     return ziel;
   }
 
-  public void setZiel(Ziel ziel) {
+  public void setZiel(List<Ziel> ziel) {
     this.ziel = ziel;
+  }
+
+  public HashMap<Parameter<ParaType>, ?> getParameterList() {
+    return parameterList;
+  }
+
+  public void setParameterList(
+      HashMap<Parameter<ParaType>, ?> parameterList) {
+    this.parameterList = parameterList;
   }
 
   public GeneratorType getGeneratorType() {
@@ -52,13 +49,12 @@ public class ZufallData<ParaType, ZufallType> {
     this.generatorType = generatorType;
   }
 
-  public Map<Parameter<ParaType>, Double> getParameter() {
-    return parameter;
+  public BewertungType getBewertungType() {
+    return bewertungType;
   }
 
-  public void setParameter(
-      Map<Parameter<ParaType>, Double> parameter) {
-    this.parameter = parameter;
+  public void setBewertungType(BewertungType bewertungType) {
+    this.bewertungType = bewertungType;
   }
 
   public List<ZufallType> getZufallszahlen() {

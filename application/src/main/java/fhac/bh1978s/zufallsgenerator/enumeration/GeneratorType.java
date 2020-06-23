@@ -1,6 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
-public enum GeneratorType {
+public enum GeneratorType implements Parameter<String> {
   LCG("Linear-Kongruenz-Generator"),
   POLAR_METHOD("Polar-Methode");
 
@@ -10,7 +10,8 @@ public enum GeneratorType {
     this.generatorType = generatorType;
   }
 
-  public String getGeneratorType() {
-    return generatorType;
+  @Override
+  public String getParameter() {
+    return null;
   }
 }

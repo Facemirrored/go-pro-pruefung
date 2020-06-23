@@ -14,10 +14,6 @@ public enum LcgParameter implements Parameter<String> {
     this.lcgParameter = type;
   }
 
-  public String getLcgParameter() {
-    return lcgParameter;
-  }
-
   @Override
   public String getParameter() {
     return lcgParameter;

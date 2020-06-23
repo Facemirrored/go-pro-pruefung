@@ -1,19 +1,24 @@
 package fhac.bh1978s.zufallsgenerator.presenter;
 
+import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.INKREMENT;
+import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MODUL;
+import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.MULTIPLIKATOR;
+import static fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter.STARTWERT;
+
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 
-public class ZufallsgeneratorPresenter<ParaType, T> {
+public class ZufallsgeneratorPresenter<ZufallType> {
 
-  private ZufallData<ParaType, T> zufallData;
-  private ZufallErgebnisData zufallErgebnisData;
-  private I_Generatorklasse generatorklasse;
-  private I_Bewertung bewertung;
+  private ZufallData<ZufallType, ?> zufallData;
+  private ZufallErgebnisData<?> zufallErgebnisData;
+  private I_Generatorklasse<?> generatorklasse;
+  private I_Bewertung<?> bewertung;
 
-  public ZufallsgeneratorPresenter(final ZufallData<ParaType, T> zufallData) {
+  public ZufallsgeneratorPresenter(final ZufallData<ZufallType, ?> zufallData) {
     this.zufallData = zufallData;
     init();
   }
@@ -21,7 +26,12 @@ public class ZufallsgeneratorPresenter<ParaType, T> {
   private void init() {
     switch (zufallData.getGeneratorType()) {
       case LCG:
-        generatorklasse = new LcgGenerator();
+        generatorklasse = new LcgGenerator(
+            (Integer) zufallData.getParameterList().get(MODUL),
+            (Integer) zufallData.getParameterList().get(MULTIPLIKATOR),
+            (Integer) zufallData.getParameterList().get(INKREMENT),
+            (Integer) zufallData.getParameterList().get(STARTWERT),
+            zufallData.getN());
         break;
       case POLAR_METHOD:
         generatorklasse = new PolarMethod();
@@ -35,54 +45,53 @@ public class ZufallsgeneratorPresenter<ParaType, T> {
         bewertung = new SequenzUpDownTest();
         break;
       case SERIELLE_AUTOKORRELATION:
-        bewertung = new SerielleAutokorrelation();
+        bewertung = new SerielleAutokorrelation(0.5);
         break;
       default:
         bewertung = null;
     }
   }
 
-  public ZufallData<ParaType, T> getZufallData() {
+  public ZufallData<ZufallType, ?> getZufallData() {
     return zufallData;
   }
 
-  public void setZufallData(ZufallData<ParaType, T> zufallData) {
+  public void setZufallData(ZufallData<ZufallType, ?> zufallData) {
     this.zufallData = zufallData;
   }
 
-  public ZufallErgebnisData getZufallErgebnisData() {
+  public ZufallErgebnisData<?> getZufallErgebnisData() {
     return zufallErgebnisData;
   }
 
   public void setZufallErgebnisData(
-      ZufallErgebnisData zufallErgebnisData) {
+      ZufallErgebnisData<?> zufallErgebnisData) {
     this.zufallErgebnisData = zufallErgebnisData;
   }
 
-  public I_Generatorklasse getGeneratorklasse() {
+  public I_Generatorklasse<?> getGeneratorklasse() {
     return generatorklasse;
   }
 
   public void setGeneratorklasse(
-      I_Generatorklasse generatorklasse) {
+      I_Generatorklasse<?> generatorklasse) {
     this.generatorklasse = generatorklasse;
   }
 
-  public I_Bewertung getBewertung() {
+  public I_Bewertung<?> getBewertung() {
     return bewertung;
   }
 
-  public void setBewertung(I_Bewertung bewertung) {
+  public void setBewertung(I_Bewertung<?> bewertung) {
     this.bewertung = bewertung;
   }
 
-  public ZufallErgebnisData generiere() {
-    if (zufallData.getZiel() == Ziel.ZUFALLSGENERIERUNG) {
-      // TODO: baue zufallszahlen und bewertung
-    } else if (zufallData.getZiel() == Ziel.BEWERTUNG) {
-      // TODO: baue bewertung
-    } else {
-      zufallErgebnisData = null;
+  public ZufallErgebnisData<?> generiere() {
+    if (zufallData.getZiel().stream().anyMatch(z -> z == Ziel.ZUFALLSGENERIERUNG)) {
+      zufallErgebnisData.setZufallszahlen(generatorklasse.generiereZufall());
+    }
+    if (zufallData.getZiel().stream().anyMatch(z -> z == Ziel.BEWERTUNG)) {
+      bewertung.berechneBewertung(zufallErgebnisData.getZufallszahlen());
     }
 
     return zufallErgebnisData;
