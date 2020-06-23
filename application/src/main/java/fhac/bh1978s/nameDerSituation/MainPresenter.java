@@ -1,5 +1,6 @@
 package fhac.bh1978s.nameDerSituation;
 
+import fhac.bh1978s.exception.ZufallMappingException;
 import fhac.bh1978s.ioStream.I_FileWriter;
 import fhac.bh1978s.ioStream.TextFileReader;
 import fhac.bh1978s.ioStream.I_FileReader;
@@ -7,8 +8,9 @@ import fhac.bh1978s.ioStream.TextFileWriter;
 import fhac.bh1978s.ioStream.TextFile;
 import fhac.bh1978s.nameDerSituation.mapper.I_InputMapper;
 import fhac.bh1978s.nameDerSituation.mapper.I_OutputMapper;
-import fhac.bh1978s.nameDerSituation.model.NameDerSituationData;
-import fhac.bh1978s.nameDerSituation.presenter.NameDerSituationErgebnisPlaceHolder;
+import fhac.bh1978s.nameDerSituation.model.ZufallsData;
+import fhac.bh1978s.nameDerSituation.model.ZufallsergebnisData;
+import fhac.bh1978s.nameDerSituation.presenter.ZufallsgeneratorPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +28,8 @@ public class MainPresenter {
   private I_FileWriter<TextFile> fileWriter = TextFileWriter.getInstance();
 
   // TODO: Hier später mapper initialisieren
-  private I_InputMapper<TextFile, NameDerSituationData> internMapper;
-  private I_OutputMapper<NameDerSituationErgebnisPlaceHolder, NameDerSituationData, TextFile> externMapper;
+  private I_InputMapper<TextFile, ZufallsData> internMapper;
+  private I_OutputMapper<ZufallsergebnisData, TextFile> externMapper;
 
   public static MainPresenter getInstance() {
     return mainPresenter;
@@ -54,24 +56,23 @@ public class MainPresenter {
             + ">. Fehlermeldung befindet sich in der Ausgabe-Datei.");
         textfileOutput.add(textFile);
       } else {
-        // TODO: Mapping von Textfile nacheinander in internes Objekt (Semantikfehler hier möglich - setzte Error Attribut)
-        NameDerSituationData object = internMapper.mapToInternFormat(textFile);
-        if (/*TODO: object.error*/true) {
-          System.out.println("Semantikfehler in der Datei <" + textFile.getName()
-              + "> entdeckt. Details stehen in der Ausgabe-Datei.");
-          textfileOutput.add(externMapper.mapErrorToExternFormat(object));
-        } else {
-          // TODO: Execute Solve Method
-          NameDerSituationErgebnisPlaceHolder ergebnisPlaceHolder = new NameDerSituationErgebnisPlaceHolder();
-          // TODO: Mapping von Ergebnisobjekt zu externen Objekt
-          textfileOutput.add(externMapper.mapToExternFormat(ergebnisPlaceHolder));
+        try {
+          ZufallsData zufallsData = internMapper.mapToInternFormat(textFile);
+          ZufallsgeneratorPresenter ergebnisPlaceHolder = new ZufallsgeneratorPresenter(
+              zufallsData);
+          textfileOutput.add(externMapper.mapToExternFormat(ergebnisPlaceHolder.generiere()));
           System.out.println("Datei <" + textFile.getName()
               + "> berechnet. Ergebnis befindet sich im Ausgabe-Pfad.");
+        } catch (ZufallMappingException e) {
+          // TODO: TextFile-Objekt anpassen für Fehlerangabe
+          System.out.println("Semantikfehler in der Datei <" + textFile.getName()
+              + "> entdeckt. Details stehen in der Ausgabe-Datei.");
+          textfileOutput.add(new TextFile("eeeeeeerrroooooor"));
+          e.printStackTrace();
         }
       }
     });
 
-    // 5. Generiere Output-Dateien aus List<String>
     fileWriter.saveFiles(textfileOutput);
   }
 }

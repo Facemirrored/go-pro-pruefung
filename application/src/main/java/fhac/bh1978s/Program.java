@@ -40,7 +40,7 @@ public class Program {
       }
     }
 
-    System.out.println("Starte MainController mit folgenden Eigenschaften:");
+    System.out.println("Starte MainPresenter mit folgenden Eigenschaften:");
     System.out.println("\t- Input-Pfad:\t" + TextFileReader.getInstance().getInputFileLocation());
     System.out
         .println(

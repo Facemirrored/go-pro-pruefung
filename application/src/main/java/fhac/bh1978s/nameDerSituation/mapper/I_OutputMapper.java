@@ -6,9 +6,7 @@ package fhac.bh1978s.nameDerSituation.mapper;
  * Objekt des berechneten Ergebnisses und I_Error das von der Eingabe konvertierte Objekt mit
  * Semantikfehlern.
  */
-public interface I_OutputMapper<I_Valid, I_Error, E> {
+public interface I_OutputMapper<I, E> {
 
-  E mapToExternFormat(I_Valid internContent);
-
-  E mapErrorToExternFormat(I_Error internContent);
+  E mapToExternFormat(I internContent);
 }
