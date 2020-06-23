@@ -1,4 +1,4 @@
-package fhac.bh1978s.nameDerSituation.mapper;
+package fhac.bh1978s.zufallsgenerator.mapper.interfaces;
 
 /**
  * Generische Mapper-Klasse, welche Methoden für das Mappen vom internen Dateiformat ins externe

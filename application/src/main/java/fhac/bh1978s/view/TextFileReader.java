@@ -1,5 +1,7 @@
-package fhac.bh1978s.ioStream;
+package fhac.bh1978s.view;
 
+import fhac.bh1978s.view.interfaces.I_FilePathHandler;
+import fhac.bh1978s.view.interfaces.I_FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

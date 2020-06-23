@@ -1,4 +1,4 @@
-package fhac.bh1978s.ioStream;
+package fhac.bh1978s.view;
 
 public class TextFile {
 

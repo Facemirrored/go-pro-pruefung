@@ -1,4 +1,4 @@
-package fhac.bh1978s.nameDerSituation.mapper;
+package fhac.bh1978s.zufallsgenerator.mapper.interfaces;
 
 import fhac.bh1978s.exception.ZufallMappingException;
 

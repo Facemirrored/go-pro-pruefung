@@ -1,8 +1,8 @@
 package fhac.bh1978s;
 
-import fhac.bh1978s.ioStream.TextFileWriter;
-import fhac.bh1978s.ioStream.TextFileReader;
-import fhac.bh1978s.nameDerSituation.MainPresenter;
+import fhac.bh1978s.view.TextFileWriter;
+import fhac.bh1978s.view.TextFileReader;
+import fhac.bh1978s.zufallsgenerator.MainPresenter;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
