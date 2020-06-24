@@ -22,20 +22,24 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
           zufallData.setZiel(Ziel.fromString(line.trim().split(":")[1]));
         } else if (line.startsWith("Generator")) {
           zufallData.setGeneratorType(GeneratorType.fromString(line.trim().split(":")[1]));
-        } else if (line.startsWith("Parameter")) {
+        } else if (line.startsWith("LCG-Parameter") ||
+            line.startsWith("Bjarnsche-Zufallsmethode-Parameter")) {
           String values = line.trim().split(":")[1];
-          HashMap<String, Long> parameterHashMap = new HashMap();
+          HashMap<String, String> parameterHashMap = new HashMap<>();
 
           for (String keyValue : values.trim().split(",")) {
             String[] pair = keyValue.trim().split("=");
             if (pair[0].equalsIgnoreCase("n")) {
               zufallData.setN(Integer.parseInt(pair[1]));
             } else {
-              parameterHashMap.put(pair[0], Long.parseLong(pair[1]));
+              parameterHashMap.put(pair[0], pair[1]);
             }
           }
 
-          zufallData.setParameterList(parameterHashMap);
+          zufallData.addParameter(parameterHashMap);
+        } else if (line.startsWith("Polar-Method-Parameter")) {
+          String value = line.trim().split(":")[1];
+          zufallData.addParameter(value.split("=")[0], value.split("=")[1]);
         } else if (line.startsWith("Bewertungsart")) {
           zufallData.setBewertungType(BewertungType.fromString(line.trim().split(":")[1]));
         } else if (line.startsWith("Zufallszahlen")) {

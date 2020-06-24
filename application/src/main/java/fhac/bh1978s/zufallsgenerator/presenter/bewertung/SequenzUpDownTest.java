@@ -1,4 +1,4 @@
-package fhac.bh1978s.zufallsgenerator.presenter;
+package fhac.bh1978s.zufallsgenerator.presenter.bewertung;
 
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import java.math.BigInteger;
@@ -29,9 +29,8 @@ public class SequenzUpDownTest implements I_Bewertung<Double> {
   @Override
   public void berechneBewertung(List<Double> zufallszahlen) {
     ArrayList<Boolean> bitfolge = new ArrayList<>();
-    boolean maxK = zufallszahlen.size() > 11;
-    bitCounter = new int[maxK ? 10 : zufallszahlen.size() - 1];
-    int maxIteration = maxK ? 11 : zufallszahlen.size() - 1;
+    int itCount = Math.min(zufallszahlen.size(), 17) - 1;
+    bitCounter = new int[itCount];
 
     for (int i = 0; i < zufallszahlen.size() - 1; ++i) {
       bitfolge.add((zufallszahlen.get(i) <= zufallszahlen.get(i + 1)));
@@ -41,7 +40,7 @@ public class SequenzUpDownTest implements I_Bewertung<Double> {
     boolean last = bitfolge.get(0);
     bitCounter[counter]++;
 
-    for (int i = 1; i < maxIteration; ++i) {
+    for (int i = 1; i < itCount; ++i) {
       if (bitfolge.get(i) == last) {
         bitCounter[counter]--;
         counter++;
@@ -62,7 +61,7 @@ public class SequenzUpDownTest implements I_Bewertung<Double> {
 
     for (int i = 0; i < expCounter.length; ++i) {
       int k = i + 1;
-      double zaehlerP1 = (Math.pow(k, 2) + (3 * k) + 1) * n;
+      double zaehlerP1 = (Math.pow(k, 2) + (3 * k) + 1) * (n-1);
       double zaehlerP2 = (Math.pow(k, 3) + 3 * Math.pow(k, 2) - k - 4);
       double nenner = berechneFak(k + 3) / 2d;
       expCounter[i] = (zaehlerP1 - zaehlerP2) / nenner;

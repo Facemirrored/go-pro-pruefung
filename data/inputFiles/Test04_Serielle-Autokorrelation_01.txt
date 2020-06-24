@@ -1,4 +1,0 @@
-# Teste Bewertung Serielle-Autokorrelation
-Ziel:Bewertung
-Bewertungsart:Serielle-Autokorrelation
-Zufallszahlen:4, 7, 3, 12, 6, 4, 7, 3, 12, 6

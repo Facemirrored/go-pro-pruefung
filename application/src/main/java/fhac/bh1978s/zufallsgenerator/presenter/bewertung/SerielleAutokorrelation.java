@@ -1,6 +1,8 @@
-package fhac.bh1978s.zufallsgenerator.presenter;
+package fhac.bh1978s.zufallsgenerator.presenter.bewertung;
 
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +34,24 @@ public class SerielleAutokorrelation implements I_Bewertung<Double> {
   @Override
   public void berechneBewertung(List<Double> zufallszahlen) {
     rohList.clear();
-    double zaehler = 0, nenner = 0;
+    BigDecimal zaehler = BigDecimal.valueOf(0);
+    BigDecimal nenner = BigDecimal.valueOf(0);
 
     // Statistisch Sinnvoll für bis zu circa 1/3 aller Zahlen
-    for (int k = 0; k < Math.ceil(zufallszahlen.size() / 3f); ++k) {
+    for (int k = 0; k < Math.ceil(zufallszahlen.size()); ++k) {
+
+      zaehler = BigDecimal.valueOf(0);
+      nenner = BigDecimal.valueOf(0);
 
       for (int i = 0; i < zufallszahlen.size() - k; ++i) {
-        zaehler += ((zufallszahlen.get(i) - m) * (zufallszahlen.get(i + k) - m));
-        nenner += Math.pow(zufallszahlen.get(i) - m, 2);
+        zaehler = zaehler
+            .add((BigDecimal.valueOf(zufallszahlen.get(i)).subtract(BigDecimal.valueOf(m)))
+                .multiply(
+                    BigDecimal.valueOf(zufallszahlen.get(i + k)).subtract(BigDecimal.valueOf(m))));
+        nenner = nenner.add(BigDecimal.valueOf(Math.pow(zufallszahlen.get(i) - m, 2)));
       }
 
-      rohList.add(zaehler / nenner);
+      rohList.add(zaehler.divide(nenner, new MathContext(100)).doubleValue());
     }
   }
 }

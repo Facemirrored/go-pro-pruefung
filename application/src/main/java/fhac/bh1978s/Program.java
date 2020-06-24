@@ -3,6 +3,7 @@ package fhac.bh1978s;
 import fhac.bh1978s.view.TextFileWriter;
 import fhac.bh1978s.view.TextFileReader;
 import fhac.bh1978s.zufallsgenerator.MainPresenter;
+import java.math.BigDecimal;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 

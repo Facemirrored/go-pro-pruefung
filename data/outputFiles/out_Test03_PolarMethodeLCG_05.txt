@@ -1,0 +1,12 @@
+-----INPUT-----
+# Teste Polar Methode
+Ziel:Zufallsgenerierung
+Generator:Polar-Methode
+Polar-Method-Parameter:Generator=Linear-Kongruenz-Generator
+LCG-Parameter:m=2147483648,a=1103515245,c=12345,x0=12345,n=2,divide=true
+
+
+-----OUTPUT-----
+Zufallszahlen:
+0	:	1.1411924119971343E-5
+1	:	1.3005919920279903

@@ -11,7 +11,7 @@ public class ZufallData {
   private Ziel ziel;
   private GeneratorType generatorType;
   private BewertungType bewertungType;
-  private HashMap<String, Long> parameterList;
+  private HashMap<String, String> parameterList = new HashMap<>();
   private List<Double> zufallszahlen;
   private int n;
 
@@ -23,12 +23,20 @@ public class ZufallData {
     this.n = n;
   }
 
-  public HashMap<String, Long> getParameterList() {
+  public HashMap<String, String> getParameterList() {
     return parameterList;
   }
 
-  public void setParameterList(HashMap<String, Long> parameterList) {
+  public void setParameterList(HashMap<String, String> parameterList) {
     this.parameterList = parameterList;
+  }
+
+  public void addParameter(String key, String value) {
+    parameterList.put(key, value);
+  }
+
+  public void addParameter(final HashMap<String, String> hashMap) {
+    parameterList.putAll(hashMap);
   }
 
   public Ziel getZiel() {

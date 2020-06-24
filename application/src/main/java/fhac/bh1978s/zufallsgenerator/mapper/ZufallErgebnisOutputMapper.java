@@ -4,8 +4,8 @@ import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
 import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_OutputMapper;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
-import fhac.bh1978s.zufallsgenerator.presenter.SequenzUpDownTest;
-import fhac.bh1978s.zufallsgenerator.presenter.SerielleAutokorrelation;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
 
 public class ZufallErgebnisOutputMapper implements I_OutputMapper<ZufallErgebnisData, TextFile> {
 
@@ -28,7 +28,7 @@ public class ZufallErgebnisOutputMapper implements I_OutputMapper<ZufallErgebnis
       if (internContent.getBewertung() instanceof SequenzUpDownTest) {
         SequenzUpDownTest sequenzUpDownTest = (SequenzUpDownTest) internContent.getBewertung();
         textFile.addContent(BewertungType.SEQUENZ_UP_DOWN_TEST.getBewertungType()
-            + "-Ergebnis:\nk\tCalc: N(k)\tExp: N(k)\n");
+            + "-Ergebnis:\nk\tCalc: N(k)\t\tExp: N(k)\n");
 
         for (int i = 0; i < sequenzUpDownTest.getBitCounter().length; ++i) {
           textFile
@@ -42,7 +42,7 @@ public class ZufallErgebnisOutputMapper implements I_OutputMapper<ZufallErgebnis
         textFile.addContent(BewertungType.SERIELLE_AUTOKORRELATION.getBewertungType()
             + "-Ergebnis:\nk\tCalc: Roh(k)\n");
         for (int i = 0; i < serielleAutokorrelation.getRohList().size(); ++i) {
-          textFile.addContent((i + 1) + "\t" + serielleAutokorrelation.getRohList().get(i) + "\n");
+          textFile.addContent(i + "\t" + serielleAutokorrelation.getRohList().get(i) + "\n");
         }
       }
     }

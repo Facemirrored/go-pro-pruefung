@@ -4,7 +4,8 @@ public enum LcgParameter {
   MODUL("m"),
   MULTIPLIKATOR("a"),
   INKREMENT("c"),
-  STARTWERT("x0");
+  STARTWERT("x0"),
+  DIVIDE("divide");
 
   private String lcgParameter;
 

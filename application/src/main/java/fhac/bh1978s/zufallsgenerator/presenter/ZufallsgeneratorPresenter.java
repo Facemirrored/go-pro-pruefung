@@ -3,9 +3,15 @@ package fhac.bh1978s.zufallsgenerator.presenter;
 import fhac.bh1978s.exception.BerechnungException;
 import fhac.bh1978s.zufallsgenerator.enumeration.BjarnscheParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
+import fhac.bh1978s.zufallsgenerator.enumeration.PolarMethodParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
+import fhac.bh1978s.zufallsgenerator.presenter.generator.BjarnscheZufallsmethode;
+import fhac.bh1978s.zufallsgenerator.presenter.generator.LcgGenerator;
+import fhac.bh1978s.zufallsgenerator.presenter.generator.PolarMethod;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.List;
@@ -23,26 +29,41 @@ public class ZufallsgeneratorPresenter {
     init();
   }
 
+  private LcgGenerator generateLCG() {
+    return new LcgGenerator(
+        Long.parseLong(
+            zufallData.getParameterList().get(LcgParameter.MODUL.getLcgParameter())),
+        Long.parseLong(
+            zufallData.getParameterList().get(LcgParameter.MULTIPLIKATOR.getLcgParameter())),
+        Long.parseLong(
+            zufallData.getParameterList().get(LcgParameter.INKREMENT.getLcgParameter())),
+        Long.parseLong(
+            zufallData.getParameterList().get(LcgParameter.STARTWERT.getLcgParameter())),
+        zufallData.getN(),
+        (zufallData.getParameterList().get(LcgParameter.DIVIDE.getLcgParameter()).equals("true")));
+  }
+
   @SuppressWarnings("unchecked")
   private void init() {
     if (zufallData.getGeneratorType() != null) {
       switch (zufallData.getGeneratorType()) {
         case LCG:
-          generatorklasse = new LcgGenerator(
-              zufallData.getParameterList().get(LcgParameter.MODUL.getLcgParameter()),
-              zufallData.getParameterList().get(LcgParameter.MULTIPLIKATOR.getLcgParameter()),
-              zufallData.getParameterList().get(LcgParameter.INKREMENT.getLcgParameter()),
-              zufallData.getParameterList().get(LcgParameter.STARTWERT.getLcgParameter()),
-              zufallData.getN());
+          generatorklasse = generateLCG();
           break;
         case POLAR_METHOD:
-          generatorklasse = new PolarMethod();
+          if (zufallData.getParameterList()
+              .get(PolarMethodParameter.GENERATOR.getPolarMethodParameter()) != null) {
+            generatorklasse = new PolarMethod(generateLCG());
+          } else {
+            generatorklasse = new PolarMethod();
+          }
           break;
         case BJARNSCHE_ZUFALLSMETHODE:
           generatorklasse = new BjarnscheZufallsmethode(
-              zufallData.getParameterList().get(BjarnscheParameter.MODUL.getBjarnscheParameter()),
-              zufallData.getParameterList()
-                  .get(BjarnscheParameter.STARTWERT.getBjarnscheParameter()),
+              Long.parseLong(zufallData.getParameterList()
+                  .get(BjarnscheParameter.MODUL.getBjarnscheParameter())),
+              Long.parseLong(zufallData.getParameterList()
+                  .get(BjarnscheParameter.STARTWERT.getBjarnscheParameter())),
               zufallData.getN());
           break;
         default:
