@@ -10,4 +10,4 @@ Fehlermeldung:
 Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
 
 Details:
-Trennung mit <:> von String <LCG-Parameter3m=10,a=2,c=0,x0=1,n=10, divide=false> nicht möglich.
+Trennung mit <:> von <LCG-Parameter3m=10,a=2,c=0,x0=1,n=10, divide=false> nicht möglich.

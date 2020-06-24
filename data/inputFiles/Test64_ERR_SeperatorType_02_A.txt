@@ -1,0 +1,4 @@
+# Teste Berechnung Bjarnsche-Zufallsmethode
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=20x0=1,n=100

@@ -10,4 +10,4 @@ Fehlermeldung:
 Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
 
 Details:
-Trennung mit <:> von String <Generator'Linear-Kongruenz-Generator> nicht möglich.
+Trennung mit <:> von <Generator'Linear-Kongruenz-Generator> nicht möglich.

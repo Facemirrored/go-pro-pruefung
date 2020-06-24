@@ -10,4 +10,4 @@ Fehlermeldung:
 Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
 
 Details:
-Trennung mit <:> von String <Ziel-Zufallsgenerierung> nicht möglich.
+Trennung mit <:> von <Ziel-Zufallsgenerierung> nicht möglich.
