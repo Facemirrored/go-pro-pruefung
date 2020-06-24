@@ -1,0 +1,10 @@
+-----INPUT-----
+# Teste Polar Methode ohne Generatorangabe (Verwendung von Math.random)
+Ziel:Zufallsgenerierung
+Generator:Polar-Methode
+
+
+-----OUTPUT-----
+Zufallszahlen:
+0	:	-0.2382443817991446
+1	:	-0.1625533963699073

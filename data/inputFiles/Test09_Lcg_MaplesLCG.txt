@@ -1,0 +1,4 @@
+# Teste LCG-Generator mit Maple's LCG-Parameter
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+LCG-Parameter:m=999999999989,a=427419669081,c=0,x0=1,n=250, divide=false

@@ -1,0 +1,4 @@
+# Teste LCG-Generator mit NAG's LCG-Parameter
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+LCG-Parameter:m=576460752303423488,a=302875106592253,c=0,x0=12345678,n=100, divide=false

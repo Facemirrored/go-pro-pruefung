@@ -1,4 +1,4 @@
-# Teste LCG-Generator
+# Teste LCG-Generator mit einfachen Parametern und Einschraenkung auf I[0;1]
 Ziel:Zufallsgenerierung
 Generator:Linear-Kongruenz-Generator
 LCG-Parameter:m=10,a=2,c=0,x0=1,n=10, divide=true

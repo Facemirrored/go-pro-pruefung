@@ -1,4 +1,4 @@
-# Teste LCG-Generator
+# Teste LCG-Generator mit ANSI-C Parameter
 Ziel:Zufallsgenerierung
 Generator:Linear-Kongruenz-Generator
 LCG-Parameter:m=2147483648,a=1103515245,c=12345,x0=12345,n=17, divide=false
