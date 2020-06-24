@@ -1,0 +1,4 @@
+# Teste Bewertung Bjarnsche-Guetefunktion
+Ziel:Bewertung
+Bewertungsart#Bjarnsche-Guetefunktion
+Zufallszahlen: 2, 3, 4, 2, 2, 2, 1, 4, 3, 2

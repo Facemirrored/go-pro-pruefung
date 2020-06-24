@@ -5,6 +5,7 @@ import fhac.bh1978s.exception.ZufallMappingException;
 import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
 import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
+import fhac.bh1978s.zufallsgenerator.enumeration.MappingSeperatorType;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_InputMapper;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData> {
-// TODO: generelle unerlaunte Zeichen? Kein : zB
+
+  // TODO: generelle unerlaunte Zeichen? Kein : zB
   @Override
   public ZufallData mapToInternFormat(TextFile externContent) throws ZufallMappingException {
     String content = externContent.getContent();
@@ -20,12 +22,14 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     try {
       for (String line : content.split("\n")) {
         if (line.startsWith("Ziel")) {
-          zufallData.setZiel(Ziel.fromString(line.trim().split(":")[1]));
+          zufallData.setZiel(
+              Ziel.fromString(seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR)));
         } else if (line.startsWith("Generator")) {
-          zufallData.setGeneratorType(GeneratorType.fromString(line.trim().split(":")[1]));
+          zufallData.setGeneratorType(GeneratorType
+              .fromString(seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR)));
         } else if (line.startsWith("LCG-Parameter") ||
             line.startsWith("Bjarnsche-Zufallsmethode-Parameter")) {
-          String values = line.trim().split(":")[1];
+          String values = seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR);
           HashMap<String, String> parameterHashMap = new HashMap<>();
 
           for (String keyValue : values.trim().split(",")) {
@@ -39,10 +43,11 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
 
           zufallData.addParameter(parameterHashMap);
         } else if (line.startsWith("Polar-Method-Parameter")) {
-          String value = line.trim().split(":")[1];
+          String value = seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR);
           zufallData.addParameter(value.split("=")[0], value.split("=")[1]);
         } else if (line.startsWith("Bewertungsart")) {
-          zufallData.setBewertungType(BewertungType.fromString(line.trim().split(":")[1]));
+          zufallData.setBewertungType(BewertungType
+              .fromString(seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR)));
         } else if (line.startsWith("Zufallszahlen")) {
           String values = line.trim().split(":")[1];
           ArrayList<Double> zufallszahlen = new ArrayList<>();
@@ -61,5 +66,15 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     }
 
     return zufallData;
+  }
+
+  private String seperatorSplit(final String line, final MappingSeperatorType type)
+      throws ParameterException {
+    String[] seperatorSplit = line.trim().split(type.getString());
+    if (seperatorSplit.length == 1) {
+      throw new ParameterException(
+          "Trennung mit <" + type.getString() + "> von String <" + line + "> nicht möglich.");
+    }
+    return seperatorSplit[1];
   }
 }

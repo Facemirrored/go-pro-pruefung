@@ -1,0 +1,3 @@
+# Teste Polar Methode ohne Generatorangabe (Verwendung von Math.random)
+Ziel:Zufallsgenerierung
+Generator+Polar-Methode
