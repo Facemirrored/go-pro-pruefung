@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.mapper;
 
+import fhac.bh1978s.exception.ParameterException;
 import fhac.bh1978s.exception.ZufallMappingException;
 import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData> {
-
+// TODO: generelle unerlaunte Zeichen? Kein : zB
   @Override
   public ZufallData mapToInternFormat(TextFile externContent) throws ZufallMappingException {
     String content = externContent.getContent();
@@ -49,11 +50,14 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
             zufallszahlen.add(Double.valueOf(val.trim()));
           }
           zufallData.setZufallszahlen(zufallszahlen);
+        } else {
+          // TODO: UNNEKANNTE ZEILE!!!!
         }
       }
-    } catch (NumberFormatException nfe) {
+    } catch (ParameterException pe) {
       throw new ZufallMappingException(
-          "Zufallszahlen konnten nicht extrahiert werden, bitte überprüfen.");
+          "Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.\n\nDetails:\n"
+              + pe.getMessage());
     }
 
     return zufallData;

@@ -1,0 +1,4 @@
+# Teste Bewertung Sequenz-Up-Down-Test mit Ergebnis aus Test01
+Ziel:Bewertung
+Bewertungsart:lol
+Zufallszahlen:1.0,2.0,4.0,8.0,6.0,2.0,4.0,8.0,6.0,2.0

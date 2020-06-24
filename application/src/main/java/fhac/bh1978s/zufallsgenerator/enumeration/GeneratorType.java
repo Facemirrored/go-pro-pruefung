@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+import fhac.bh1978s.exception.ParameterException;
 import fhac.bh1978s.exception.ZufallMappingException;
 
 public enum GeneratorType {
@@ -17,13 +18,13 @@ public enum GeneratorType {
     return generatorType;
   }
 
-  public static GeneratorType fromString(final String g) throws ZufallMappingException {
+  public static GeneratorType fromString(final String g) throws ParameterException {
     for (GeneratorType generatorEnum : GeneratorType.values()) {
       if (generatorEnum.generatorType.equalsIgnoreCase(g)) {
         return generatorEnum;
       }
     }
 
-    throw new ZufallMappingException("Generator <" + g + "> unbekannt. Bitte Überprüfen.");
+    throw new ParameterException("Generator <" + g + "> unbekannt.");
   }
 }

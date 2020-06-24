@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+import fhac.bh1978s.exception.ParameterException;
 import fhac.bh1978s.exception.ZufallMappingException;
 
 public enum BewertungType {
@@ -17,13 +18,13 @@ public enum BewertungType {
     return bewertungType;
   }
 
-  public static BewertungType fromString(final String b) throws ZufallMappingException {
+  public static BewertungType fromString(final String b) throws ParameterException {
     for (BewertungType bewertungEnum : BewertungType.values()) {
       if (bewertungEnum.bewertungType.equalsIgnoreCase(b)) {
         return bewertungEnum;
       }
     }
 
-    throw new ZufallMappingException("Generator <" + b + "> unbekannt. Bitte Überprüfen.");
+    throw new ParameterException("Bewertung <" + b + "> unbekannt.");
   }
 }

@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+import fhac.bh1978s.exception.ParameterException;
 import fhac.bh1978s.exception.ZufallMappingException;
 
 public enum Ziel {
@@ -16,13 +17,13 @@ public enum Ziel {
     return ziel;
   }
 
-  public static Ziel fromString(final String z) throws ZufallMappingException {
+  public static Ziel fromString(final String z) throws ParameterException {
     for (Ziel zielEnum : Ziel.values()) {
       if (zielEnum.ziel.equalsIgnoreCase(z)) {
         return zielEnum;
       }
     }
 
-    throw new ZufallMappingException("Ziel <" + z + "> unbekannt. Bitte Überprüfen.");
+    throw new ParameterException("Ziel <" + z + "> unbekannt.");
   }
 }

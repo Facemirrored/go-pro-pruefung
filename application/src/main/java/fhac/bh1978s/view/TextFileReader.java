@@ -82,7 +82,7 @@ public class TextFileReader implements I_FileReader<TextFile>, I_FilePathHandler
       textFile.setName("TE1_" + file);
       textFile.setContent("ERROR:\tFehler beim Lesen der Datei <" + inputFileLocation + "\\" + file
           + ">.\nPrüfen Sie die Gültigkeit sowie Zugriff der Datei und versuchen Sie es erneut.\n\n"
-          + "Technische Fehlermeldung:\n" + io.getMessage());
+          + "Details:\n" + io.getMessage());
     }
 
     return textFile;

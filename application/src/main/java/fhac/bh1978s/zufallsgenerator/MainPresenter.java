@@ -64,44 +64,37 @@ public class MainPresenter {
           ZufallErgebnisData zufallErgebnisData = zufallsgenerator.generiere();
 
           TextFile ergebnisTextFile = new TextFile(textFile.getName());
-          ergebnisTextFile.addContent("-----INPUT-----\n");
-          ergebnisTextFile.addContent(textFile.getContent());
-          ergebnisTextFile.addContent("\n\n-----OUTPUT-----\n");
-          ergebnisTextFile.addContent(
-              externMapper.mapToExternFormat(zufallErgebnisData).getContent());
+          ergebnisTextFile.setContent(buildInputHeader(textFile));
+          ergebnisTextFile
+              .addContent(externMapper.mapToExternFormat(zufallErgebnisData).getContent());
           textfileOutput.add(ergebnisTextFile);
           System.out.println("Datei <" + textFile.getName()
               + "> berechnet. Ergebnis befindet sich im Ausgabe-Pfad.");
+
+
         } catch (ZufallMappingException zme) {
           System.out.println("Semantikfehler in der Datei <" + textFile.getName()
               + "> entdeckt. Details stehen in der Ausgabe-Datei.");
           TextFile errorFile = new TextFile(textFile.getName());
-
-          StringBuilder sb = new StringBuilder();
-          sb.append(textFile.getContent())
-              .append("\n\n")
-              .append("Fehlermeldung:\n")
-              .append(zme.getMessage());
-
-          errorFile.setContent(sb.toString());
+          errorFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + zme.getMessage());
           textfileOutput.add(errorFile);
+
+
         } catch (BerechnungException be) {
           System.out.println("Fehler beim Berechnen der Datei <" + textFile.getName()
               + ">. Details in der Ausgabe-Datei.");
           TextFile errorFile = new TextFile(textFile.getName());
-
-          StringBuilder sb = new StringBuilder();
-          sb.append(textFile.getContent())
-              .append("\n\n")
-              .append("Fehlermeldung:\n")
-              .append(be.getMessage());
-
-          errorFile.setContent(sb.toString());
+          errorFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + be.getMessage());
           textfileOutput.add(errorFile);
+
         } finally {
           fileWriter.saveFiles(textfileOutput);
         }
       }
     });
+  }
+
+  private String buildInputHeader(final TextFile textFile) {
+    return "-----INPUT-----\n" + textFile.getContent() + "\n\n-----OUTPUT-----\n";
   }
 }
