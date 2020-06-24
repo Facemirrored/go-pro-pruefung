@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Bewertung Bjarnsche-Guetefunktion
+Ziel:Bewertung
+Bewertungsart:Bjarnsche-Guetefunktion
+Zufallszahlen> 2, 3, 4, 2, 2, 2, 1, 4, 3, 2
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+
+Details:
+Trennung mit <:> von String <Zufallszahlen> 2, 3, 4, 2, 2, 2, 1, 4, 3, 2> nicht möglich.

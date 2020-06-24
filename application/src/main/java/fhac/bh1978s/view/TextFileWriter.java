@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Die IOTextFileWriter-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
@@ -56,6 +57,20 @@ public class TextFileWriter implements I_FileWriter<TextFile>, I_FilePathHandler
         System.out.println("\n\nException Info:\n" + io.getMessage());
       }
     });
+  }
+
+  @Override
+  public void emptyFolder() {
+    final File outputPath = new File(outputFileLocation);
+    for (File file : Objects.requireNonNull(outputPath.listFiles())) {
+      if (!file.isDirectory()) {
+        boolean success = file.delete();
+        if (!success) {
+          System.out.println("Datei <" + file
+              + "> konnte nicht gelöscht werden. Beachten Sie, dass diese Datei von einer vorherigen Ausührung stammt.");
+        }
+      }
+    }
   }
 
   /**

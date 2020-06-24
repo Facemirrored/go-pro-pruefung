@@ -49,7 +49,7 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
           zufallData.setBewertungType(BewertungType
               .fromString(seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR)));
         } else if (line.startsWith("Zufallszahlen")) {
-          String values = line.trim().split(":")[1];
+          String values = seperatorSplit(line, MappingSeperatorType.PARAMETER_SEPERATOR);
           ArrayList<Double> zufallszahlen = new ArrayList<>();
           for (String val : values.trim().split(",")) {
             zufallszahlen.add(Double.valueOf(val.trim()));

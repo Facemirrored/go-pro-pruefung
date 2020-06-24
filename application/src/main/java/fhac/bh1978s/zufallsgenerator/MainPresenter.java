@@ -46,6 +46,7 @@ public class MainPresenter {
    * Deligierung an weitere Presenter.
    */
   public void start() {
+    fileWriter.emptyFolder();
     final List<TextFile> textFileContent = fileReader.readAllFiles();
     System.out.println("\t- Lesen von Input-Dateien abgeschlossen. Starte mit Verarbeitung...\n");
 
