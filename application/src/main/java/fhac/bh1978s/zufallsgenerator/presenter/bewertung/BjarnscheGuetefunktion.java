@@ -19,7 +19,7 @@ public class BjarnscheGuetefunktion implements I_Bewertung<Double> {
   @Override
   public void berechneBewertung(List<Double> zufallszahlen) {
     ArrayList<Boolean> bitfolge = new ArrayList<>();
-    int itCount = Math.min(zufallszahlen.size(), 17) - 1;
+    int itCount = Math.min(zufallszahlen.size() - 1, 17) - 1;
     bitCounter = new int[itCount];
 
     double abstand = Math.abs(zufallszahlen.get(1) - zufallszahlen.get(0));

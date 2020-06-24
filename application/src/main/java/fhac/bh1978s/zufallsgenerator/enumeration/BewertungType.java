@@ -4,7 +4,8 @@ import fhac.bh1978s.exception.ZufallMappingException;
 
 public enum BewertungType {
   SERIELLE_AUTOKORRELATION("Serielle-Autokorrelation"),
-  SEQUENZ_UP_DOWN_TEST("Sequenz-Up-Down-Test");
+  SEQUENZ_UP_DOWN_TEST("Sequenz-Up-Down-Test"),
+  BJARNSCHE_GUETEFUNKTION("Bjarnsche-Guetefunktion");
 
   BewertungType(final String bewertungType) {
     this.bewertungType = bewertungType;

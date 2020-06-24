@@ -4,6 +4,7 @@ import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
 import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_OutputMapper;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.BjarnscheGuetefunktion;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
 
@@ -43,6 +44,16 @@ public class ZufallErgebnisOutputMapper implements I_OutputMapper<ZufallErgebnis
             + "-Ergebnis:\nk\tCalc: Roh(k)\n");
         for (int i = 0; i < serielleAutokorrelation.getRohList().size(); ++i) {
           textFile.addContent(i + "\t" + serielleAutokorrelation.getRohList().get(i) + "\n");
+        }
+      } else if (internContent.getBewertung() instanceof BjarnscheGuetefunktion) {
+        BjarnscheGuetefunktion bjarnscheGuetefunktion = (BjarnscheGuetefunktion) internContent
+            .getBewertung();
+        textFile.addContent(BewertungType.BJARNSCHE_GUETEFUNKTION.getBewertungType()
+            + "-Ergebnis:\nk\tCalc: N(k)\n");
+
+        for (int i = 0; i < bjarnscheGuetefunktion.getBitCounter().length; ++i) {
+          textFile
+              .addContent(i + "\t" + bjarnscheGuetefunktion.getBitCounter()[i] + "\n");
         }
       }
     }

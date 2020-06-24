@@ -7,6 +7,7 @@ import fhac.bh1978s.zufallsgenerator.enumeration.PolarMethodParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
+import fhac.bh1978s.zufallsgenerator.presenter.bewertung.BjarnscheGuetefunktion;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
 import fhac.bh1978s.zufallsgenerator.presenter.generator.BjarnscheZufallsmethode;
@@ -77,6 +78,9 @@ public class ZufallsgeneratorPresenter {
         case SERIELLE_AUTOKORRELATION:
           bewertung = new SerielleAutokorrelation(0.5);
           break;
+        case BJARNSCHE_GUETEFUNKTION:
+          bewertung = new BjarnscheGuetefunktion();
+          break;
         default:
           bewertung = null;
       }
@@ -95,6 +99,11 @@ public class ZufallsgeneratorPresenter {
       serielleAutokorrelation
           .berechneBewertung(zufallData.getZufallszahlen());
       zufallErgebnisData.setBewertung(serielleAutokorrelation);
+    } else if (bewertung instanceof BjarnscheGuetefunktion) {
+      BjarnscheGuetefunktion bjarnscheGuetefunktion = (BjarnscheGuetefunktion) bewertung;
+      bjarnscheGuetefunktion
+          .berechneBewertung(zufallData.getZufallszahlen());
+      zufallErgebnisData.setBewertung(bjarnscheGuetefunktion);
     }
   }
 
