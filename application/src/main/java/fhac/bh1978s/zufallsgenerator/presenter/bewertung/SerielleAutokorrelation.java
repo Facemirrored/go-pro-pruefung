@@ -34,11 +34,10 @@ public class SerielleAutokorrelation implements I_Bewertung<Double> {
   @Override
   public void berechneBewertung(List<Double> zufallszahlen) {
     rohList.clear();
-    BigDecimal zaehler = BigDecimal.valueOf(0);
-    BigDecimal nenner = BigDecimal.valueOf(0);
+    BigDecimal zaehler, nenner;
 
-    // Statistisch Sinnvoll für bis zu circa 1/3 aller Zahlen
-    for (int k = 0; k < Math.ceil(zufallszahlen.size()); ++k) {
+    // Statistisch Sinnvoll für bis zu circa 1/2 aller Zahlen
+    for (int k = 0; k < Math.ceil(zufallszahlen.size() / 2f); ++k) {
 
       zaehler = BigDecimal.valueOf(0);
       nenner = BigDecimal.valueOf(0);

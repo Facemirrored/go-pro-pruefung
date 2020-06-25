@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
+import fhac.bh1978s.exception.BerechnungException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -19,7 +20,17 @@ public class BjarnscheZufallsmethode implements I_Generatorklasse<Double> {
   }
 
   @Override
-  public List<Double> generiereZufall() {
+  public List<Double> generiereZufall() throws BerechnungException {
+    if (m <= 0 || m >= Math.pow(2, 64) - 1) {
+      throw new BerechnungException("LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
+    } else if (x0 < 0 || x0 >= m) {
+      throw new BerechnungException(
+          "LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)");
+    } else if (n < 1 || n > 50000) {
+      throw new BerechnungException(
+          "LCG-Parameter n befindet sich nicht zwischen 0 und 50000 (inklusiv).");
+    }
+
     Long[] zufallszahlen = new Long[n];
     boolean change = true;
     Long date = Calendar.getInstance().getTime().getTime();

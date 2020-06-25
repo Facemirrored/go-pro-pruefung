@@ -1,0 +1,4 @@
+# Teste Grenzwert, x0 zu klein
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=100,x0=-1,n=100

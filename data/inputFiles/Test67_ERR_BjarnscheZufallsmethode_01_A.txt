@@ -1,0 +1,4 @@
+# Teste Grenzwert, n zu gross
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=20,x0=1,n=50001

@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Grenzwert, x0 zu gross
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=100,x0=100,n=100
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+
+Details:
+LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)

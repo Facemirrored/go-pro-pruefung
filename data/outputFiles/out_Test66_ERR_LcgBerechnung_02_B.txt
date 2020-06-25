@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Grenzwert, m zu klein
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+LCG-Parameter:m=0,a=630360016,c=0,x0=1,n=677, divide=true
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+
+Details:
+LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)

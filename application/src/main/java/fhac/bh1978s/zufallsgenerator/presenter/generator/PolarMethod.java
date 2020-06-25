@@ -1,5 +1,7 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
+import com.sun.jndi.ldap.Ber;
+import fhac.bh1978s.exception.BerechnungException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class PolarMethod implements I_Generatorklasse<Double> {
   private I_Generatorklasse generatorklasse;
   private double u;
   private double v;
+  private int counter = 0;
 
   public PolarMethod() {
   }
@@ -18,7 +21,7 @@ public class PolarMethod implements I_Generatorklasse<Double> {
   }
 
   @Override
-  public List<Double> generiereZufall() {
+  public List<Double> generiereZufall() throws BerechnungException {
     ArrayList<Double> zufallList = new ArrayList<>();
 
     double p, q;
@@ -42,7 +45,15 @@ public class PolarMethod implements I_Generatorklasse<Double> {
     return zufallList;
   }
 
-  private void generiereParameter() {
+  private void generiereParameter() throws BerechnungException {
+    // Ohne Mocking nicht testbar
+    if (counter == 10000) {
+      throw new BerechnungException(
+          "Initiale Zufallszahlengenerierung für Polar-Methode nach " + counter
+              + " versuchen gescheitert.");
+    }
+
+    counter++;
     if (this.generatorklasse == null) {
       u = Math.random() * 2 - 1;
       v = Math.random() * 2 - 1;

@@ -1,0 +1,4 @@
+# Teste Grenzwert, m zu klein
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+LCG-Parameter:m=0,a=630360016,c=0,x0=1,n=677, divide=true

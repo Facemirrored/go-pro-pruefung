@@ -55,7 +55,7 @@ public class MainPresenter {
     textFileContent.forEach(textFile -> {
 
       if (textFile.isError()) {
-        System.out.println("Fehler beim Lesen der Datei <" + textFile.getName()
+        System.out.println("ERR:\tFehler beim Lesen der Datei <" + textFile.getName()
             + ">. Fehlermeldung befindet sich in der Ausgabe-Datei.");
         textfileOutput.add(textFile);
       } else {
@@ -74,7 +74,7 @@ public class MainPresenter {
 
 
         } catch (ZufallMappingException zme) {
-          System.out.println("Semantikfehler in der Datei <" + textFile.getName()
+          System.out.println("ERR:\tSemantikfehler in der Datei <" + textFile.getName()
               + "> entdeckt. Details stehen in der Ausgabe-Datei.");
           TextFile errorFile = new TextFile(textFile.getName());
           errorFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + zme.getMessage());
@@ -82,10 +82,12 @@ public class MainPresenter {
 
 
         } catch (BerechnungException be) {
-          System.out.println("Fehler beim Berechnen der Datei <" + textFile.getName()
+          System.out.println("ERR:\tBerechnungsfehler in der Datei <" + textFile.getName()
               + ">. Details in der Ausgabe-Datei.");
           TextFile errorFile = new TextFile(textFile.getName());
-          errorFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + be.getMessage());
+          errorFile.setContent(buildInputHeader(textFile)
+              + "Fehlermeldung:\nFehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.\n\nDetails:\n"
+              + be.getMessage());
           textfileOutput.add(errorFile);
 
         } finally {

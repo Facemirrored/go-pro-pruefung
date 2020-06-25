@@ -1,5 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
+import fhac.bh1978s.exception.BerechnungException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.math.BigInteger;
 import java.security.InvalidParameterException;
@@ -25,24 +26,24 @@ public class LcgGenerator implements I_Generatorklasse<Double> {
   }
 
   @Override
-  public List<Double> generiereZufall() throws InvalidParameterException {
+  public List<Double> generiereZufall() throws BerechnungException {
 
     ArrayList<Long> zufallList = new ArrayList<>();
 
-    if (m <= 0) {
-      throw new InvalidParameterException("Parameter m ist kleiner gleich 0.");
+    if (m <= 0 || m >= Math.pow(2, 64) - 1) {
+      throw new BerechnungException("LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
     } else if (a < 0 || a >= m) {
-      throw new InvalidParameterException(
-          "Parameter a befindet sich nicht zwischen 0 und m (inklusiv).");
+      throw new BerechnungException(
+          "LCG-Parameter a befindet sich nicht zwischen 0 und m.");
     } else if (c < 0 || c >= m) {
-      throw new InvalidParameterException(
-          "Parameter c befindet sich nicht zwischen 0 und m (inklusiv).");
+      throw new BerechnungException(
+          "LCG-Parameter c befindet sich nicht zwischen 0 und m (inklusiv).");
     } else if (x0 < 0 || x0 >= m) {
-      throw new InvalidParameterException(
-          "Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)");
-    } else if (n < 1) {
-      throw new InvalidParameterException(
-          "Parameter n kleiner 1. Mindestens eine Zahl wird benötigt.");
+      throw new BerechnungException(
+          "LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)");
+    } else if (n < 1 || n > 50000) {
+      throw new BerechnungException(
+          "LCG-Parameter n befindet sich nicht zwischen 0 und 50000 (inklusiv).");
     }
 
     zufallList.add(x0);
