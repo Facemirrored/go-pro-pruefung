@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<jprogram code="&#34;// package and import&#34;,&#34;package fhac.bh1978s.zufallsgenerator.presenter.generator;&#34;,&#34;&#34;,&#34;import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;&#34;,&#34;import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;&#34;,&#34;import java.util.Arrays;&#34;,&#34;import java.util.Calendar;&#34;,&#34;import java.util.List;&#34;" comment="&#34;@source: C:\Gothaer\home\Projects\go-pro-pruefung\application\src\main\java\fhac\bh1978s\zufallsgenerator\presenter\generator\BjarnscheZufallsmethode.nsd&#34;,&#34;@JStruct: 1.02.01 Parser: javac 1.8.0_31&#34;" font="SansSerif" fontSize="14" >
+		<children>
+		<jclass code="&#34;public class BjarnscheZufallsmethode  &#34;,&#34;    implements I_Generatorklasse&#60;Double&#62;;&#34;,&#34;/* class global variables */&#34;,&#34;private long m;&#34;,&#34;private int n;&#34;,&#34;private long x0;&#34;" comment="&#34; Die BjarnscheZufallsmethode vom Mathematiker Bjarne Herrmann 2020 entwickelt, basiert auf eine&#34;,&#34; alternierende Modulo Rechnung auf Basis eines Datums, eines Parameters des Modulos sowie eines&#34;,&#34; Startwertes x0&#34;" status="open" color="ffffff" >
+			<methods>
+			<method code="&#34;public  BjarnscheZufallsmethode(final long m,final long x0,final int n)&#34;" comment="" status="open" color="ffffff" >
+				<body>
+					<instruction code="&#34;this.m = m;&#34;,&#34;this.x0 = x0;&#34;,&#34;this.n = n;&#34;" comment="" color="ffffff" ></instruction>
+				</body>
+			</method>
+			<method code="&#34;@Override()&#34;,&#34;public  List&#60;Double&#62; generiereZufall() throws CalculationException&#34;" comment="" status="open" color="ffffff" >
+				<body>
+					<instruction code="&#34;m  := Modul&#34;,&#34;x0 := Startwert&#34;,&#34;n  := Anzahl&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<alternative code="&#34;m nicht zwischen 0 und long-range (2^64)&#34;,&#34;?&#34;" comment="&#34;&#34;" color="ffffff" >
+						<qTrue>
+							<instruction code="&#34;Werte CalculationException&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+						</qTrue>
+						<qFalse>
+							<alternative code="&#34;x0 nicht zwischen 0 und m&#34;,&#34;?&#34;" comment="&#34;&#34;" color="ffffff" >
+								<qTrue>
+									<instruction code="&#34;Werfe CalculationException&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+								</qTrue>
+								<qFalse>
+									<alternative code="&#34;n nicht zwischen 0 und 50001&#34;,&#34;?&#34;" comment="&#34;&#34;" color="ffffff" >
+										<qTrue>
+											<instruction code="&#34;Werfe CalculationException&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+										</qTrue>
+										<qFalse>
+										</qFalse>
+									</alternative>
+								</qFalse>
+							</alternative>
+						</qFalse>
+					</alternative>
+					<instruction code="&#34;zufallszahlen := Long-Array der Länge n&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<instruction code="&#34;change := true&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<instruction code="&#34;Long date := Calender::getTime::getTime-Funktion&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<instruction code="&#34;zufallszahlen[0] = x0;&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<instruction code="&#34;int counter = 0;&#34;" comment="" color="ffffff" ></instruction>
+					<for code="&#34;Iteriere von i = 1 bis i &#60; n durch Liste&#34;" comment="&#34;&#34;" color="ffffff" >
+						<qFor>
+							<alternative code="&#34;m + counter == 0&#34;,&#34;?&#34;" comment="" color="ffffff" >
+								<qTrue>
+									<instruction code="&#34;counter++;&#34;" comment="" color="ffffff" ></instruction>
+								</qTrue>
+								<qFalse>
+								</qFalse>
+							</alternative>
+							<alternative code="&#34;change&#34;,&#34;?&#34;" comment="" color="ffffff" >
+								<qTrue>
+									<instruction code="&#34;zufallszahlen[i] = (date - zufallszahlen[i - 1]) % (m + counter);&#34;" comment="" color="ffffff" ></instruction>
+								</qTrue>
+								<qFalse>
+									<instruction code="&#34;zufallszahlen[i] = (date + zufallszahlen[i - 1]) % (m - counter);&#34;" comment="" color="ffffff" ></instruction>
+								</qFalse>
+							</alternative>
+							<instruction code="&#34;change = !change;&#34;" comment="" color="ffffff" ></instruction>
+						</qFor>
+					</for>
+					<instruction code="&#34;finalArray := Double-Array der Länge zufallszahlen&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+					<for code="&#34;Iteriere durch zufallszahlen&#34;" comment="&#34;&#34;" color="ffffff" >
+						<qFor>
+							<instruction code="&#34;finalArray[i] = zufallszahlen[i] / Max(n, m)&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+						</qFor>
+					</for>
+					<instruction code="&#34;return finalArray als Liste&#34;" comment="&#34;&#34;" color="ffffff" ></instruction>
+				</body>
+			</method>
+			</methods>
+		</jclass>
+		</children>
+	</jprogram>

@@ -1,4 +1,4 @@
-package fhac.bh1978s.zufallsgenerator;
+package fhac.bh1978s;
 
 import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
 import fhac.bh1978s.programexception.ZufallMappingException;
@@ -74,19 +74,19 @@ public class MainPresenter {
         } catch (ZufallMappingException zme) {
           System.out.println("ERR:\tSemantikfehler in der Datei <" + textFile.getName()
               + "> entdeckt. Details stehen in der Ausgabe-Datei.");
-          TextFile errorFile = new TextFile(textFile.getName());
-          errorFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + zme.getMessage());
-          textfileOutput.add(errorFile);
+          TextFile errorTextFile = new TextFile(textFile.getName());
+          errorTextFile.setContent(buildInputHeader(textFile) + "Fehlermeldung:\n" + zme.getMessage());
+          textfileOutput.add(errorTextFile);
 
 
         } catch (CalculationException be) {
           System.out.println("ERR:\tBerechnungsfehler in der Datei <" + textFile.getName()
               + ">. Details in der Ausgabe-Datei.");
-          TextFile errorFile = new TextFile(textFile.getName());
-          errorFile.setContent(buildInputHeader(textFile)
+          TextFile errorTextFile = new TextFile(textFile.getName());
+          errorTextFile.setContent(buildInputHeader(textFile)
               + "Fehlermeldung:\nFehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.\n\nDetails:\n"
               + be.getMessage());
-          textfileOutput.add(errorFile);
+          textfileOutput.add(errorTextFile);
 
         } finally {
           fileWriter.saveFiles(textfileOutput);
