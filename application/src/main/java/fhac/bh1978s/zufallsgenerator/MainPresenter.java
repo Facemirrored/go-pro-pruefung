@@ -1,14 +1,12 @@
 package fhac.bh1978s.zufallsgenerator;
 
-import fhac.bh1978s.exception.BerechnungException;
+import fhac.bh1978s.exception.CalculationException;
 import fhac.bh1978s.exception.ZufallMappingException;
 import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.view.TextFileReader;
 import fhac.bh1978s.view.TextFileWriter;
 import fhac.bh1978s.view.interfaces.I_FileReader;
 import fhac.bh1978s.view.interfaces.I_FileWriter;
-import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
-import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import fhac.bh1978s.zufallsgenerator.mapper.ZufallDataInputMapper;
 import fhac.bh1978s.zufallsgenerator.mapper.ZufallErgebnisOutputMapper;
 import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_InputMapper;
@@ -81,7 +79,7 @@ public class MainPresenter {
           textfileOutput.add(errorFile);
 
 
-        } catch (BerechnungException be) {
+        } catch (CalculationException be) {
           System.out.println("ERR:\tBerechnungsfehler in der Datei <" + textFile.getName()
               + ">. Details in der Ausgabe-Datei.");
           TextFile errorFile = new TextFile(textFile.getName());

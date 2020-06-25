@@ -1,4 +1,13 @@
 fhac.bh1978s
+fhac.bh1978s.exception
 fhac.bh1978s.view
+fhac.bh1978s.view.interfaces
 fhac.bh1978s.zufallsgenerator
+fhac.bh1978s.zufallsgenerator.enumeration
 fhac.bh1978s.zufallsgenerator.mapper
+fhac.bh1978s.zufallsgenerator.mapper.interfaces
+fhac.bh1978s.zufallsgenerator.model
+fhac.bh1978s.zufallsgenerator.presenter
+fhac.bh1978s.zufallsgenerator.presenter.bewertung
+fhac.bh1978s.zufallsgenerator.presenter.generator
+fhac.bh1978s.zufallsgenerator.presenter.interfaces

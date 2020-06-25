@@ -59,6 +59,9 @@ public class TextFileWriter implements I_FileWriter<TextFile>, I_FilePathHandler
     });
   }
 
+  /**
+   * Methode zum löschen aller Dateien innerhalb des Ausgabepfads.
+   */
   @Override
   public void emptyFolder() {
     final File outputPath = new File(outputFileLocation);

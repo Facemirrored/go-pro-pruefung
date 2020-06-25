@@ -1,5 +1,8 @@
 package fhac.bh1978s.view;
 
+/**
+ * Datenklasse für die Datenhaltung von Textdatei-Informationen.
+ */
 public class TextFile {
 
   private String name;

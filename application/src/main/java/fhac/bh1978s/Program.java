@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Program {
 
   /**
-   * Haupteinstiegspunkt des Programms. Diese Verwaltet die Initialisierung relevanter Argumente und
+   * Haupteinstiegspunkt des Programms. Dieser Verwaltet die Initialisierung relevanter Argumente und
    * startet anschließend die Anwendung der Aufgabenstellung.
    *
    * @param args Argumente für den Pfad des Ordners zum Lesen der Eingabedateien sowie Pfad des

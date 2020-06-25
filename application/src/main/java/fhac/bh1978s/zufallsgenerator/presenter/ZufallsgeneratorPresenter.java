@@ -1,6 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.presenter;
 
-import fhac.bh1978s.exception.BerechnungException;
+import fhac.bh1978s.exception.CalculationException;
 import fhac.bh1978s.zufallsgenerator.enumeration.BjarnscheParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.PolarMethodParameter;
@@ -24,7 +24,7 @@ public class ZufallsgeneratorPresenter {
   private I_Bewertung<?> bewertung;
   private ZufallErgebnisData zufallErgebnisData;
 
-  public ZufallsgeneratorPresenter(final ZufallData zufallData) throws BerechnungException {
+  public ZufallsgeneratorPresenter(final ZufallData zufallData) throws CalculationException {
     this.zufallData = zufallData;
     this.zufallErgebnisData = new ZufallErgebnisData();
     init();
@@ -46,7 +46,7 @@ public class ZufallsgeneratorPresenter {
   }
 
   @SuppressWarnings("unchecked")
-  private void init() throws BerechnungException {
+  private void init() throws CalculationException {
     try {
       if (zufallData.getGeneratorType() != null) {
         switch (zufallData.getGeneratorType()) {
@@ -88,15 +88,15 @@ public class ZufallsgeneratorPresenter {
         }
       }
     } catch (NumberFormatException nfe) {
-      throw new BerechnungException(
+      throw new CalculationException(
           "Konvertierung von LCG-Parameter mit Wert <" + nfe.getMessage().trim().split("\"")[1]
               + "> nicht möglich.");
     }
   }
 
-  public void berechneBewertung() throws BerechnungException {
+  public void berechneBewertung() throws CalculationException {
     if (bewertung == null) {
-      throw new BerechnungException("Bewertungsart ist nicht ausgewählt. Bitte vorher setzen.");
+      throw new CalculationException("Bewertungsart ist nicht ausgewählt. Bitte vorher setzen.");
     } else if (bewertung instanceof SequenzUpDownTest) {
       SequenzUpDownTest sequenzUpDownTest = (SequenzUpDownTest) bewertung;
       sequenzUpDownTest.berechneBewertung(zufallData.getZufallszahlen());
@@ -115,15 +115,15 @@ public class ZufallsgeneratorPresenter {
   }
 
   @SuppressWarnings("unchecked")
-  public void berechneZufall() throws BerechnungException {
+  public void berechneZufall() throws CalculationException {
     if (generatorklasse == null) {
-      throw new BerechnungException("Generatorklasse ist nicht ausgewählt. Bitte vorher setzen");
+      throw new CalculationException("Generatorklasse ist nicht ausgewählt. Bitte vorher setzen");
     }
     List<Double> zufallszahlen = (List<Double>) generatorklasse.generiereZufall();
     zufallErgebnisData.setZufallszahlen(zufallszahlen);
   }
 
-  public ZufallErgebnisData generiere() throws BerechnungException {
+  public ZufallErgebnisData generiere() throws CalculationException {
     if (zufallData.getZiel() == Ziel.ZUFALLSGENERIERUNG) {
       berechneZufall();
     } else if (zufallData.getZiel() == Ziel.BEWERTUNG) {
