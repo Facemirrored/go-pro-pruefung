@@ -1,4 +1,4 @@
-package fhac.bh1978s.exception;
+package fhac.bh1978s.zufallsgenerator.generatorexception;
 
 /**
  * Exception-Klasse für Fehler innerhalb des Zufallsgenerators. Exception dieser Art werden

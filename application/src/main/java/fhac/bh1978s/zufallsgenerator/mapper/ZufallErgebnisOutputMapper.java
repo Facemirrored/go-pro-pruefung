@@ -8,8 +8,17 @@ import fhac.bh1978s.zufallsgenerator.presenter.bewertung.BjarnscheGuetefunktion;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
 import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
 
+/**
+ * Mapper für das Mapping von ZufallErgebnisData-Objekten zu TextFile-Objekten
+ */
 public class ZufallErgebnisOutputMapper implements I_OutputMapper<ZufallErgebnisData, TextFile> {
 
+  /**
+   * Mappt übergebene Parameter zu einem TextFile-Objekt
+   *
+   * @param internContent Internes Datenobjekt in Form von ZufallErgebnisData
+   * @return Externes Datenobjekt in Form von TextFile
+   */
   @Override
   public TextFile mapToExternFormat(ZufallErgebnisData internContent) {
 

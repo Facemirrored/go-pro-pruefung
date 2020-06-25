@@ -1,7 +1,7 @@
 package fhac.bh1978s.zufallsgenerator;
 
-import fhac.bh1978s.exception.CalculationException;
-import fhac.bh1978s.exception.ZufallMappingException;
+import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
+import fhac.bh1978s.programexception.ZufallMappingException;
 import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.view.TextFileReader;
 import fhac.bh1978s.view.TextFileWriter;
@@ -95,6 +95,12 @@ public class MainPresenter {
     });
   }
 
+  /**
+   * Auslagerungsmethode für String-Building eines Headers für die Ausgabedatei.
+   *
+   * @param textFile
+   * @return
+   */
   private String buildInputHeader(final TextFile textFile) {
     return "-----INPUT-----\n" + textFile.getContent() + "\n\n-----OUTPUT-----\n";
   }

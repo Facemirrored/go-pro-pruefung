@@ -1,11 +1,16 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
-import fhac.bh1978s.exception.CalculationException;
+import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Die BjarnscheZufallsmethode vom Mathematiker Bjarne Herrmann 2020 entwickelt, basiert auf eine
+ * alternierende Modulo Rechnung auf Basis eines Datums, eines Parameters des Modulos sowie eines
+ * Startwertes x0
+ */
 public class BjarnscheZufallsmethode implements I_Generatorklasse<Double> {
 
   private long m;
@@ -22,7 +27,8 @@ public class BjarnscheZufallsmethode implements I_Generatorklasse<Double> {
   @Override
   public List<Double> generiereZufall() throws CalculationException {
     if (m <= 0 || m >= Math.pow(2, 64) - 1) {
-      throw new CalculationException("LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
+      throw new CalculationException(
+          "LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
     } else if (x0 < 0 || x0 >= m) {
       throw new CalculationException(
           "LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)");

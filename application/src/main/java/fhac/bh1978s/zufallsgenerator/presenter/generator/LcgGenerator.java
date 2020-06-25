@@ -1,11 +1,15 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
-import fhac.bh1978s.exception.CalculationException;
+import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasse für die Berechnung von Zufallszahlen auf Basis eines Linear-Congruential-Generator vom
+ * Mathematiker D.H. Lehmer entwickelt im Jahre 1949.
+ */
 public class LcgGenerator implements I_Generatorklasse<Double> {
 
   private long m;
@@ -30,7 +34,8 @@ public class LcgGenerator implements I_Generatorklasse<Double> {
     ArrayList<Long> zufallList = new ArrayList<>();
 
     if (m <= 0 || m >= Math.pow(2, 64) - 1) {
-      throw new CalculationException("LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
+      throw new CalculationException(
+          "LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)");
     } else if (a < 0 || a >= m) {
       throw new CalculationException(
           "LCG-Parameter a befindet sich nicht zwischen 0 und m.");

@@ -1,5 +1,8 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+/**
+ * Enumeration für die Verwaltung von Trennungszeichen beim Mapping
+ */
 public enum MappingSeperatorType {
   KEY_VALUE_SEPERATOR("="),
   SET_SEPERATOR(","),

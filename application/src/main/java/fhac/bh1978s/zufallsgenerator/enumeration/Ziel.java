@@ -1,7 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
-import fhac.bh1978s.exception.ParameterException;
-import fhac.bh1978s.exception.ZufallMappingException;
+import fhac.bh1978s.programexception.ParameterException;
 
 public enum Ziel {
   ZUFALLSGENERIERUNG("Zufallsgenerierung"),

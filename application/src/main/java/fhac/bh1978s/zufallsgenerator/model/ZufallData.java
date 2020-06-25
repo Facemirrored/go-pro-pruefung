@@ -6,6 +6,9 @@ import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Model-Objekt für Datenhaltung bezüglich Eingabe für den Zufallsgenerator
+ */
 public class ZufallData {
 
   private Ziel ziel;
@@ -25,10 +28,6 @@ public class ZufallData {
 
   public HashMap<String, String> getParameterList() {
     return parameterList;
-  }
-
-  public void setParameterList(HashMap<String, String> parameterList) {
-    this.parameterList = parameterList;
   }
 
   public void addParameter(String key, String value) {

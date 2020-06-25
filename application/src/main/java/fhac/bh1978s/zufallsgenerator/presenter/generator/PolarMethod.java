@@ -1,10 +1,16 @@
 package fhac.bh1978s.zufallsgenerator.presenter.generator;
 
-import fhac.bh1978s.exception.CalculationException;
+import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasse für die Berechnung von Zufallszahlen auf Basis der Polar-Methode von den Mathematikern
+ * George Marsaglia und Thomas A. Bray. Die Berechnung der Zufallszahlen basiert auf bereits
+ * vorhandenen Zufallszahlen. Das Verfahren für die Erzeugung dieser wird über den Konstruktor
+ * angegeben. Ist keines angegeben, so wird die interne Java-Bibliothek genutzt.
+ */
 public class PolarMethod implements I_Generatorklasse<Double> {
 
   private I_Generatorklasse generatorklasse;

@@ -1,10 +1,13 @@
 package fhac.bh1978s.zufallsgenerator.mapper.interfaces;
 
-import fhac.bh1978s.exception.ZufallMappingException;
+import fhac.bh1978s.programexception.ZufallMappingException;
 
 /**
  * Generische Mapper-Klasse, welche Methoden für das Mappen vom externen Dateiformat ins interne
- * Datenformat implementiert. E definiert das Objekt des externen Formats, I des internen.
+ * Datenformat implementiert.
+ *
+ * @param <E> Externe Datenobjekt
+ * @param <I> Interne Datenobjekt
  */
 public interface I_InputMapper<E, I> {
 

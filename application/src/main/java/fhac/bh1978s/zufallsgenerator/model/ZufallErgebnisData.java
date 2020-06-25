@@ -3,6 +3,9 @@ package fhac.bh1978s.zufallsgenerator.model;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import java.util.List;
 
+/**
+ * Model-Objekt für Datenhaltung bezüglich Ausgabe für den Zufallsgenerator
+ */
 public class ZufallErgebnisData {
 
   private List<Double> zufallszahlen;

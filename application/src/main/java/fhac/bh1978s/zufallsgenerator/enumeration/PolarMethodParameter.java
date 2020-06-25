@@ -1,5 +1,8 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+/**
+ * Enumeration für die Verwaltung von Parameter der Polar-Methode
+ */
 public enum PolarMethodParameter {
   GENERATOR("Generator");
 

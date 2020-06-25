@@ -13,8 +13,8 @@ import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.POLAR_M
 import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.ZIEL;
 import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.ZUFALLSZAHLEN;
 
-import fhac.bh1978s.exception.ParameterException;
-import fhac.bh1978s.exception.ZufallMappingException;
+import fhac.bh1978s.programexception.ParameterException;
+import fhac.bh1978s.programexception.ZufallMappingException;
 import fhac.bh1978s.view.TextFile;
 import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
 import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
@@ -24,8 +24,18 @@ import fhac.bh1978s.zufallsgenerator.model.ZufallData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Mapper für das Mapping von Textfile-Objekten zu ZufallData-Objekten
+ */
 public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData> {
 
+  /**
+   * Mappt übergebenen Parameter zu einem ZufallData-Objekt
+   *
+   * @param externContent Externes Datenobjekt in Form von TextFile
+   * @return Internes Datenobjekt in Form von ZufallData
+   * @throws ZufallMappingException Wird geworfen, wenn beim Mappen fehler entstehen
+   */
   @Override
   public ZufallData mapToInternFormat(TextFile externContent) throws ZufallMappingException {
     String content = externContent.getContent();
@@ -81,6 +91,14 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     return zufallData;
   }
 
+  /**
+   * Auslagerungsmethode zum Trennen von Parametern anhand ":"
+   *
+   * @param line Zeile aus TextFile-Inhalt
+   * @return Parameter-Wert
+   * @throws ParameterException Wird geworfen, wenn Parameter nicht getrennt werden konnte, da ein
+   *                            invalides Zeichen vorhanden ist
+   */
   private String parameterSplit(final String line)
       throws ParameterException {
     String[] seperatorSplit = line.trim()
@@ -93,6 +111,14 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     return seperatorSplit[1];
   }
 
+  /**
+   * Auslagerungsmethode zum Trennen von mehreren Werten - zum Beispiel Zufallszahlen
+   *
+   * @param line Zeile aus TextFile-Inhalt
+   * @return Array bestehend aus getrennten Werten
+   * @throws ParameterException Wird geworfen, wenn Werte nicht getrennt werden konnten, da ein
+   *                            invalides Zeichen vorhanden ist
+   */
   private String[] zahlenSplit(final String line) throws ParameterException {
     String[] zahlen = line.trim().split(SET_SEPERATOR.getString());
     for (String z : zahlen) {
@@ -107,6 +133,14 @@ public class ZufallDataInputMapper implements I_InputMapper<TextFile, ZufallData
     return zahlen;
   }
 
+  /**
+   * Auslagerungsmethode zum Trennen von key-value-Paar.
+   *
+   * @param line Zeile aus TextFile-Inhalt
+   * @return Value aus Key-Value-Paar
+   * @throws ParameterException Wird geworfen, wenn Wert aus key-value-Paar nicht getrennt werden
+   *                            konnte, da ein invalides Zeichen vorhanden ist
+   */
   private String[] setSplit(final String line)
       throws ParameterException {
     final int counter = (int) line.chars()

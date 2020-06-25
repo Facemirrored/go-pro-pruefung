@@ -1,4 +1,4 @@
-package fhac.bh1978s.exception;
+package fhac.bh1978s.programexception;
 
 /**
  * Exception-Klasse für Fehler innerhalb des Mappings von externen-Daten in interne. Exception

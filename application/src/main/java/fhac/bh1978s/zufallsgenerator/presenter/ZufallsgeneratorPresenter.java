@@ -1,6 +1,6 @@
 package fhac.bh1978s.zufallsgenerator.presenter;
 
-import fhac.bh1978s.exception.CalculationException;
+import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
 import fhac.bh1978s.zufallsgenerator.enumeration.BjarnscheParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
 import fhac.bh1978s.zufallsgenerator.enumeration.PolarMethodParameter;
@@ -17,6 +17,10 @@ import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
 import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
 import java.util.List;
 
+/**
+ * Presenter für Zufallsdatenerzeugung. Beinhaltet Parameter für Generierung in Form von ZufallData
+ * sowie Ergebnis-Objekte für generierte Zufallszahlen und Bewertung
+ */
 public class ZufallsgeneratorPresenter {
 
   private ZufallData zufallData;
@@ -24,12 +28,27 @@ public class ZufallsgeneratorPresenter {
   private I_Bewertung<?> bewertung;
   private ZufallErgebnisData zufallErgebnisData;
 
+  /**
+   * Generiert Zufallsgenerator auf Basis übergebener Zufallsdaten
+   *
+   * @param zufallData Daten mit Parametern für Generator
+   * @throws CalculationException Wird geworfen, wenn die Erzeugung des Generators fehlschlägt. Dies
+   *                              kann passieren, wenn zum Beispiel kein Berechnungsziel angegeben
+   *                              ist.
+   */
   public ZufallsgeneratorPresenter(final ZufallData zufallData) throws CalculationException {
     this.zufallData = zufallData;
     this.zufallErgebnisData = new ZufallErgebnisData();
     init();
   }
 
+  /**
+   * Generiert einen LCG-Generator auf Basis des ZufallData-Objekts.
+   *
+   * @return Generierter LCG-Generator mit Eigenschaften aus ZufallData-Objekt des Presenters
+   * @throws NumberFormatException Wird geworfen, wenn ungültige long-Zahlen aus dem
+   *                               ZufallData-Objekt übernommen werden.
+   */
   private LcgGenerator generateLCG() throws NumberFormatException {
     return new LcgGenerator(
         Long.parseLong(
@@ -45,6 +64,13 @@ public class ZufallsgeneratorPresenter {
             .equals("true")));
   }
 
+  /**
+   * Initialisierungsmethode, die vom Konstruktor zur Initialisierung der Attribute auf Basis des
+   * ZufallData-Objektes verwendet wird.
+   *
+   * @throws CalculationException Wird geworfen, wenn das ZufallData-Objekt ungültige Argumente für
+   *                              spezifische Generatoren oder Bewertungen beinhaltet.
+   */
   @SuppressWarnings("unchecked")
   private void init() throws CalculationException {
     try {
@@ -94,6 +120,12 @@ public class ZufallsgeneratorPresenter {
     }
   }
 
+  /**
+   * Methode zur Berechnung der gesetzten Bewertung
+   *
+   * @throws CalculationException Wird geworfen, wenn die Berechnung aufgrund inkonstistenter
+   *                              Angaben fehlschlägt
+   */
   public void berechneBewertung() throws CalculationException {
     if (bewertung == null) {
       throw new CalculationException("Bewertungsart ist nicht ausgewählt. Bitte vorher setzen.");
@@ -114,6 +146,12 @@ public class ZufallsgeneratorPresenter {
     }
   }
 
+  /**
+   * Methode zur Berechnung des gesetzten Generators
+   *
+   * @throws CalculationException Wird geworfen, wenn die Berechnung aufgrund inkonsistenter Angaben
+   *                              fehlschlägt
+   */
   @SuppressWarnings("unchecked")
   public void berechneZufall() throws CalculationException {
     if (generatorklasse == null) {

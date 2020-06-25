@@ -1,5 +1,8 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+/**
+ * Enumeration für die Verwaltung von Parameter des LCG-Generators
+ */
 public enum LcgParameter {
   MODUL("m"),
   MULTIPLIKATOR("a"),

@@ -1,5 +1,8 @@
 package fhac.bh1978s.zufallsgenerator.enumeration;
 
+/**
+ * Enumeration für die Verwaltung von Parameternamen
+ */
 public enum ParameterKeyType {
   ZIEL("Ziel"),
   GENERATOR("Generator"),
