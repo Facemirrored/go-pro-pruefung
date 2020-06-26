@@ -19,7 +19,7 @@ import java.util.List;
 
 
 /**
- * Haupt-Verarbeitungspresenter vom MVC-Pattern als Singleton-Pattern-Style implementiert. Dieser
+ * Haupt-Verarbeitungspresenter vom MVP-Pattern als Singleton-Pattern-Style implementiert. Dieser
  * dient als Verarbeitungsschnittstelle zwischen der View (Eingabe/Ausgabe) und den Models.
  */
 public class MainPresenter {
