@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Bewertung Bjarnsche-Guetefunktion
+Ziel:Bewertung
+Bewertungsart:Bjarnsche-Guetefunktion
+Zufallszahlen: 2+ 3, 4, 2, 2, 2, 1, 4, 3, 2
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+
+Details:
+Konvertierung von Zahl <2+ 3> in < 2+ 3, 4, 2, 2, 2, 1, 4, 3, 2> nicht möglich.

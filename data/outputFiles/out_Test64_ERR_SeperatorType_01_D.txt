@@ -1,0 +1,12 @@
+-----INPUT-----
+# Teste Polar Methode ohne Generatorangabe (Verwendung von Math.random)
+Ziel:Zufallsgenerierung
+Generator+Polar-Methode
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+
+Details:
+Trennung mit <:> von <Generator+Polar-Methode> nicht möglich.

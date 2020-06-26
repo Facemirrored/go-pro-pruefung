@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Grenzwert, m zu gross
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=18446744073709551616,x0=1,n=100
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+
+Details:
+Konvertierung von LCG-Parameter mit Wert <18446744073709551616> nicht möglich.

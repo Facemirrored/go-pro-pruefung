@@ -1,0 +1,26 @@
+-----INPUT-----
+# Teste LCG-Generator mit ANSI-C Parameter
+Ziel:Zufallsgenerierung
+Generator:Linear-Kongruenz-Generator
+LCG-Parameter:m=2147483648,a=1103515245,c=12345,x0=12345,n=17, divide=false
+
+
+-----OUTPUT-----
+Zufallszahlen:
+0	:	12345.0
+1	:	1.406932606E9
+2	:	6.54583775E8
+3	:	1.449466924E9
+4	:	2.29283573E8
+5	:	1.109335178E9
+6	:	1.051550459E9
+7	:	1.293799192E9
+8	:	7.94471793E8
+9	:	5.5118831E8
+10	:	8.03550167E8
+11	:	1.772930244E9
+12	:	3.70913197E8
+13	:	6.39546082E8
+14	:	1.381971571E9
+15	:	1.695770928E9
+16	:	2.121308585E9
