@@ -18,7 +18,7 @@
         <exclude>.gitignore</exclude>
         <exclude>.idea/**</exclude>
         <exclude>/application/*.iml</exclude>
-        <exclude>/application/target/**</exclude>
+        <exclude>/target/**</exclude>
       </excludes>
     </fileSet>
   </fileSets>
