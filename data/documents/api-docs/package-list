@@ -2,7 +2,6 @@ fhac.bh1978s
 fhac.bh1978s.programexception
 fhac.bh1978s.view
 fhac.bh1978s.view.interfaces
-fhac.bh1978s.zufallsgenerator
 fhac.bh1978s.zufallsgenerator.enumeration
 fhac.bh1978s.zufallsgenerator.generatorexception
 fhac.bh1978s.zufallsgenerator.mapper

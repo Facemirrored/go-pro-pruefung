@@ -1,0 +1,13 @@
+-----INPUT-----
+# Teste Berechnung Bjarnsche-Zufallsmethode
+Ziel:Zufallsgenerierung
+Generator:Bjarnsche-Zufallsmethode
+Bjarnsche-Zufallsmethode-Parameter:m=20x0=1,n=100
+
+
+-----OUTPUT-----
+Fehlermeldung:
+Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+
+Details:
+Trennung mit <,> von String <m=20x0=1,n=100> nicht möglich. Anzahl an sets stimmt nicht mit Trennungsanzahl überein.
