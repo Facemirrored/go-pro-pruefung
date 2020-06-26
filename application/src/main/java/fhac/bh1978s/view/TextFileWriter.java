@@ -35,30 +35,6 @@ public class TextFileWriter implements I_FileWriter<TextFile>, I_FilePathHandler
     this.outputFileLocation = outputFileLocation;
   }
 
-
-  /**
-   * Erstellt für jedes TextFile-Objekt in der Liste eine Datei mit Namen und Inhalt aus dem Objekt.
-   * Im Falle einer IOException beim Schreiben einer Datei wird diese übersprungen und relevante
-   * Informationen werden an der Konsole ausgegeben.
-   *
-   * @param textFileList Liste mit TextFile-Objekten
-   */
-  @Override
-  public void saveFiles(List<TextFile> textFileList) {
-    textFileList.forEach(textFile -> {
-      try (BufferedWriter writer = new BufferedWriter(
-          new FileWriter(outputFileLocation + "\\out_" + textFile.getName(), false))) {
-        writer.append(textFile.getContent());
-      } catch (IOException io) {
-        System.out
-            .println("ERROR:\tFehler beim Schreiben der Datei <" + textFile.getName() + ">.\n"
-                + "Prüfen Sie die Gültigkeit sowie Zugriffsrechte und versuchen Sie es erneut. Die Datei wird übersprungen!\n");
-        textFile.print();
-        System.out.println("\n\nException Info:\n" + io.getMessage());
-      }
-    });
-  }
-
   /**
    * Methode zum löschen aller Dateien innerhalb des Ausgabepfads.
    */
