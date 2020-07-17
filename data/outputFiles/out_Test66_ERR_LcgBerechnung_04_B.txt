@@ -7,7 +7,7 @@ LCG-Parameter:m=2147483647,a=630360016,c=0,x0=-1,n=51, divide=true
 
 -----OUTPUT-----
 Fehlermeldung:
-Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+Fehler beim Berechnen - Berechnung konnte nicht durchgefÃ¼hrt werden.
 
 Details:
 LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)

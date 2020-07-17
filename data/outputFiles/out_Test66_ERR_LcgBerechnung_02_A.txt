@@ -7,7 +7,7 @@ LCG-Parameter:m=18446744073709551616,a=630360016,c=0,x0=1,n=100, divide=true
 
 -----OUTPUT-----
 Fehlermeldung:
-Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+Fehler beim Berechnen - Berechnung konnte nicht durchgefÃ¼hrt werden.
 
 Details:
-Konvertierung von LCG-Parameter mit Wert <18446744073709551616> nicht möglich.
+Konvertierung von LCG-Parameter mit Wert <18446744073709551616> nicht mÃ¶glich.

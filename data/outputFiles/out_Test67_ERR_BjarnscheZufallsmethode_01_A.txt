@@ -7,7 +7,7 @@ Bjarnsche-Zufallsmethode-Parameter:m=20,x0=1,n=50001
 
 -----OUTPUT-----
 Fehlermeldung:
-Fehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.
+Fehler beim Berechnen - Berechnung konnte nicht durchgefÃ¼hrt werden.
 
 Details:
 LCG-Parameter n befindet sich nicht zwischen 0 und 50000 (inklusiv).

@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TextFileReader</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s.view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TextFileReader (fhac.bh1978s.view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TextFileReader</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.2%
+  </span>
+  <span class="absValue">
+    (26/ 32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s.view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.view.interfaces.I_FilePathHandler;
+<i>4</i>&nbsp;import fhac.bh1978s.view.interfaces.I_FileReader;
+<i>5</i>&nbsp;import java.io.File;
+<i>6</i>&nbsp;import java.io.IOException;
+<i>7</i>&nbsp;import java.nio.charset.StandardCharsets;
+<i>8</i>&nbsp;import java.nio.file.Files;
+<i>9</i>&nbsp;import java.nio.file.Paths;
+<i>10</i>&nbsp;import java.util.ArrayList;
+<i>11</i>&nbsp;import java.util.Arrays;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;import java.util.stream.Stream;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * Die IOTextFileReader-Klasse implementiert in Singleton-Pattern-Style die Verwaltung von
+<i>17</i>&nbsp; * Textdateien, welche in angebenen Pfaden gelesen werden können. Dabei ist die Hauptaufgabe Inhalte
+<i>18</i>&nbsp; * von Textdateien in Form von TextFile-Objekten zurückzugeben.
+<i>19</i>&nbsp; */
+<b class="fc"><i>20</i>&nbsp;public class TextFileReader implements I_FileReader&lt;TextFile&gt;, I_FilePathHandler {</b>
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;  private TextFileReader() {</b>
+<b class="fc"><i>23</i>&nbsp;  }</b>
+<i>24</i>&nbsp;
+<b class="fc"><i>25</i>&nbsp;  private static TextFileReader textFileReader = new TextFileReader();</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;  public static TextFileReader getInstance() {
+<b class="fc"><i>28</i>&nbsp;    return textFileReader;</b>
+<i>29</i>&nbsp;  }
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;  private String inputFileLocation = &quot;&quot;;</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;  public String getInputFileLocation() {
+<b class="fc"><i>34</i>&nbsp;    return inputFileLocation;</b>
+<i>35</i>&nbsp;  }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;  public void setInputFileLocation(String inputFileLocation) {
+<b class="fc"><i>38</i>&nbsp;    this.inputFileLocation = inputFileLocation;</b>
+<b class="fc"><i>39</i>&nbsp;  }</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;  /**
+<i>42</i>&nbsp;   * Liest alle Dateien innerhalb gesetzten Attribut &quot;inputFilelocation&quot;. Bei unerwarteten Fehler
+<i>43</i>&nbsp;   * wird eine Message als Content-String gesetzt.
+<i>44</i>&nbsp;   *
+<i>45</i>&nbsp;   * @return Liste aller TextFile-Objekte beinhaltend Name und Content der jeweiligen Datei.
+<i>46</i>&nbsp;   */
+<i>47</i>&nbsp;  @Override
+<i>48</i>&nbsp;  public List&lt;TextFile&gt; readAllFiles() {
+<b class="fc"><i>49</i>&nbsp;    final File inputPath = new File(inputFileLocation);</b>
+<b class="fc"><i>50</i>&nbsp;    final String[] inputFilesList = inputPath.list();</b>
+<b class="fc"><i>51</i>&nbsp;    final List&lt;TextFile&gt; textFileContentList = new ArrayList&lt;&gt;();</b>
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;    assert inputFilesList != null;</b>
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;    Arrays.stream(inputFilesList).forEach(file -&gt; {</b>
+<b class="fc"><i>56</i>&nbsp;      textFileContentList.add(readSingleFile(file));</b>
+<b class="fc"><i>57</i>&nbsp;    });</b>
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;    return textFileContentList;</b>
+<i>60</i>&nbsp;  }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;  /**
+<i>63</i>&nbsp;   * Liest Inhalt einer Textdatei aus und gibt diesen als TextFile zurück. Dabei bezieht sich der
+<i>64</i>&nbsp;   * Pfad auf das Attribut &quot;inputFileLocation&quot;. Bei unerwarteten Fehlern wird der Fehler in die
+<i>65</i>&nbsp;   * dazugehörige Datei geschrieben.
+<i>66</i>&nbsp;   *
+<i>67</i>&nbsp;   * @param file TextFile-Objekt, welche Name der Datei enthält.
+<i>68</i>&nbsp;   * @return Inhalt der Datei als String-Format.
+<i>69</i>&nbsp;   */
+<i>70</i>&nbsp;  @Override
+<i>71</i>&nbsp;  public TextFile readSingleFile(final String file) {
+<b class="fc"><i>72</i>&nbsp;    StringBuilder content = new StringBuilder();</b>
+<b class="fc"><i>73</i>&nbsp;    TextFile textFile = new TextFile(file);</b>
+<b class="fc"><i>74</i>&nbsp;    try (Stream&lt;String&gt; stream = Files</b>
+<b class="fc"><i>75</i>&nbsp;        .lines(Paths.get(inputFileLocation + &quot;\\&quot; + file), StandardCharsets.UTF_8)) {</b>
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;      stream.forEach(s -&gt; content.append(s).append(&quot;\n&quot;));</b>
+<b class="fc"><i>78</i>&nbsp;      textFile.setContent(content.toString());</b>
+<i>79</i>&nbsp;
+<b class="fc"><i>80</i>&nbsp;    } catch (IOException io) {</b>
+<b class="nc"><i>81</i>&nbsp;      textFile.setError(true);</b>
+<b class="nc"><i>82</i>&nbsp;      textFile.setName(&quot;TE1_&quot; + file);</b>
+<b class="nc"><i>83</i>&nbsp;      textFile.setContent(&quot;ERROR:\tFehler beim Lesen der Datei &lt;&quot; + inputFileLocation + &quot;\\&quot; + file</b>
+<i>84</i>&nbsp;          + &quot;&gt;.\nPrüfen Sie die Gültigkeit sowie Zugriff der Datei und versuchen Sie es erneut.\n\n&quot;
+<b class="nc"><i>85</i>&nbsp;          + &quot;Details:\n&quot; + io.getMessage());</b>
+<b class="fc"><i>86</i>&nbsp;    }</b>
+<i>87</i>&nbsp;
+<b class="fc"><i>88</i>&nbsp;    return textFile;</b>
+<i>89</i>&nbsp;  }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;  /**
+<i>92</i>&nbsp;   * Validiert den angebenen String auf gültigen Pfad.
+<i>93</i>&nbsp;   *
+<i>94</i>&nbsp;   * @param path Pfad, welcher validiert werden soll.
+<i>95</i>&nbsp;   * @return Validierungsergebnis in Form von boolean.
+<i>96</i>&nbsp;   */
+<i>97</i>&nbsp;  @Override
+<i>98</i>&nbsp;  public boolean validatePath(final String path) {
+<b class="nc"><i>99</i>&nbsp;    File file = new File(path);</b>
+<b class="nc"><i>100</i>&nbsp;    return file.isDirectory();</b>
+<i>101</i>&nbsp;  }
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

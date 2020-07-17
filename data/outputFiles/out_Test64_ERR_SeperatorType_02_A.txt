@@ -7,7 +7,7 @@ Bjarnsche-Zufallsmethode-Parameter:m=20x0=1,n=100
 
 -----OUTPUT-----
 Fehlermeldung:
-Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+Fehler beim lesen eines Parameters. Bitte Eingabedatei Ã¼berprÃ¼fen.
 
 Details:
-Trennung mit <,> von String <m=20x0=1,n=100> nicht möglich. Anzahl an sets stimmt nicht mit Trennungsanzahl überein.
+Trennung mit <,> von String <m=20x0=1,n=100> nicht mÃ¶glich. Anzahl an sets stimmt nicht mit Trennungsanzahl Ã¼berein.

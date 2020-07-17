@@ -7,7 +7,7 @@ LCG-Parameter:m=10,a=2,c=0,x0=1,n=10, divide=false
 
 -----OUTPUT-----
 Fehlermeldung:
-Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.
+Fehler beim lesen eines Parameters. Bitte Eingabedatei Ã¼berprÃ¼fen.
 
 Details:
-Trennung mit <:> von <Generator'Linear-Kongruenz-Generator> nicht möglich.
+Trennung mit <:> von <Generator'Linear-Kongruenz-Generator> nicht mÃ¶glich.

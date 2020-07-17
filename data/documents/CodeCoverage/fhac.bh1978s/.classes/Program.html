@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Program</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Program (fhac.bh1978s)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Program</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63%
+  </span>
+  <span class="absValue">
+    (17/ 27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.view.TextFileWriter;
+<i>4</i>&nbsp;import fhac.bh1978s.view.TextFileReader;
+<i>5</i>&nbsp;import java.util.ResourceBundle;
+<i>6</i>&nbsp;import java.util.Scanner;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;
+<b class="nc"><i>9</i>&nbsp;public class Program {</b>
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;  /**
+<i>12</i>&nbsp;   * Haupteinstiegspunkt des Programms. Dieser Verwaltet die Initialisierung relevanter Argumente und
+<i>13</i>&nbsp;   * startet anschließend die Anwendung der Aufgabenstellung.
+<i>14</i>&nbsp;   *
+<i>15</i>&nbsp;   * @param args Argumente für den Pfad des Ordners zum Lesen der Eingabedateien sowie Pfad des
+<i>16</i>&nbsp;   *             Ordners für die Generierung der Ausgabedateien. Bei ungeraden oder Fehlerhaften
+<i>17</i>&nbsp;   *             Argumenten werden diese ignoriert und das Programm arbeitet mit angegebenen
+<i>18</i>&nbsp;   *             Standardeinstellungen.
+<i>19</i>&nbsp;   */
+<i>20</i>&nbsp;  public static void main(String[] args) {
+<b class="fc"><i>21</i>&nbsp;    initResourceProperties();</b>
+<i>22</i>&nbsp;
+<b class="fc"><i>23</i>&nbsp;    if (args.length &gt; 0) {</b>
+<b class="nc"><i>24</i>&nbsp;      if (args.length != 2) {</b>
+<b class="nc"><i>25</i>&nbsp;        System.out.println(&quot;SYF1:\tUnpassende Anzahl an Argumenten\nEs wurden &quot; + args.length</b>
+<i>26</i>&nbsp;            + &quot; Argumente gefunden - es dürfen nur keine oder zwei angegeben werden!\n&quot;
+<i>27</i>&nbsp;            + &quot;Alle Argumente werden ignoriert und die Anwendung verwendet angegebene Standards.&quot;);
+<i>28</i>&nbsp;      } else {
+<b class="nc"><i>29</i>&nbsp;        TextFileReader ioTextFileReader = TextFileReader.getInstance();</b>
+<b class="nc"><i>30</i>&nbsp;        TextFileWriter ioTextFileWriter = TextFileWriter.getInstance();</b>
+<b class="nc"><i>31</i>&nbsp;        if (ioTextFileReader.validatePath(args[0]) &amp;&amp;</b>
+<b class="nc"><i>32</i>&nbsp;            ioTextFileWriter.validatePath(args[1])) {</b>
+<b class="nc"><i>33</i>&nbsp;          ioTextFileReader.setInputFileLocation(args[0]);</b>
+<b class="nc"><i>34</i>&nbsp;          ioTextFileWriter.setOutputFileLocation(args[1]);</b>
+<i>35</i>&nbsp;        } else {
+<b class="nc"><i>36</i>&nbsp;          System.out.println(</b>
+<i>37</i>&nbsp;              &quot;Mindestens ein angegebenes Argument ist kein valider Dateipfad. Die Anwendung wird angegebene Standards verwenden.&quot;);
+<i>38</i>&nbsp;        }
+<i>39</i>&nbsp;      }
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<b class="fc"><i>42</i>&nbsp;    System.out.println(&quot;Starte MainPresenter mit folgenden Eigenschaften:&quot;);</b>
+<b class="fc"><i>43</i>&nbsp;    System.out.println(&quot;\t- Input-Pfad:\t&quot; + TextFileReader.getInstance().getInputFileLocation());</b>
+<b class="fc"><i>44</i>&nbsp;    System.out</b>
+<b class="fc"><i>45</i>&nbsp;        .println(</b>
+<b class="fc"><i>46</i>&nbsp;            &quot;\t- Output-Pfad:\t&quot; + TextFileWriter.getInstance().getOutputFileLocation() + &quot;\n\n&quot;);</b>
+<i>47</i>&nbsp;
+<b class="fc"><i>48</i>&nbsp;    MainPresenter.getInstance().start();</b>
+<i>49</i>&nbsp;
+<b class="fc"><i>50</i>&nbsp;    System.out.println(&quot;\n\nAbgeschlossen. Drücke beliebige Taste zum beenden . . .&quot;);</b>
+<b class="fc"><i>51</i>&nbsp;    (new Scanner(System.in)).nextLine();</b>
+<b class="fc"><i>52</i>&nbsp;  }</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;  /**
+<i>55</i>&nbsp;   * Liest relevante Properties von der app.properties-Datei. Diese beinhaltet den Standardeingabe
+<i>56</i>&nbsp;   * sowie -ausgabepfad der Textdateien
+<i>57</i>&nbsp;   */
+<i>58</i>&nbsp;  private static void initResourceProperties() {
+<b class="fc"><i>59</i>&nbsp;    ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;app&quot;, java.util.Locale.getDefault());</b>
+<b class="fc"><i>60</i>&nbsp;    TextFileReader.getInstance()</b>
+<b class="fc"><i>61</i>&nbsp;        .setInputFileLocation(resourceBundle.getString(&quot;application.fileInputPath&quot;));</b>
+<b class="fc"><i>62</i>&nbsp;    TextFileWriter.getInstance()</b>
+<b class="fc"><i>63</i>&nbsp;        .setOutputFileLocation(resourceBundle.getString(&quot;application.fileOutputPath&quot;));</b>
+<b class="fc"><i>64</i>&nbsp;  }</b>
+<i>65</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

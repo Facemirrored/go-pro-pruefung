@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ZufallsgeneratorPresenter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s.zufallsgenerator.presenter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ZufallsgeneratorPresenter (fhac.bh1978s.zufallsgenerator.presenter)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ZufallsgeneratorPresenter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.7%
+  </span>
+  <span class="absValue">
+    (71/ 75)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ZufallsgeneratorPresenter$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.8%
+  </span>
+  <span class="absValue">
+    (73/ 77)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s.zufallsgenerator.presenter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
+<i>4</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.BjarnscheParameter;
+<i>5</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.LcgParameter;
+<i>6</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.PolarMethodParameter;
+<i>7</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
+<i>8</i>&nbsp;import fhac.bh1978s.zufallsgenerator.model.ZufallData;
+<i>9</i>&nbsp;import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
+<i>10</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.bewertung.BjarnscheGuetefunktion;
+<i>11</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SequenzUpDownTest;
+<i>12</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.bewertung.SerielleAutokorrelation;
+<i>13</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.generator.BjarnscheZufallsmethode;
+<i>14</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.generator.LcgGenerator;
+<i>15</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.generator.PolarMethod;
+<i>16</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
+<i>17</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
+<i>18</i>&nbsp;import java.util.List;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;/**
+<i>21</i>&nbsp; * Presenter für Zufallsdatenerzeugung. Beinhaltet Parameter für Generierung in Form von ZufallData
+<i>22</i>&nbsp; * sowie Ergebnis-Objekte für generierte Zufallszahlen und Bewertung
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class ZufallsgeneratorPresenter {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;  private ZufallData zufallData;
+<i>27</i>&nbsp;  private I_Generatorklasse&lt;?&gt; generatorklasse;
+<i>28</i>&nbsp;  private I_Bewertung&lt;?&gt; bewertung;
+<i>29</i>&nbsp;  private ZufallErgebnisData zufallErgebnisData;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;  /**
+<i>32</i>&nbsp;   * Generiert Zufallsgenerator auf Basis übergebener Zufallsdaten
+<i>33</i>&nbsp;   *
+<i>34</i>&nbsp;   * @param zufallData Daten mit Parametern für Generator
+<i>35</i>&nbsp;   * @throws CalculationException Wird geworfen, wenn die Erzeugung des Generators fehlschlägt. Dies
+<i>36</i>&nbsp;   *                              kann passieren, wenn zum Beispiel kein Berechnungsziel angegeben
+<i>37</i>&nbsp;   *                              ist.
+<i>38</i>&nbsp;   */
+<b class="fc"><i>39</i>&nbsp;  public ZufallsgeneratorPresenter(final ZufallData zufallData) throws CalculationException {</b>
+<b class="fc"><i>40</i>&nbsp;    this.zufallData = zufallData;</b>
+<b class="fc"><i>41</i>&nbsp;    this.zufallErgebnisData = new ZufallErgebnisData();</b>
+<b class="fc"><i>42</i>&nbsp;    init();</b>
+<b class="fc"><i>43</i>&nbsp;  }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;  /**
+<i>46</i>&nbsp;   * Generiert einen LCG-Generator auf Basis des ZufallData-Objekts.
+<i>47</i>&nbsp;   *
+<i>48</i>&nbsp;   * @return Generierter LCG-Generator mit Eigenschaften aus ZufallData-Objekt des Presenters
+<i>49</i>&nbsp;   * @throws NumberFormatException Wird geworfen, wenn ungültige long-Zahlen aus dem
+<i>50</i>&nbsp;   *                               ZufallData-Objekt übernommen werden.
+<i>51</i>&nbsp;   */
+<i>52</i>&nbsp;  private LcgGenerator generateLCG() throws NumberFormatException {
+<b class="fc"><i>53</i>&nbsp;    return new LcgGenerator(</b>
+<b class="fc"><i>54</i>&nbsp;        Long.parseLong(</b>
+<b class="fc"><i>55</i>&nbsp;            zufallData.getParameterList().get(LcgParameter.MODUL.getLcgParameter())),</b>
+<b class="fc"><i>56</i>&nbsp;        Long.parseLong(</b>
+<b class="fc"><i>57</i>&nbsp;            zufallData.getParameterList().get(LcgParameter.MULTIPLIKATOR.getLcgParameter())),</b>
+<b class="fc"><i>58</i>&nbsp;        Long.parseLong(</b>
+<b class="fc"><i>59</i>&nbsp;            zufallData.getParameterList().get(LcgParameter.INKREMENT.getLcgParameter())),</b>
+<b class="fc"><i>60</i>&nbsp;        Long.parseLong(</b>
+<b class="fc"><i>61</i>&nbsp;            zufallData.getParameterList().get(LcgParameter.STARTWERT.getLcgParameter())),</b>
+<b class="fc"><i>62</i>&nbsp;        zufallData.getN(),</b>
+<b class="fc"><i>63</i>&nbsp;        (zufallData.getParameterList().get(LcgParameter.DIVIDE.getLcgParameter())</b>
+<b class="fc"><i>64</i>&nbsp;            .equals(&quot;true&quot;)));</b>
+<i>65</i>&nbsp;  }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;  /**
+<i>68</i>&nbsp;   * Initialisierungsmethode, die vom Konstruktor zur Initialisierung der Attribute auf Basis des
+<i>69</i>&nbsp;   * ZufallData-Objektes verwendet wird.
+<i>70</i>&nbsp;   *
+<i>71</i>&nbsp;   * @throws CalculationException Wird geworfen, wenn das ZufallData-Objekt ungültige Argumente für
+<i>72</i>&nbsp;   *                              spezifische Generatoren oder Bewertungen beinhaltet.
+<i>73</i>&nbsp;   */
+<i>74</i>&nbsp;  @SuppressWarnings(&quot;unchecked&quot;)
+<i>75</i>&nbsp;  private void init() throws CalculationException {
+<i>76</i>&nbsp;    try {
+<b class="fc"><i>77</i>&nbsp;      if (zufallData.getGeneratorType() != null) {</b>
+<b class="fc"><i>78</i>&nbsp;        switch (zufallData.getGeneratorType()) {</b>
+<i>79</i>&nbsp;          case LCG:
+<b class="fc"><i>80</i>&nbsp;            generatorklasse = generateLCG();</b>
+<b class="fc"><i>81</i>&nbsp;            break;</b>
+<i>82</i>&nbsp;          case POLAR_METHOD:
+<b class="fc"><i>83</i>&nbsp;            if (zufallData.getParameterList()</b>
+<b class="fc"><i>84</i>&nbsp;                .get(PolarMethodParameter.GENERATOR.getPolarMethodParameter()) != null) {</b>
+<b class="fc"><i>85</i>&nbsp;              generatorklasse = new PolarMethod(generateLCG());</b>
+<i>86</i>&nbsp;            } else {
+<b class="fc"><i>87</i>&nbsp;              generatorklasse = new PolarMethod();</b>
+<i>88</i>&nbsp;            }
+<b class="fc"><i>89</i>&nbsp;            break;</b>
+<i>90</i>&nbsp;          case BJARNSCHE_ZUFALLSMETHODE:
+<b class="fc"><i>91</i>&nbsp;            generatorklasse = new BjarnscheZufallsmethode(</b>
+<b class="fc"><i>92</i>&nbsp;                Long.parseLong(zufallData.getParameterList()</b>
+<b class="fc"><i>93</i>&nbsp;                    .get(BjarnscheParameter.MODUL.getBjarnscheParameter())),</b>
+<b class="fc"><i>94</i>&nbsp;                Long.parseLong(zufallData.getParameterList()</b>
+<b class="fc"><i>95</i>&nbsp;                    .get(BjarnscheParameter.STARTWERT.getBjarnscheParameter())),</b>
+<b class="fc"><i>96</i>&nbsp;                zufallData.getN());</b>
+<b class="fc"><i>97</i>&nbsp;            break;</b>
+<i>98</i>&nbsp;          default:
+<b class="nc"><i>99</i>&nbsp;            generatorklasse = null;</b>
+<i>100</i>&nbsp;        }
+<b class="fc"><i>101</i>&nbsp;      } else if (zufallData.getBewertungType() != null) {</b>
+<b class="fc"><i>102</i>&nbsp;        switch (zufallData.getBewertungType()) {</b>
+<i>103</i>&nbsp;          case SEQUENZ_UP_DOWN_TEST:
+<b class="fc"><i>104</i>&nbsp;            bewertung = new SequenzUpDownTest();</b>
+<b class="fc"><i>105</i>&nbsp;            break;</b>
+<i>106</i>&nbsp;          case SERIELLE_AUTOKORRELATION:
+<b class="fc"><i>107</i>&nbsp;            bewertung = new SerielleAutokorrelation(0.5);</b>
+<b class="fc"><i>108</i>&nbsp;            break;</b>
+<i>109</i>&nbsp;          case BJARNSCHE_GUETEFUNKTION:
+<b class="fc"><i>110</i>&nbsp;            bewertung = new BjarnscheGuetefunktion();</b>
+<b class="fc"><i>111</i>&nbsp;            break;</b>
+<i>112</i>&nbsp;          default:
+<b class="nc"><i>113</i>&nbsp;            bewertung = null;</b>
+<i>114</i>&nbsp;        }
+<i>115</i>&nbsp;      }
+<b class="fc"><i>116</i>&nbsp;    } catch (NumberFormatException nfe) {</b>
+<b class="fc"><i>117</i>&nbsp;      throw new CalculationException(</b>
+<b class="fc"><i>118</i>&nbsp;          &quot;Konvertierung von LCG-Parameter mit Wert &lt;&quot; + nfe.getMessage().trim().split(&quot;\&quot;&quot;)[1]</b>
+<i>119</i>&nbsp;              + &quot;&gt; nicht möglich.&quot;);
+<b class="fc"><i>120</i>&nbsp;    }</b>
+<b class="fc"><i>121</i>&nbsp;  }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;  /**
+<i>124</i>&nbsp;   * Methode zur Berechnung der gesetzten Bewertung
+<i>125</i>&nbsp;   *
+<i>126</i>&nbsp;   * @throws CalculationException Wird geworfen, wenn die Berechnung aufgrund inkonstistenter
+<i>127</i>&nbsp;   *                              Angaben fehlschlägt
+<i>128</i>&nbsp;   */
+<i>129</i>&nbsp;  public void berechneBewertung() throws CalculationException {
+<b class="fc"><i>130</i>&nbsp;    if (bewertung == null) {</b>
+<b class="nc"><i>131</i>&nbsp;      throw new CalculationException(&quot;Bewertungsart ist nicht ausgewählt. Bitte vorher setzen.&quot;);</b>
+<b class="fc"><i>132</i>&nbsp;    } else if (bewertung instanceof SequenzUpDownTest) {</b>
+<b class="fc"><i>133</i>&nbsp;      SequenzUpDownTest sequenzUpDownTest = (SequenzUpDownTest) bewertung;</b>
+<b class="fc"><i>134</i>&nbsp;      sequenzUpDownTest.berechneBewertung(zufallData.getZufallszahlen());</b>
+<b class="fc"><i>135</i>&nbsp;      zufallErgebnisData.setBewertung(sequenzUpDownTest);</b>
+<b class="fc"><i>136</i>&nbsp;    } else if (bewertung instanceof SerielleAutokorrelation) {</b>
+<b class="fc"><i>137</i>&nbsp;      SerielleAutokorrelation serielleAutokorrelation = (SerielleAutokorrelation) bewertung;</b>
+<b class="fc"><i>138</i>&nbsp;      serielleAutokorrelation</b>
+<b class="fc"><i>139</i>&nbsp;          .berechneBewertung(zufallData.getZufallszahlen());</b>
+<b class="fc"><i>140</i>&nbsp;      zufallErgebnisData.setBewertung(serielleAutokorrelation);</b>
+<b class="fc"><i>141</i>&nbsp;    } else if (bewertung instanceof BjarnscheGuetefunktion) {</b>
+<b class="fc"><i>142</i>&nbsp;      BjarnscheGuetefunktion bjarnscheGuetefunktion = (BjarnscheGuetefunktion) bewertung;</b>
+<b class="fc"><i>143</i>&nbsp;      bjarnscheGuetefunktion</b>
+<b class="fc"><i>144</i>&nbsp;          .berechneBewertung(zufallData.getZufallszahlen());</b>
+<b class="fc"><i>145</i>&nbsp;      zufallErgebnisData.setBewertung(bjarnscheGuetefunktion);</b>
+<i>146</i>&nbsp;    }
+<b class="fc"><i>147</i>&nbsp;  }</b>
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;  /**
+<i>150</i>&nbsp;   * Methode zur Berechnung des gesetzten Generators
+<i>151</i>&nbsp;   *
+<i>152</i>&nbsp;   * @throws CalculationException Wird geworfen, wenn die Berechnung aufgrund inkonsistenter Angaben
+<i>153</i>&nbsp;   *                              fehlschlägt
+<i>154</i>&nbsp;   */
+<i>155</i>&nbsp;  @SuppressWarnings(&quot;unchecked&quot;)
+<i>156</i>&nbsp;  public void berechneZufall() throws CalculationException {
+<b class="fc"><i>157</i>&nbsp;    if (generatorklasse == null) {</b>
+<b class="nc"><i>158</i>&nbsp;      throw new CalculationException(&quot;Generatorklasse ist nicht ausgewählt. Bitte vorher setzen&quot;);</b>
+<i>159</i>&nbsp;    }
+<b class="fc"><i>160</i>&nbsp;    List&lt;Double&gt; zufallszahlen = (List&lt;Double&gt;) generatorklasse.generiereZufall();</b>
+<b class="fc"><i>161</i>&nbsp;    zufallErgebnisData.setZufallszahlen(zufallszahlen);</b>
+<b class="fc"><i>162</i>&nbsp;  }</b>
+<i>163</i>&nbsp;
+<i>164</i>&nbsp;  public ZufallErgebnisData generiere() throws CalculationException {
+<b class="fc"><i>165</i>&nbsp;    if (zufallData.getZiel() == Ziel.ZUFALLSGENERIERUNG) {</b>
+<b class="fc"><i>166</i>&nbsp;      berechneZufall();</b>
+<b class="fc"><i>167</i>&nbsp;    } else if (zufallData.getZiel() == Ziel.BEWERTUNG) {</b>
+<b class="fc"><i>168</i>&nbsp;      berechneBewertung();</b>
+<i>169</i>&nbsp;    }
+<i>170</i>&nbsp;
+<b class="fc"><i>171</i>&nbsp;    return zufallErgebnisData;</b>
+<i>172</i>&nbsp;  }
+<i>173</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

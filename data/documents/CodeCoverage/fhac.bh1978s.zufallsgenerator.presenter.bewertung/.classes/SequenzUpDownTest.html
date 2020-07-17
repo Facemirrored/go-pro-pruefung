@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SequenzUpDownTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s.zufallsgenerator.presenter.bewertung</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SequenzUpDownTest (fhac.bh1978s.zufallsgenerator.presenter.bewertung)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SequenzUpDownTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.2%
+  </span>
+  <span class="absValue">
+    (33/ 37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s.zufallsgenerator.presenter.bewertung;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Bewertung;
+<i>4</i>&nbsp;import java.math.BigInteger;
+<i>5</i>&nbsp;import java.util.ArrayList;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;
+<b class="fc"><i>8</i>&nbsp;public class SequenzUpDownTest implements I_Bewertung&lt;Double&gt; {</b>
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;  private int[] bitCounter;
+<i>11</i>&nbsp;  private double[] expCounter;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;  public int[] getBitCounter() {
+<b class="fc"><i>14</i>&nbsp;    return bitCounter;</b>
+<i>15</i>&nbsp;  }
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;  public double[] getExpCounter() {
+<b class="fc"><i>18</i>&nbsp;    return expCounter;</b>
+<i>19</i>&nbsp;  }
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;  public void setExpCounter(double[] expCounter) {
+<b class="nc"><i>22</i>&nbsp;    this.expCounter = expCounter;</b>
+<b class="nc"><i>23</i>&nbsp;  }</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;  public void setBitCounter(int[] bitCounter) {
+<b class="nc"><i>26</i>&nbsp;    this.bitCounter = bitCounter;</b>
+<b class="nc"><i>27</i>&nbsp;  }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;  @Override
+<i>30</i>&nbsp;  public void berechneBewertung(List&lt;Double&gt; zufallszahlen) {
+<b class="fc"><i>31</i>&nbsp;    ArrayList&lt;Boolean&gt; bitfolge = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>32</i>&nbsp;    int itCount = Math.min(zufallszahlen.size(), 17) - 1;</b>
+<b class="fc"><i>33</i>&nbsp;    bitCounter = new int[itCount];</b>
+<i>34</i>&nbsp;
+<b class="fc"><i>35</i>&nbsp;    for (int i = 0; i &lt; zufallszahlen.size() - 1; ++i) {</b>
+<b class="fc"><i>36</i>&nbsp;      bitfolge.add((zufallszahlen.get(i) &lt;= zufallszahlen.get(i + 1)));</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;    int counter = 0;</b>
+<b class="fc"><i>40</i>&nbsp;    boolean last = bitfolge.get(0);</b>
+<b class="fc"><i>41</i>&nbsp;    bitCounter[counter]++;</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;    for (int i = 1; i &lt; itCount; ++i) {</b>
+<b class="fc"><i>44</i>&nbsp;      if (bitfolge.get(i) == last) {</b>
+<b class="fc"><i>45</i>&nbsp;        bitCounter[counter]--;</b>
+<b class="fc"><i>46</i>&nbsp;        counter++;</b>
+<b class="fc"><i>47</i>&nbsp;        bitCounter[counter]++;</b>
+<i>48</i>&nbsp;      } else {
+<b class="fc"><i>49</i>&nbsp;        counter = 0;</b>
+<b class="fc"><i>50</i>&nbsp;        bitCounter[counter]++;</b>
+<i>51</i>&nbsp;      }
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;      last = bitfolge.get(i);</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;    berechneErwartung(zufallszahlen.size());</b>
+<b class="fc"><i>57</i>&nbsp;  }</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;  private void berechneErwartung(final int n) {
+<b class="fc"><i>60</i>&nbsp;    expCounter = new double[bitCounter.length];</b>
+<i>61</i>&nbsp;
+<b class="fc"><i>62</i>&nbsp;    for (int i = 0; i &lt; expCounter.length; ++i) {</b>
+<b class="fc"><i>63</i>&nbsp;      int k = i + 1;</b>
+<b class="fc"><i>64</i>&nbsp;      double zaehlerP1 = (Math.pow(k, 2) + (3 * k) + 1) * (n-1);</b>
+<b class="fc"><i>65</i>&nbsp;      double zaehlerP2 = (Math.pow(k, 3) + 3 * Math.pow(k, 2) - k - 4);</b>
+<b class="fc"><i>66</i>&nbsp;      double nenner = berechneFak(k + 3) / 2d;</b>
+<b class="fc"><i>67</i>&nbsp;      expCounter[i] = (zaehlerP1 - zaehlerP2) / nenner;</b>
+<i>68</i>&nbsp;    }
+<b class="fc"><i>69</i>&nbsp;  }</b>
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;  private long berechneFak(final int n) {
+<b class="fc"><i>72</i>&nbsp;    long erg = 1;</b>
+<b class="fc"><i>73</i>&nbsp;    for (int i = 1; i &lt;= n; ++i) {</b>
+<b class="fc"><i>74</i>&nbsp;      erg *= i;</b>
+<i>75</i>&nbsp;    }
+<b class="fc"><i>76</i>&nbsp;    return erg;</b>
+<i>77</i>&nbsp;  }
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

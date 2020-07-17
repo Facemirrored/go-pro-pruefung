@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MainPresenter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MainPresenter (fhac.bh1978s)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainPresenter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.1%
+  </span>
+  <span class="absValue">
+    (39/ 41)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
+<i>4</i>&nbsp;import fhac.bh1978s.programexception.ZufallMappingException;
+<i>5</i>&nbsp;import fhac.bh1978s.view.TextFile;
+<i>6</i>&nbsp;import fhac.bh1978s.view.TextFileReader;
+<i>7</i>&nbsp;import fhac.bh1978s.view.TextFileWriter;
+<i>8</i>&nbsp;import fhac.bh1978s.view.interfaces.I_FileReader;
+<i>9</i>&nbsp;import fhac.bh1978s.view.interfaces.I_FileWriter;
+<i>10</i>&nbsp;import fhac.bh1978s.zufallsgenerator.mapper.ZufallDataInputMapper;
+<i>11</i>&nbsp;import fhac.bh1978s.zufallsgenerator.mapper.ZufallErgebnisOutputMapper;
+<i>12</i>&nbsp;import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_InputMapper;
+<i>13</i>&nbsp;import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_OutputMapper;
+<i>14</i>&nbsp;import fhac.bh1978s.zufallsgenerator.model.ZufallData;
+<i>15</i>&nbsp;import fhac.bh1978s.zufallsgenerator.model.ZufallErgebnisData;
+<i>16</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.ZufallsgeneratorPresenter;
+<i>17</i>&nbsp;import java.util.ArrayList;
+<i>18</i>&nbsp;import java.util.List;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * Haupt-Verarbeitungspresenter vom MVP-Pattern als Singleton-Pattern-Style implementiert. Dieser
+<i>23</i>&nbsp; * dient als Verarbeitungsschnittstelle zwischen der View (Eingabe/Ausgabe) und den Models.
+<i>24</i>&nbsp; */
+<i>25</i>&nbsp;public class MainPresenter {
+<i>26</i>&nbsp;
+<b class="fc"><i>27</i>&nbsp;  private static MainPresenter mainPresenter = new MainPresenter();</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;  private I_FileReader&lt;TextFile&gt; fileReader = TextFileReader.getInstance();</b>
+<b class="fc"><i>30</i>&nbsp;  private I_FileWriter&lt;TextFile&gt; fileWriter = TextFileWriter.getInstance();</b>
+<b class="fc"><i>31</i>&nbsp;  private I_InputMapper&lt;TextFile, ZufallData&gt; internMapper = new ZufallDataInputMapper();</b>
+<b class="fc"><i>32</i>&nbsp;  private I_OutputMapper&lt;ZufallErgebnisData, TextFile&gt; externMapper = new ZufallErgebnisOutputMapper();</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;  public static MainPresenter getInstance() {
+<b class="fc"><i>35</i>&nbsp;    return mainPresenter;</b>
+<i>36</i>&nbsp;  }
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;  private MainPresenter() {</b>
+<b class="fc"><i>39</i>&nbsp;  }</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;  /**
+<i>42</i>&nbsp;   * Start-Methode des Haupt-Verarbeitungspresenters. Diese dient als Verarbeitungsschnittstelle
+<i>43</i>&nbsp;   * zwischen dem Lesen/Schreiben von Dateien, dem Mappen von Datenstrukturen, als auch der
+<i>44</i>&nbsp;   * Deligierung an weitere Presenter.
+<i>45</i>&nbsp;   */
+<i>46</i>&nbsp;  public void start() {
+<b class="fc"><i>47</i>&nbsp;    fileWriter.emptyFolder();</b>
+<b class="fc"><i>48</i>&nbsp;    final List&lt;TextFile&gt; textFileContent = fileReader.readAllFiles();</b>
+<b class="fc"><i>49</i>&nbsp;    System.out.println(&quot;\t- Lesen von Input-Dateien abgeschlossen. Starte mit Verarbeitung...\n&quot;);</b>
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;    List&lt;TextFile&gt; textfileOutput = new ArrayList&lt;&gt;();</b>
+<i>52</i>&nbsp;
+<b class="fc"><i>53</i>&nbsp;    textFileContent.forEach(textFile -&gt; {</b>
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;      if (textFile.isError()) {</b>
+<b class="nc"><i>56</i>&nbsp;        System.out.println(&quot;ERR:\tFehler beim Lesen der Datei &lt;&quot; + textFile.getName()</b>
+<i>57</i>&nbsp;            + &quot;&gt;. Fehlermeldung befindet sich in der Ausgabe-Datei.&quot;);
+<b class="nc"><i>58</i>&nbsp;        textfileOutput.add(textFile);</b>
+<i>59</i>&nbsp;      } else {
+<i>60</i>&nbsp;        try {
+<b class="fc"><i>61</i>&nbsp;          ZufallData zufallData = internMapper.mapToInternFormat(textFile);</b>
+<b class="fc"><i>62</i>&nbsp;          ZufallsgeneratorPresenter zufallsgenerator = new ZufallsgeneratorPresenter(zufallData);</b>
+<b class="fc"><i>63</i>&nbsp;          ZufallErgebnisData zufallErgebnisData = zufallsgenerator.generiere();</b>
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;          TextFile ergebnisTextFile = new TextFile(textFile.getName());</b>
+<b class="fc"><i>66</i>&nbsp;          ergebnisTextFile.setContent(buildInputHeader(textFile));</b>
+<b class="fc"><i>67</i>&nbsp;          ergebnisTextFile</b>
+<b class="fc"><i>68</i>&nbsp;              .addContent(externMapper.mapToExternFormat(zufallErgebnisData).getContent());</b>
+<b class="fc"><i>69</i>&nbsp;          textfileOutput.add(ergebnisTextFile);</b>
+<b class="fc"><i>70</i>&nbsp;          System.out.println(&quot;Datei &lt;&quot; + textFile.getName()</b>
+<i>71</i>&nbsp;              + &quot;&gt; berechnet. Ergebnis befindet sich im Ausgabe-Pfad.&quot;);
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;
+<b class="fc"><i>74</i>&nbsp;        } catch (ZufallMappingException zme) {</b>
+<b class="fc"><i>75</i>&nbsp;          System.out.println(&quot;ERR:\tSemantikfehler in der Datei &lt;&quot; + textFile.getName()</b>
+<i>76</i>&nbsp;              + &quot;&gt; entdeckt. Details stehen in der Ausgabe-Datei.&quot;);
+<b class="fc"><i>77</i>&nbsp;          TextFile errorTextFile = new TextFile(textFile.getName());</b>
+<b class="fc"><i>78</i>&nbsp;          errorTextFile.setContent(buildInputHeader(textFile) + &quot;Fehlermeldung:\n&quot; + zme.getMessage());</b>
+<b class="fc"><i>79</i>&nbsp;          textfileOutput.add(errorTextFile);</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;
+<b class="fc"><i>82</i>&nbsp;        } catch (CalculationException be) {</b>
+<b class="fc"><i>83</i>&nbsp;          System.out.println(&quot;ERR:\tBerechnungsfehler in der Datei &lt;&quot; + textFile.getName()</b>
+<i>84</i>&nbsp;              + &quot;&gt;. Details in der Ausgabe-Datei.&quot;);
+<b class="fc"><i>85</i>&nbsp;          TextFile errorTextFile = new TextFile(textFile.getName());</b>
+<b class="fc"><i>86</i>&nbsp;          errorTextFile.setContent(buildInputHeader(textFile)</b>
+<i>87</i>&nbsp;              + &quot;Fehlermeldung:\nFehler beim Berechnen - Berechnung konnte nicht durchgeführt werden.\n\nDetails:\n&quot;
+<b class="fc"><i>88</i>&nbsp;              + be.getMessage());</b>
+<b class="fc"><i>89</i>&nbsp;          textfileOutput.add(errorTextFile);</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;        } finally {
+<b class="fc"><i>92</i>&nbsp;          fileWriter.saveFiles(textfileOutput);</b>
+<b class="fc"><i>93</i>&nbsp;        }</b>
+<i>94</i>&nbsp;      }
+<b class="fc"><i>95</i>&nbsp;    });</b>
+<b class="fc"><i>96</i>&nbsp;  }</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;  /**
+<i>99</i>&nbsp;   * Auslagerungsmethode für String-Building eines Headers für die Ausgabedatei.
+<i>100</i>&nbsp;   *
+<i>101</i>&nbsp;   * @param textFile
+<i>102</i>&nbsp;   * @return
+<i>103</i>&nbsp;   */
+<i>104</i>&nbsp;  private String buildInputHeader(final TextFile textFile) {
+<b class="fc"><i>105</i>&nbsp;    return &quot;-----INPUT-----\n&quot; + textFile.getContent() + &quot;\n\n-----OUTPUT-----\n&quot;;</b>
+<i>106</i>&nbsp;  }
+<i>107</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

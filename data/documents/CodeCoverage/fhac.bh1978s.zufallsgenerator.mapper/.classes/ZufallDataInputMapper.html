@@ -1,0 +1,241 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ZufallDataInputMapper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s.zufallsgenerator.mapper</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ZufallDataInputMapper (fhac.bh1978s.zufallsgenerator.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ZufallDataInputMapper</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.4%
+  </span>
+  <span class="absValue">
+    (61/ 62)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s.zufallsgenerator.mapper;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.MappingSeperatorType.KEY_VALUE_SEPERATOR;
+<i>4</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.MappingSeperatorType.PARAMETER_SEPERATOR;
+<i>5</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.MappingSeperatorType.SET_SEPERATOR;
+<i>6</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.BEWERTUNGSART;
+<i>7</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.BJARNSCHE_ZUFALLSMETHODE;
+<i>8</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.GENERATOR;
+<i>9</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.KOMMENTAR;
+<i>10</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.LCG_PARAMETER;
+<i>11</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.N;
+<i>12</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.POLAR_METHOD_PARAMETER;
+<i>13</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.ZIEL;
+<i>14</i>&nbsp;import static fhac.bh1978s.zufallsgenerator.enumeration.ParameterKeyType.ZUFALLSZAHLEN;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import fhac.bh1978s.programexception.ParameterException;
+<i>17</i>&nbsp;import fhac.bh1978s.programexception.ZufallMappingException;
+<i>18</i>&nbsp;import fhac.bh1978s.view.TextFile;
+<i>19</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.BewertungType;
+<i>20</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.GeneratorType;
+<i>21</i>&nbsp;import fhac.bh1978s.zufallsgenerator.enumeration.Ziel;
+<i>22</i>&nbsp;import fhac.bh1978s.zufallsgenerator.mapper.interfaces.I_InputMapper;
+<i>23</i>&nbsp;import fhac.bh1978s.zufallsgenerator.model.ZufallData;
+<i>24</i>&nbsp;import java.util.ArrayList;
+<i>25</i>&nbsp;import java.util.HashMap;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;/**
+<i>28</i>&nbsp; * Mapper für das Mapping von Textfile-Objekten zu ZufallData-Objekten
+<i>29</i>&nbsp; */
+<b class="fc"><i>30</i>&nbsp;public class ZufallDataInputMapper implements I_InputMapper&lt;TextFile, ZufallData&gt; {</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;  /**
+<i>33</i>&nbsp;   * Mappt übergebenen Parameter zu einem ZufallData-Objekt
+<i>34</i>&nbsp;   *
+<i>35</i>&nbsp;   * @param externContent Externes Datenobjekt in Form von TextFile
+<i>36</i>&nbsp;   * @return Internes Datenobjekt in Form von ZufallData
+<i>37</i>&nbsp;   * @throws ZufallMappingException Wird geworfen, wenn beim Mappen fehler entstehen
+<i>38</i>&nbsp;   */
+<i>39</i>&nbsp;  @Override
+<i>40</i>&nbsp;  public ZufallData mapToInternFormat(TextFile externContent) throws ZufallMappingException {
+<b class="fc"><i>41</i>&nbsp;    String content = externContent.getContent();</b>
+<b class="fc"><i>42</i>&nbsp;    ZufallData zufallData = new ZufallData();</b>
+<i>43</i>&nbsp;    try {
+<b class="fc"><i>44</i>&nbsp;      for (String line : content.split(&quot;\n&quot;)) {</b>
+<b class="fc"><i>45</i>&nbsp;        if (line.startsWith(ZIEL.getString())) {</b>
+<b class="fc"><i>46</i>&nbsp;          zufallData.setZiel(Ziel.fromString(parameterSplit(line)));</b>
+<b class="fc"><i>47</i>&nbsp;        } else if (line.startsWith(GENERATOR.getString())) {</b>
+<b class="fc"><i>48</i>&nbsp;          zufallData.setGeneratorType(GeneratorType</b>
+<b class="fc"><i>49</i>&nbsp;              .fromString(</b>
+<b class="fc"><i>50</i>&nbsp;                  parameterSplit(line)));</b>
+<b class="fc"><i>51</i>&nbsp;        } else if (line.startsWith(LCG_PARAMETER.getString()) ||</b>
+<b class="fc"><i>52</i>&nbsp;            line.startsWith(BJARNSCHE_ZUFALLSMETHODE.getString())) {</b>
+<b class="fc"><i>53</i>&nbsp;          String values = parameterSplit(line);</b>
+<b class="fc"><i>54</i>&nbsp;          HashMap&lt;String, String&gt; parameterHashMap = new HashMap&lt;&gt;();</b>
+<i>55</i>&nbsp;
+<b class="fc"><i>56</i>&nbsp;          for (String keyValue : setSplit(values)) {</b>
+<b class="fc"><i>57</i>&nbsp;            String[] pair = keyValue.trim()</b>
+<b class="fc"><i>58</i>&nbsp;                .split(KEY_VALUE_SEPERATOR.getString());</b>
+<b class="fc"><i>59</i>&nbsp;            if (pair[0].equalsIgnoreCase(N.getString())) {</b>
+<b class="fc"><i>60</i>&nbsp;              zufallData.setN(Integer.parseInt(pair[1]));</b>
+<i>61</i>&nbsp;            } else {
+<b class="fc"><i>62</i>&nbsp;              parameterHashMap.put(pair[0], pair[1]);</b>
+<i>63</i>&nbsp;            }
+<i>64</i>&nbsp;          }
+<i>65</i>&nbsp;
+<b class="fc"><i>66</i>&nbsp;          zufallData.addParameter(parameterHashMap);</b>
+<b class="fc"><i>67</i>&nbsp;        } else if (line.startsWith(POLAR_METHOD_PARAMETER.getString())) {</b>
+<b class="fc"><i>68</i>&nbsp;          String value = parameterSplit(line);</b>
+<b class="fc"><i>69</i>&nbsp;          zufallData</b>
+<b class="fc"><i>70</i>&nbsp;              .addParameter(value.split(KEY_VALUE_SEPERATOR.getString())[0],</b>
+<b class="fc"><i>71</i>&nbsp;                  value.split(KEY_VALUE_SEPERATOR.getString())[1]);</b>
+<b class="fc"><i>72</i>&nbsp;        } else if (line.startsWith(BEWERTUNGSART.getString())) {</b>
+<b class="fc"><i>73</i>&nbsp;          zufallData.setBewertungType(BewertungType.fromString(parameterSplit(line)));</b>
+<b class="fc"><i>74</i>&nbsp;        } else if (line.startsWith(ZUFALLSZAHLEN.getString())) {</b>
+<b class="fc"><i>75</i>&nbsp;          String values = parameterSplit(line);</b>
+<b class="fc"><i>76</i>&nbsp;          ArrayList&lt;Double&gt; zufallszahlen = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>77</i>&nbsp;          for (String val : zahlenSplit(values)) {</b>
+<b class="fc"><i>78</i>&nbsp;            zufallszahlen.add(Double.valueOf(val.trim()));</b>
+<i>79</i>&nbsp;          }
+<b class="fc"><i>80</i>&nbsp;          zufallData.setZufallszahlen(zufallszahlen);</b>
+<b class="fc"><i>81</i>&nbsp;        } else if (!line.startsWith(KOMMENTAR.getString())) {</b>
+<b class="nc"><i>82</i>&nbsp;          throw new ZufallMappingException(&quot;Zeile &lt;&quot; + line + &quot;&gt; unbekannt.&quot;);</b>
+<i>83</i>&nbsp;        }
+<i>84</i>&nbsp;      }
+<b class="fc"><i>85</i>&nbsp;    } catch (ParameterException pe) {</b>
+<b class="fc"><i>86</i>&nbsp;      throw new ZufallMappingException(</b>
+<i>87</i>&nbsp;          &quot;Fehler beim lesen eines Parameters. Bitte Eingabedatei überprüfen.\n\nDetails:\n&quot;
+<b class="fc"><i>88</i>&nbsp;              + pe.getMessage());</b>
+<b class="fc"><i>89</i>&nbsp;    }</b>
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;    return zufallData;</b>
+<i>92</i>&nbsp;  }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;  /**
+<i>95</i>&nbsp;   * Auslagerungsmethode zum Trennen von Parametern anhand &quot;:&quot;
+<i>96</i>&nbsp;   *
+<i>97</i>&nbsp;   * @param line Zeile aus TextFile-Inhalt
+<i>98</i>&nbsp;   * @return Parameter-Wert
+<i>99</i>&nbsp;   * @throws ParameterException Wird geworfen, wenn Parameter nicht getrennt werden konnte, da ein
+<i>100</i>&nbsp;   *                            invalides Zeichen vorhanden ist
+<i>101</i>&nbsp;   */
+<i>102</i>&nbsp;  private String parameterSplit(final String line)
+<i>103</i>&nbsp;      throws ParameterException {
+<b class="fc"><i>104</i>&nbsp;    String[] seperatorSplit = line.trim()</b>
+<b class="fc"><i>105</i>&nbsp;        .split(PARAMETER_SEPERATOR.getString());</b>
+<b class="fc"><i>106</i>&nbsp;    if (seperatorSplit.length == 1) {</b>
+<b class="fc"><i>107</i>&nbsp;      throw new ParameterException(</b>
+<b class="fc"><i>108</i>&nbsp;          &quot;Trennung mit &lt;&quot; + PARAMETER_SEPERATOR.getString() + &quot;&gt; von &lt;&quot;</b>
+<i>109</i>&nbsp;              + line + &quot;&gt; nicht möglich.&quot;);
+<i>110</i>&nbsp;    }
+<b class="fc"><i>111</i>&nbsp;    return seperatorSplit[1];</b>
+<i>112</i>&nbsp;  }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;  /**
+<i>115</i>&nbsp;   * Auslagerungsmethode zum Trennen von mehreren Werten - zum Beispiel Zufallszahlen
+<i>116</i>&nbsp;   *
+<i>117</i>&nbsp;   * @param line Zeile aus TextFile-Inhalt
+<i>118</i>&nbsp;   * @return Array bestehend aus getrennten Werten
+<i>119</i>&nbsp;   * @throws ParameterException Wird geworfen, wenn Werte nicht getrennt werden konnten, da ein
+<i>120</i>&nbsp;   *                            invalides Zeichen vorhanden ist
+<i>121</i>&nbsp;   */
+<i>122</i>&nbsp;  private String[] zahlenSplit(final String line) throws ParameterException {
+<b class="fc"><i>123</i>&nbsp;    String[] zahlen = line.trim().split(SET_SEPERATOR.getString());</b>
+<b class="fc"><i>124</i>&nbsp;    for (String z : zahlen) {</b>
+<i>125</i>&nbsp;      try {
+<b class="fc"><i>126</i>&nbsp;        Double.parseDouble(z);</b>
+<b class="fc"><i>127</i>&nbsp;      } catch (NumberFormatException nfe) {</b>
+<b class="fc"><i>128</i>&nbsp;        throw new ParameterException(</b>
+<i>129</i>&nbsp;            &quot;Konvertierung von Zahl &lt;&quot; + z + &quot;&gt; in &lt;&quot; + line + &quot;&gt; nicht möglich.&quot;);
+<b class="fc"><i>130</i>&nbsp;      }</b>
+<i>131</i>&nbsp;    }
+<i>132</i>&nbsp;
+<b class="fc"><i>133</i>&nbsp;    return zahlen;</b>
+<i>134</i>&nbsp;  }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;  /**
+<i>137</i>&nbsp;   * Auslagerungsmethode zum Trennen von key-value-Paar.
+<i>138</i>&nbsp;   *
+<i>139</i>&nbsp;   * @param line Zeile aus TextFile-Inhalt
+<i>140</i>&nbsp;   * @return Value aus Key-Value-Paar
+<i>141</i>&nbsp;   * @throws ParameterException Wird geworfen, wenn Wert aus key-value-Paar nicht getrennt werden
+<i>142</i>&nbsp;   *                            konnte, da ein invalides Zeichen vorhanden ist
+<i>143</i>&nbsp;   */
+<i>144</i>&nbsp;  private String[] setSplit(final String line)
+<i>145</i>&nbsp;      throws ParameterException {
+<b class="fc"><i>146</i>&nbsp;    final int counter = (int) line.chars()</b>
+<b class="fc"><i>147</i>&nbsp;        .filter(c -&gt; c == (KEY_VALUE_SEPERATOR.getString().charAt(0)))</b>
+<b class="fc"><i>148</i>&nbsp;        .count();</b>
+<b class="fc"><i>149</i>&nbsp;    String[] setSplit = line.trim().split(SET_SEPERATOR.getString());</b>
+<b class="fc"><i>150</i>&nbsp;    if (setSplit.length == counter) {</b>
+<b class="fc"><i>151</i>&nbsp;      return setSplit;</b>
+<i>152</i>&nbsp;    }
+<i>153</i>&nbsp;
+<b class="fc"><i>154</i>&nbsp;    throw new ParameterException(</b>
+<b class="fc"><i>155</i>&nbsp;        &quot;Trennung mit &lt;&quot; + SET_SEPERATOR.getString() + &quot;&gt; von String &lt;&quot;</b>
+<i>156</i>&nbsp;            + line + &quot;&gt; nicht möglich. Anzahl an sets stimmt nicht mit Trennungsanzahl überein.&quot;);
+<i>157</i>&nbsp;  }
+<i>158</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>

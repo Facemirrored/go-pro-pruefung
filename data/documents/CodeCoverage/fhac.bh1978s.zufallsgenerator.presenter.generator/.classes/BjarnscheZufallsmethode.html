@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BjarnscheZufallsmethode</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">fhac.bh1978s.zufallsgenerator.presenter.generator</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BjarnscheZufallsmethode (fhac.bh1978s.zufallsgenerator.presenter.generator)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BjarnscheZufallsmethode</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.3%
+  </span>
+  <span class="absValue">
+    (26/ 27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package fhac.bh1978s.zufallsgenerator.presenter.generator;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import fhac.bh1978s.zufallsgenerator.generatorexception.CalculationException;
+<i>4</i>&nbsp;import fhac.bh1978s.zufallsgenerator.presenter.interfaces.I_Generatorklasse;
+<i>5</i>&nbsp;import java.util.Arrays;
+<i>6</i>&nbsp;import java.util.Calendar;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * Die BjarnscheZufallsmethode vom Mathematiker Bjarne Herrmann 2020 entwickelt, basiert auf eine
+<i>11</i>&nbsp; * alternierende Modulo Rechnung auf Basis eines Datums, eines Parameters des Modulos sowie eines
+<i>12</i>&nbsp; * Startwertes x0
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;public class BjarnscheZufallsmethode implements I_Generatorklasse&lt;Double&gt; {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;  private long m;
+<i>17</i>&nbsp;  private int n;
+<i>18</i>&nbsp;  private long x0;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;  public BjarnscheZufallsmethode(final long m, final long x0, final int n) {</b>
+<b class="fc"><i>22</i>&nbsp;    this.m = m;</b>
+<b class="fc"><i>23</i>&nbsp;    this.x0 = x0;</b>
+<b class="fc"><i>24</i>&nbsp;    this.n = n;</b>
+<b class="fc"><i>25</i>&nbsp;  }</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;  @Override
+<i>28</i>&nbsp;  public List&lt;Double&gt; generiereZufall() throws CalculationException {
+<b class="fc"><i>29</i>&nbsp;    if (m &lt;= 0 || m &gt;= Math.pow(2, 64) - 1) {</b>
+<b class="fc"><i>30</i>&nbsp;      throw new CalculationException(</b>
+<i>31</i>&nbsp;          &quot;LCG-Parameter m befindet sich nicht zwischen 0 und 2^64 (long-range)&quot;);
+<b class="fc"><i>32</i>&nbsp;    } else if (x0 &lt; 0 || x0 &gt;= m) {</b>
+<b class="fc"><i>33</i>&nbsp;      throw new CalculationException(</b>
+<i>34</i>&nbsp;          &quot;LCG-Parameter x0 befindet sich nicht zwischen 0 und m (inklusiv)&quot;);
+<b class="fc"><i>35</i>&nbsp;    } else if (n &lt; 1 || n &gt; 50000) {</b>
+<b class="fc"><i>36</i>&nbsp;      throw new CalculationException(</b>
+<i>37</i>&nbsp;          &quot;LCG-Parameter n befindet sich nicht zwischen 0 und 50000 (inklusiv).&quot;);
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;    Long[] zufallszahlen = new Long[n];</b>
+<b class="fc"><i>41</i>&nbsp;    boolean change = true;</b>
+<b class="fc"><i>42</i>&nbsp;    Long date = Calendar.getInstance().getTime().getTime();</b>
+<b class="fc"><i>43</i>&nbsp;    zufallszahlen[0] = x0;</b>
+<b class="fc"><i>44</i>&nbsp;    int counter = 0;</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;    for (int i = 1; i &lt; n; ++i) {</b>
+<b class="fc"><i>47</i>&nbsp;      if (m + counter == 0) {</b>
+<b class="nc"><i>48</i>&nbsp;        counter++;</b>
+<i>49</i>&nbsp;      }
+<i>50</i>&nbsp;
+<b class="fc"><i>51</i>&nbsp;      if (change) {</b>
+<b class="fc"><i>52</i>&nbsp;        zufallszahlen[i] = (date - zufallszahlen[i - 1]) % (m + counter);</b>
+<i>53</i>&nbsp;      } else {
+<b class="fc"><i>54</i>&nbsp;        zufallszahlen[i] = (date + zufallszahlen[i - 1]) % (m - counter);</b>
+<i>55</i>&nbsp;      }
+<b class="fc"><i>56</i>&nbsp;      change = !change;</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<b class="fc"><i>59</i>&nbsp;    Double[] finalArray = new Double[zufallszahlen.length];</b>
+<i>60</i>&nbsp;
+<b class="fc"><i>61</i>&nbsp;    for (int i = 0; i &lt; zufallszahlen.length; ++i) {</b>
+<b class="fc"><i>62</i>&nbsp;      finalArray[i] = zufallszahlen[i] / (double) (Math.max(n, m));</b>
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;
+<b class="fc"><i>65</i>&nbsp;    return Arrays.asList(finalArray);</b>
+<i>66</i>&nbsp;  }
+<i>67</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-17 22:24</div>
+</div>
+</body>
+</html>
